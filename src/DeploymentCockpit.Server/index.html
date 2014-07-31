@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <title>Deployment Cockpit</title>
+    <link href="/ext/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/ext/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="/ext/toastr/toastr.min.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+    <link href="/assets/main.css" rel="stylesheet" />
+</head>
+<body>
+    <div my-nav-bar></div>
+
+    <div class="container">
+        <div ng-view></div>
+    </div>
+
+    <script src="/ext/jquery/jquery.min.js"></script>
+    <script src="/ext/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/ext/toastr/toastr.min.js"></script>
+    <script src="/ext/angular/angular.min.js"></script>
+    <script src="/ext/angular/angular-route.min.js"></script>
+    <script src="/ext/angular/angular-resource.min.js"></script>
+    <script src="/ext/ui-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="/ext/underscore/underscore-min.js"></script>
+
+    <script src="/app/init.js"></script>
+    <script src="/app/app.js"></script>
+    <script src="/app/common/crudServiceFactory.js"></script>
+    <script src="/app/common/notificationSvc.js"></script>
+    <script src="/app/common/utilitySvc.js"></script>
+    <script src="/app/common/myNavBar.js"></script>
+    <script src="/app/common/myLoadingIndicator.js"></script>
+
+    <script src="/app/variables/variablesSvc.js"></script>
+    <script src="/app/variables/myVariables.js"></script>
+
+    <script src="/app/settings/SettingsCtrl.js"></script>
+
+    <script src="/app/projects/projectsSvc.js"></script>
+    <script src="/app/projects/ProjectsCtrl.js"></script>
+    <script src="/app/projects/ProjectDetailsCtrl.js"></script>
+
+    <script src="/app/credentials/credentialsSvc.js"></script>
+    <script src="/app/credentials/CredentialsCtrl.js"></script>
+
+    <script src="/app/targets/targetsSvc.js"></script>
+    <script src="/app/targets/TargetsCtrl.js"></script>
+
+    <script src="/app/scripts/scriptsSvc.js"></script>
+    <script src="/app/scripts/scriptExecutionSvc.js"></script>
+    <script src="/app/scripts/myScriptEdit.js"></script>
+    <script src="/app/scripts/ScriptsCtrl.js"></script>
+    <script src="/app/scripts/ScriptCreateCtrl.js"></script>
+    <script src="/app/scripts/ScriptEditCtrl.js"></script>
+
+    <script src="/app/targetGroups/targetGroupsSvc.js"></script>
+    <script src="/app/targetGroups/myTargetGroups.js"></script>
+
+    <script src="/app/projectEnvironments/projectEnvironmentsSvc.js"></script>
+    <script src="/app/projectEnvironments/myProjectEnvironments.js"></script>
+
+    <script src="/app/projectTargets/projectTargetsSvc.js"></script>
+    <script src="/app/projectTargets/myProjectTargets.js"></script>
+
+    <script src="/app/deploymentPlans/deploymentPlansSvc.js"></script>
+    <script src="/app/deploymentPlans/myDeploymentPlans.js"></script>
+    <script src="/app/deploymentPlans/myDeploymentPlanEdit.js"></script>
+    <script src="/app/deploymentPlans/DeploymentPlanCreateCtrl.js"></script>
+    <script src="/app/deploymentPlans/DeploymentPlanEditCtrl.js"></script>
+    <script src="/app/deploymentPlans/DeploymentPlanDetailsCtrl.js"></script>
+
+    <script src="/app/deploymentPlanSteps/deploymentPlanStepsSvc.js"></script>
+    <script src="/app/deploymentPlanSteps/myDeploymentPlanSteps.js"></script>
+    <script src="/app/deploymentPlanSteps/myDeploymentPlanStepEdit.js"></script>
+    <script src="/app/deploymentPlanSteps/DeploymentPlanStepCreateCtrl.js"></script>
+    <script src="/app/deploymentPlanSteps/DeploymentPlanStepEditCtrl.js"></script>
+
+    <script src="/app/deploymentJobs/deploymentJobsSvc.js"></script>
+    <script src="/app/deploymentJobs/deploymentJobStepsSvc.js"></script>
+    <script src="/app/deploymentJobs/myDeploymentJobs.js"></script>
+    <script src="/app/deploymentJobs/myDeploymentJobEdit.js"></script>
+    <script src="/app/deploymentJobs/DeploymentJobCreateCtrl.js"></script>
+    <script src="/app/deploymentJobs/DeploymentJobEditCtrl.js"></script>
+    <script src="/app/deploymentJobs/DeploymentJobDetailsCtrl.js"></script>
+
+    <script src="/app/scriptParameters/scriptParametersSvc.js"></script>
+    <script src="/app/scriptParameters/myScriptParameters.js"></script>
+</body>
+</html>

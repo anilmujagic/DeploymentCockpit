@@ -1,0 +1,21 @@
+﻿<div class="row">
+    <div class="col-md-10">
+        <h2>Edit Deployment Step</h2>
+    </div>
+    <div class="col-md-2">
+        <div class="button-bar pull-right">
+            <a href="#/DeploymentPlan/Details/{{deploymentPlanStep.deploymentPlanID}}">
+                Back to deployment plan
+            </a>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <div my-deployment-plan-step-edit deployment-plan-step="deploymentPlanStep" project-id="projectID"></div>
+    </div>
+    <div class="col-md-8">
+        <div my-variables scope-key="'DeploymentStep'" scope-id="deploymentPlanStepID"></div>
+    </div>
+</div>

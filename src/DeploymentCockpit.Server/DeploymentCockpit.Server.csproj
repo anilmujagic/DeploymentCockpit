@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{43F352E0-8BEA-41F8-B71E-2D14F5A8749E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DeploymentCockpit.Server</RootNamespace>
+    <AssemblyName>DeploymentCockpit.Server</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.4.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.WebApi2.3.3.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=3.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4, Version=3.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Insula.Common">
+      <HintPath>..\packages\Insula.Common.1.0.3\lib\portable-win+net40+sl40+wp\Insula.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.1.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.1.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.1.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\app.js" />
+    <Content Include="app\common\crudServiceFactory.js" />
+    <Content Include="app\common\myLoadingIndicator.html" />
+    <Content Include="app\common\myLoadingIndicator.js" />
+    <Content Include="app\common\myNavBar.html" />
+    <Content Include="app\common\myNavBar.js" />
+    <Content Include="app\common\notificationSvc.js" />
+    <Content Include="app\common\utilitySvc.js" />
+    <Content Include="app\credentials\credentials.html" />
+    <Content Include="app\credentials\CredentialsCtrl.js" />
+    <Content Include="app\credentials\credentialsSvc.js" />
+    <Content Include="app\credentials\credentialEdit.html" />
+    <Content Include="app\deploymentJobs\deploymentJobCreate.html" />
+    <Content Include="app\deploymentJobs\DeploymentJobCreateCtrl.js" />
+    <Content Include="app\deploymentJobs\deploymentJobDetails.html" />
+    <Content Include="app\deploymentJobs\DeploymentJobDetailsCtrl.js" />
+    <Content Include="app\deploymentJobs\deploymentJobEdit.html" />
+    <Content Include="app\deploymentJobs\DeploymentJobEditCtrl.js" />
+    <Content Include="app\deploymentJobs\deploymentJobStepDetails.html" />
+    <Content Include="app\deploymentJobs\deploymentJobStepsSvc.js" />
+    <Content Include="app\deploymentJobs\deploymentJobsSvc.js" />
+    <Content Include="app\deploymentJobs\myDeploymentJobEdit.html" />
+    <Content Include="app\deploymentJobs\myDeploymentJobEdit.js" />
+    <Content Include="app\deploymentJobs\myDeploymentJobs.html" />
+    <Content Include="app\deploymentJobs\myDeploymentJobs.js" />
+    <Content Include="app\deploymentPlanSteps\deploymentPlanStepCreate.html" />
+    <Content Include="app\deploymentPlanSteps\DeploymentPlanStepCreateCtrl.js" />
+    <Content Include="app\deploymentPlanSteps\deploymentPlanStepEdit.html" />
+    <Content Include="app\deploymentPlanSteps\DeploymentPlanStepEditCtrl.js" />
+    <Content Include="app\deploymentPlanSteps\deploymentPlanStepsSvc.js" />
+    <Content Include="app\deploymentPlanSteps\myDeploymentPlanStepEdit.html" />
+    <Content Include="app\deploymentPlanSteps\myDeploymentPlanStepEdit.js" />
+    <Content Include="app\deploymentPlanSteps\myDeploymentPlanSteps.html" />
+    <Content Include="app\deploymentPlanSteps\myDeploymentPlanSteps.js" />
+    <Content Include="app\deploymentPlans\deploymentPlanDetails.html" />
+    <Content Include="app\deploymentPlans\DeploymentPlanDetailsCtrl.js" />
+    <Content Include="app\deploymentPlans\deploymentPlansSvc.js" />
+    <Content Include="app\deploymentPlans\myDeploymentPlans.html" />
+    <Content Include="app\deploymentPlans\myDeploymentPlans.js" />
+    <Content Include="app\deploymentPlans\myDeploymentPlanEdit.html" />
+    <Content Include="app\deploymentPlans\myDeploymentPlanEdit.js" />
+    <Content Include="app\deploymentPlans\deploymentPlanCreate.html" />
+    <Content Include="app\deploymentPlans\DeploymentPlanCreateCtrl.js" />
+    <Content Include="app\deploymentPlans\deploymentPlanEdit.html" />
+    <Content Include="app\deploymentPlans\DeploymentPlanEditCtrl.js" />
+    <Content Include="app\projectEnvironments\projectEnvironmentEdit.html" />
+    <Content Include="app\projectEnvironments\myProjectEnvironments.html" />
+    <Content Include="app\projectEnvironments\myProjectEnvironments.js" />
+    <Content Include="app\projectEnvironments\projectEnvironmentsSvc.js" />
+    <Content Include="app\projects\projectEdit.html" />
+    <Content Include="app\projects\projectDetails.html" />
+    <Content Include="app\projects\ProjectDetailsCtrl.js" />
+    <Content Include="app\projects\ProjectsCtrl.js" />
+    <Content Include="app\projects\projectsSvc.js" />
+    <Content Include="app\projects\projects.html" />
+    <Content Include="app\init.js" />
+    <Content Include="app\projectTargets\projectTargetAdd.html" />
+    <Content Include="app\projectTargets\myProjectTargets.html" />
+    <Content Include="app\projectTargets\myProjectTargets.js" />
+    <Content Include="app\projectTargets\projectTargetsSvc.js" />
+    <Content Include="app\scriptParameters\scriptParameterEdit.html" />
+    <Content Include="app\scriptParameters\myScriptParameters.html" />
+    <Content Include="app\scriptParameters\myScriptParameters.js" />
+    <Content Include="app\scriptParameters\scriptParametersSvc.js" />
+    <Content Include="app\scripts\myScriptEdit.html" />
+    <Content Include="app\scripts\myScriptEdit.js" />
+    <Content Include="app\scripts\scriptCreate.html" />
+    <Content Include="app\scripts\ScriptCreateCtrl.js" />
+    <Content Include="app\scripts\scriptEdit.html" />
+    <Content Include="app\scripts\ScriptEditCtrl.js" />
+    <Content Include="app\scripts\scriptExecutionSvc.js" />
+    <Content Include="app\scripts\scripts.html" />
+    <Content Include="app\scripts\ScriptsCtrl.js" />
+    <Content Include="app\scripts\scriptsSvc.js" />
+    <Content Include="app\settings\settings.html" />
+    <Content Include="app\settings\SettingsCtrl.js" />
+    <Content Include="app\targetGroups\targetGroupEdit.html" />
+    <Content Include="app\targetGroups\myTargetGroups.html" />
+    <Content Include="app\targetGroups\myTargetGroups.js" />
+    <Content Include="app\targetGroups\targetGroupsSvc.js" />
+    <Content Include="app\targets\targetEdit.html" />
+    <Content Include="app\targets\targets.html" />
+    <Content Include="app\targets\TargetsCtrl.js" />
+    <Content Include="app\targets\targetsSvc.js" />
+    <Content Include="app\variables\variableEdit.html" />
+    <Content Include="app\variables\myVariables.html" />
+    <Content Include="app\variables\myVariables.js" />
+    <Content Include="app\variables\variablesSvc.js" />
+    <Content Include="assets\img\deployment-running.gif" />
+    <Content Include="assets\img\loading-indicator.gif" />
+    <Content Include="assets\main.css" />
+    <Content Include="ext\angular\angular-resource.min.js" />
+    <Content Include="ext\angular\angular-route.min.js" />
+    <Content Include="ext\angular\angular.min.js" />
+    <Content Include="ext\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="ext\bootstrap\css\bootstrap.min.css" />
+    <Content Include="ext\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="ext\bootstrap\js\bootstrap.min.js" />
+    <Content Include="ext\jquery\jquery.min.js" />
+    <Content Include="ext\toastr\toastr.min.css" />
+    <Content Include="ext\toastr\toastr.min.js" />
+    <Content Include="ext\ui-bootstrap\ui-bootstrap.min.js" />
+    <Content Include="ext\underscore\underscore-min.js" />
+    <Content Include="Global.asax" />
+    <Content Include="index.html" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\MasterAssemblyInfo.cs">
+      <Link>Properties\MasterAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Api\ApiControllerExtensions.cs" />
+    <Compile Include="Controllers\Api\CredentialsController.cs" />
+    <Compile Include="Controllers\Api\CrudApiController.cs" />
+    <Compile Include="Controllers\Api\DeploymentJobsController.cs" />
+    <Compile Include="Controllers\Api\DeploymentJobStepsController.cs" />
+    <Compile Include="Controllers\Api\DeploymentPlansController.cs" />
+    <Compile Include="Controllers\Api\DeploymentPlanStepsController.cs" />
+    <Compile Include="Controllers\Api\ProjectEnvironmentsController.cs" />
+    <Compile Include="Controllers\Api\ProjectsController.cs" />
+    <Compile Include="Controllers\Api\ProjectTargetsController.cs" />
+    <Compile Include="Controllers\Api\ScriptParametersController.cs" />
+    <Compile Include="Controllers\Api\TargetGroupsController.cs" />
+    <Compile Include="Controllers\Api\ScriptJobsController.cs" />
+    <Compile Include="Controllers\Api\ScriptsController.cs" />
+    <Compile Include="Controllers\Api\TargetsController.cs" />
+    <Compile Include="Controllers\Api\VariablesController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="ext\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="ext\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="ext\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="assets\fonts\DINCondensedWeb.ttf" />
+    <Content Include="AppSettings.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConnectionStrings.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DeploymentCockpit.Core\DeploymentCockpit.Core.csproj">
+      <Project>{4648f965-02e6-4ac6-9274-308845c21197}</Project>
+      <Name>DeploymentCockpit.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DeploymentCockpit.DI\DeploymentCockpit.DI.csproj">
+      <Project>{0a05279d-2973-45a9-82f0-375039bc0cc5}</Project>
+      <Name>DeploymentCockpit.DI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>62341</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:49993/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

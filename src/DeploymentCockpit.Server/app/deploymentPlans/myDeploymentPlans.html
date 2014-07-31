@@ -1,0 +1,18 @@
+﻿<div class="panel panel-info panel-borderless">
+    <div class="panel-heading">
+        Deployment Plans
+        <a href="#/DeploymentPlan/Create/{{projectID}}" class="pull-right" title="Create new">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+    <div class="panel-body">
+        <ul class="list-unstyled">
+            <li ng-repeat="deploymentPlan in deploymentPlans | orderBy:'name'">
+                <a href="#/DeploymentPlan/Details/{{deploymentPlan.deploymentPlanID}}">{{deploymentPlan.name}}</a>
+                <a href="" class="pull-right" title="Delete" ng-click="delete(deploymentPlan)">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

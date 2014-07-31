@@ -1,0 +1,24 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Script Parameter</h3>
+</div>
+<div class="modal-body">
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" ng-model="scriptParameter.name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Default Value</label>
+        <input type="text" ng-model="scriptParameter.defaultValue" class="form-control" />
+    </div>
+    <div class="form-group">
+        <div class="checkbox-inline">
+            <label>
+                <input type="checkbox" ng-model="scriptParameter.isMandatory" /> Mandatory
+            </label>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="save(scriptParameter)">Save</button>
+    <button class="btn btn-default" ng-click="$dismiss()">Cancel</button>
+</div>

@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>DeploymentCockpit.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{4ab4ad1b-9d25-453b-ac92-7f6332819357}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql100DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>DeploymentCockpit.Database</RootNamespace>
+    <AssemblyName>DeploymentCockpit.Database</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <ReadCommittedSnapshot>True</ReadCommittedSnapshot>
+    <GenerateCreateScript>True</GenerateCreateScript>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- VS10 without SP1 will not have VisualStudioVersion set, so do that here -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <!-- Default to the v10.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Tables" />
+    <Folder Include="Snapshots" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\Project.sql" />
+    <Build Include="Tables\Credential.sql" />
+    <Build Include="Tables\Target.sql" />
+    <Build Include="Tables\Script.sql" />
+    <Build Include="Tables\TargetGroup.sql" />
+    <Build Include="Tables\ProjectEnvironment.sql" />
+    <Build Include="Tables\ProjectTarget.sql" />
+    <Build Include="Tables\DeploymentPlan.sql" />
+    <Build Include="Tables\DeploymentPlanStep.sql" />
+    <Build Include="Tables\DeploymentJob.sql" />
+    <Build Include="Tables\ScriptParameter.sql" />
+    <Build Include="Tables\Variable.sql" />
+    <Build Include="Tables\DeploymentJobStep.sql" />
+    <Build Include="Tables\DeploymentJobStepTarget.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="DeploymentCockpit.Database.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Snapshots\DeploymentCockpit.Database_0001.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0002.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0003.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0004.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0005.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0006.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0007.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0008.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0009.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0010.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0011.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0012.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0013.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0014.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0015.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0016.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0017.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0018.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0019.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0020.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0021.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0022.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0023.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0024.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0025.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0026.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0027.dacpac" />
+  </ItemGroup>
+</Project>

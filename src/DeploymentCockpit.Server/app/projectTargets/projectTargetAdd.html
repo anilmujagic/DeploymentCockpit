@@ -1,0 +1,36 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Project Environment</h3>
+</div>
+<div class="modal-body">
+    <div class="form-group">
+        <label>Target Group</label>
+        <select ng-model="newProjectTarget.targetGroupID"
+                ng-options="g.targetGroupID as g.name for g in targetGroups | orderBy:'name'"
+                class="form-control"
+                required>
+            <option value="" disabled></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Environment</label>
+        <select ng-model="newProjectTarget.projectEnvironmentID"
+                ng-options="e.projectEnvironmentID as e.name for e in projectEnvironments | orderBy:'name'"
+                class="form-control"
+                required>
+            <option value="" disabled></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Target</label>
+        <select ng-model="newProjectTarget.targetID"
+                ng-options="e.targetID as e.name for e in targets | orderBy:'name'"
+                class="form-control"
+                required>
+            <option value="" disabled></option>
+        </select>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="save(newProjectTarget)">Add</button>
+    <button class="btn btn-default" ng-click="$dismiss()">Cancel</button>
+</div>

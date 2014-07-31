@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4648F965-02E6-4AC6-9274-308845C21197}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DeploymentCockpit</RootNamespace>
+    <AssemblyName>DeploymentCockpit.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="Insula.Common">
+      <HintPath>..\packages\Insula.Common.1.0.3\lib\portable-win+net40+sl40+wp\Insula.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\MasterAssemblyInfo.cs">
+      <Link>Properties\MasterAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="ApiDtos\CredentialDto.cs" />
+    <Compile Include="ApiDtos\DeploymentJobStepFlatDto.cs" />
+    <Compile Include="ApiDtos\ExecutionInfo.cs" />
+    <Compile Include="ApiDtos\DeploymentJobStepTargetDto.cs" />
+    <Compile Include="ApiDtos\DeploymentJobStepDto.cs" />
+    <Compile Include="ApiDtos\DeploymentJobDto.cs" />
+    <Compile Include="ApiDtos\DeploymentPlanDto.cs" />
+    <Compile Include="ApiDtos\DeploymentPlanStepDto.cs" />
+    <Compile Include="ApiDtos\ProjectDto.cs" />
+    <Compile Include="ApiDtos\ProjectEnvironmentDto.cs" />
+    <Compile Include="ApiDtos\ProjectTargetDto.cs" />
+    <Compile Include="ApiDtos\ScriptParameterDto.cs" />
+    <Compile Include="ApiDtos\TargetGroupDto.cs" />
+    <Compile Include="ApiDtos\ScriptDto.cs" />
+    <Compile Include="ApiDtos\TargetDto.cs" />
+    <Compile Include="ApiDtos\VariableDto.cs" />
+    <Compile Include="Common\AutoMapperConfiguration.cs" />
+    <Compile Include="Common\VariableHelper.cs" />
+    <Compile Include="Common\DateTimeExtensions.cs" />
+    <Compile Include="Common\DomainContext.cs" />
+    <Compile Include="Common\EnumHelperExtensions.cs" />
+    <Compile Include="Common\ExceptionExtensions.cs" />
+    <Compile Include="Interfaces\IConfigurationProvider.cs" />
+    <Compile Include="Interfaces\ICredentialService.cs" />
+    <Compile Include="Interfaces\ICrudService.cs" />
+    <Compile Include="Interfaces\IDeploymentJobExecutionService.cs" />
+    <Compile Include="Interfaces\IDeploymentJobStepTargetService.cs" />
+    <Compile Include="Interfaces\IDeploymentJobStepService.cs" />
+    <Compile Include="Interfaces\IDeploymentJobService.cs" />
+    <Compile Include="Interfaces\IDeploymentPlanService.cs" />
+    <Compile Include="Interfaces\IDeploymentPlanStepService.cs" />
+    <Compile Include="Interfaces\IProjectEnvironmentService.cs" />
+    <Compile Include="Interfaces\IProjectService.cs" />
+    <Compile Include="Interfaces\IProjectTargetService.cs" />
+    <Compile Include="Interfaces\IScriptParameterService.cs" />
+    <Compile Include="Interfaces\ITargetGroupService.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IScriptExecutionService.cs" />
+    <Compile Include="Interfaces\IScriptRunner.cs" />
+    <Compile Include="Interfaces\IScriptService.cs" />
+    <Compile Include="Interfaces\ITargetCommandProcessor.cs" />
+    <Compile Include="Interfaces\ITargetCommandSender.cs" />
+    <Compile Include="Interfaces\ITargetService.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\IUnitOfWorkFactory.cs" />
+    <Compile Include="Interfaces\IVariableService.cs" />
+    <Compile Include="Models\Credential.cs">
+      <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeploymentCockpitModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeploymentJob.cs">
+      <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeploymentJobStepTarget.custom.cs" />
+    <Compile Include="Models\DeploymentJobStep.custom.cs" />
+    <Compile Include="Models\DeploymentJob.custom.cs" />
+    <Compile Include="Models\DeploymentStatus.cs" />
+    <Compile Include="Models\DeploymentJobStep.cs">
+      <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeploymentJobStepTarget.cs">
+      <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeploymentPlan.cs">
+      <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeploymentPlanStep.cs">
+      <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Project.cs">
+      <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProjectEnvironment.cs">
+      <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProjectTarget.cs">
+      <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Script.cs">
+      <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ScriptExecutionCommand.cs" />
+    <Compile Include="Models\ScriptExecutionResult.cs" />
+    <Compile Include="Models\ScriptJobDescriptor.cs" />
+    <Compile Include="Models\ScriptParameter.cs">
+      <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ScriptType.cs" />
+    <Compile Include="Models\Target.cs">
+      <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Target.custom.cs" />
+    <Compile Include="Models\TargetGroup.cs">
+      <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Variable.cs">
+      <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Variable.custom.cs" />
+    <Compile Include="Models\VariableScope.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\DeploymentCockpitModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DeploymentCockpitModel.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

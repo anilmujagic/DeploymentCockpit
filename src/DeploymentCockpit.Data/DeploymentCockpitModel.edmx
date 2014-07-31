@@ -1,0 +1,1224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DeploymentCockpitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Credential">
+          <Key>
+            <PropertyRef Name="CredentialID" />
+          </Key>
+          <Property Name="CredentialID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Domain" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="DeploymentJob">
+          <Key>
+            <PropertyRef Name="DeploymentJobID" />
+          </Key>
+          <Property Name="DeploymentJobID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="smallint" Nullable="false" />
+          <Property Name="SubmissionTime" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="StartTime" Type="datetime2" Precision="7" />
+          <Property Name="EndTime" Type="datetime2" Precision="7" />
+          <Property Name="StatusKey" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProjectEnvironmentID" Type="smallint" Nullable="false" />
+          <Property Name="DeploymentPlanID" Type="smallint" Nullable="false" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="Errors" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="DeploymentJobStep">
+          <Key>
+            <PropertyRef Name="DeploymentJobStepID" />
+          </Key>
+          <Property Name="DeploymentJobStepID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeploymentJobID" Type="int" Nullable="false" />
+          <Property Name="DeploymentPlanStepID" Type="int" Nullable="false" />
+          <Property Name="StatusKey" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StartTime" Type="datetime2" Precision="7" />
+          <Property Name="EndTime" Type="datetime2" Precision="7" />
+          <Property Name="ExecutedScript" Type="nvarchar(max)" />
+          <Property Name="ExecutionOutput" Type="nvarchar(max)" />
+          <Property Name="ExecutionReference" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DeploymentJobStepTarget">
+          <Key>
+            <PropertyRef Name="DeploymentJobStepTargetID" />
+          </Key>
+          <Property Name="DeploymentJobStepTargetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeploymentJobStepID" Type="int" Nullable="false" />
+          <Property Name="TargetID" Type="smallint" Nullable="false" />
+          <Property Name="StatusKey" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StartTime" Type="datetime2" Precision="7" />
+          <Property Name="EndTime" Type="datetime2" Precision="7" />
+          <Property Name="ExecutedScript" Type="nvarchar(max)" />
+          <Property Name="ExecutionOutput" Type="nvarchar(max)" />
+          <Property Name="ExecutionReference" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DeploymentPlan">
+          <Key>
+            <PropertyRef Name="DeploymentPlanID" />
+          </Key>
+          <Property Name="DeploymentPlanID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="smallint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="DeploymentPlanStep">
+          <Key>
+            <PropertyRef Name="DeploymentPlanStepID" />
+          </Key>
+          <Property Name="DeploymentPlanStepID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeploymentPlanID" Type="smallint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ExecutionOrder" Type="smallint" Nullable="false" />
+          <Property Name="ScriptID" Type="smallint" Nullable="false" />
+          <Property Name="AllTargetGroups" Type="bit" Nullable="false" />
+          <Property Name="TargetGroupID" Type="smallint" />
+          <Property Name="RemoteExecution" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ProjectEnvironment">
+          <Key>
+            <PropertyRef Name="ProjectEnvironmentID" />
+          </Key>
+          <Property Name="ProjectEnvironmentID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="smallint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ProjectTarget">
+          <Key>
+            <PropertyRef Name="ProjectTargetID" />
+          </Key>
+          <Property Name="ProjectTargetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TargetGroupID" Type="smallint" Nullable="false" />
+          <Property Name="ProjectEnvironmentID" Type="smallint" Nullable="false" />
+          <Property Name="TargetID" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Script">
+          <Key>
+            <PropertyRef Name="ScriptID" />
+          </Key>
+          <Property Name="ScriptID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ScriptType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Body" Type="nvarchar(max)" />
+          <Property Name="ProjectID" Type="smallint" />
+        </EntityType>
+        <EntityType Name="ScriptParameter">
+          <Key>
+            <PropertyRef Name="ScriptParameterID" />
+          </Key>
+          <Property Name="ScriptParameterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ScriptID" Type="smallint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DefaultValue" Type="nvarchar(max)" />
+          <Property Name="IsMandatory" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Target">
+          <Key>
+            <PropertyRef Name="TargetID" />
+          </Key>
+          <Property Name="TargetID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ComputerName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="PortNumber" Type="int" Nullable="false" />
+          <Property Name="TargetKey" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CredentialID" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TargetGroup">
+          <Key>
+            <PropertyRef Name="TargetGroupID" />
+          </Key>
+          <Property Name="TargetGroupID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="smallint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Variable">
+          <Key>
+            <PropertyRef Name="VariableID" />
+          </Key>
+          <Property Name="VariableID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ScopeKey" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ScopeID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Value" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_DeploymentJob_DeploymentPlan">
+          <End Role="DeploymentPlan" Type="Self.DeploymentPlan" Multiplicity="1" />
+          <End Role="DeploymentJob" Type="Self.DeploymentJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeploymentPlan">
+              <PropertyRef Name="DeploymentPlanID" />
+            </Principal>
+            <Dependent Role="DeploymentJob">
+              <PropertyRef Name="DeploymentPlanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeploymentJob_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DeploymentJob" Type="Self.DeploymentJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="DeploymentJob">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeploymentJob_ProjectEnvironment">
+          <End Role="ProjectEnvironment" Type="Self.ProjectEnvironment" Multiplicity="1" />
+          <End Role="DeploymentJob" Type="Self.DeploymentJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectEnvironment">
+              <PropertyRef Name="ProjectEnvironmentID" />
+            </Principal>
+            <Dependent Role="DeploymentJob">
+              <PropertyRef Name="ProjectEnvironmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeploymentJobStep_DeploymentJob">
+          <End Role="DeploymentJob" Type="Self.DeploymentJob" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DeploymentJobStep" Type="Self.DeploymentJobStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeploymentJob">
+              <PropertyRef Name="DeploymentJobID" />
+            </Principal>
+            <Dependent Role="DeploymentJobStep">
+              <PropertyRef Name="DeploymentJobID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeploymentJobStep_DeploymentPlanStep">
+          <End Role="DeploymentPlanStep" Type="Self.DeploymentPlanStep" Multiplicity="1" />
+          <End Role="DeploymentJobStep" Type="Self.DeploymentJobStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeploymentPlanStep">
+              <PropertyRef Name="DeploymentPlanStepID" />
+            </Principal>
+            <Dependent Role="DeploymentJobStep">
+              <PropertyRef Name="DeploymentPlanStepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeploymentJobStepTarget_DeploymentJobStep">
+          <End Role="DeploymentJobStep" Type="Self.DeploymentJobStep" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DeploymentJobStepTarget" Type="Self.DeploymentJobStepTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeploymentJobStep">
+              <PropertyRef Name="DeploymentJobStepID" />
+            </Principal>
+            <Dependent Role="DeploymentJobStepTarget">
+              <PropertyRef Name="DeploymentJobStepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeploymentJobStepTarget_Target">
+          <End Role="Target" Type="Self.Target" Multiplicity="1" />
+          <End Role="DeploymentJobStepTarget" Type="Self.DeploymentJobStepTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Target">
+              <PropertyRef Name="TargetID" />
+            </Principal>
+            <Dependent Role="DeploymentJobStepTarget">
+              <PropertyRef Name="TargetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeploymentPlan_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DeploymentPlan" Type="Self.DeploymentPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="DeploymentPlan">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeploymentPlanStep_DeploymentPlan">
+          <End Role="DeploymentPlan" Type="Self.DeploymentPlan" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DeploymentPlanStep" Type="Self.DeploymentPlanStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeploymentPlan">
+              <PropertyRef Name="DeploymentPlanID" />
+            </Principal>
+            <Dependent Role="DeploymentPlanStep">
+              <PropertyRef Name="DeploymentPlanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeploymentPlanStep_Script">
+          <End Role="Script" Type="Self.Script" Multiplicity="1" />
+          <End Role="DeploymentPlanStep" Type="Self.DeploymentPlanStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Script">
+              <PropertyRef Name="ScriptID" />
+            </Principal>
+            <Dependent Role="DeploymentPlanStep">
+              <PropertyRef Name="ScriptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeploymentPlanStep_TargetGroup">
+          <End Role="TargetGroup" Type="Self.TargetGroup" Multiplicity="0..1" />
+          <End Role="DeploymentPlanStep" Type="Self.DeploymentPlanStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TargetGroup">
+              <PropertyRef Name="TargetGroupID" />
+            </Principal>
+            <Dependent Role="DeploymentPlanStep">
+              <PropertyRef Name="TargetGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectEnvironment_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectEnvironment" Type="Self.ProjectEnvironment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectEnvironment">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectTarget_ProjectEnvironment">
+          <End Role="ProjectEnvironment" Type="Self.ProjectEnvironment" Multiplicity="1" />
+          <End Role="ProjectTarget" Type="Self.ProjectTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectEnvironment">
+              <PropertyRef Name="ProjectEnvironmentID" />
+            </Principal>
+            <Dependent Role="ProjectTarget">
+              <PropertyRef Name="ProjectEnvironmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectTarget_Target">
+          <End Role="Target" Type="Self.Target" Multiplicity="1" />
+          <End Role="ProjectTarget" Type="Self.ProjectTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Target">
+              <PropertyRef Name="TargetID" />
+            </Principal>
+            <Dependent Role="ProjectTarget">
+              <PropertyRef Name="TargetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectTarget_TargetGroup">
+          <End Role="TargetGroup" Type="Self.TargetGroup" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectTarget" Type="Self.ProjectTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TargetGroup">
+              <PropertyRef Name="TargetGroupID" />
+            </Principal>
+            <Dependent Role="ProjectTarget">
+              <PropertyRef Name="TargetGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Script_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="Script" Type="Self.Script" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Script">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScriptParameter_Script">
+          <End Role="Script" Type="Self.Script" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ScriptParameter" Type="Self.ScriptParameter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Script">
+              <PropertyRef Name="ScriptID" />
+            </Principal>
+            <Dependent Role="ScriptParameter">
+              <PropertyRef Name="ScriptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Target_Credential">
+          <End Role="Credential" Type="Self.Credential" Multiplicity="1" />
+          <End Role="Target" Type="Self.Target" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Credential">
+              <PropertyRef Name="CredentialID" />
+            </Principal>
+            <Dependent Role="Target">
+              <PropertyRef Name="CredentialID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TargetGroup_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TargetGroup" Type="Self.TargetGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="TargetGroup">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DeploymentCockpitModelStoreContainer">
+          <EntitySet Name="Credential" EntityType="Self.Credential" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeploymentJob" EntityType="Self.DeploymentJob" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeploymentJobStep" EntityType="Self.DeploymentJobStep" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeploymentJobStepTarget" EntityType="Self.DeploymentJobStepTarget" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeploymentPlan" EntityType="Self.DeploymentPlan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeploymentPlanStep" EntityType="Self.DeploymentPlanStep" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectEnvironment" EntityType="Self.ProjectEnvironment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectTarget" EntityType="Self.ProjectTarget" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Script" EntityType="Self.Script" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScriptParameter" EntityType="Self.ScriptParameter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Target" EntityType="Self.Target" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TargetGroup" EntityType="Self.TargetGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Variable" EntityType="Self.Variable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DeploymentJob_DeploymentPlan" Association="Self.FK_DeploymentJob_DeploymentPlan">
+            <End Role="DeploymentPlan" EntitySet="DeploymentPlan" />
+            <End Role="DeploymentJob" EntitySet="DeploymentJob" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeploymentJob_Project" Association="Self.FK_DeploymentJob_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="DeploymentJob" EntitySet="DeploymentJob" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeploymentJob_ProjectEnvironment" Association="Self.FK_DeploymentJob_ProjectEnvironment">
+            <End Role="ProjectEnvironment" EntitySet="ProjectEnvironment" />
+            <End Role="DeploymentJob" EntitySet="DeploymentJob" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeploymentJobStep_DeploymentJob" Association="Self.FK_DeploymentJobStep_DeploymentJob">
+            <End Role="DeploymentJob" EntitySet="DeploymentJob" />
+            <End Role="DeploymentJobStep" EntitySet="DeploymentJobStep" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeploymentJobStep_DeploymentPlanStep" Association="Self.FK_DeploymentJobStep_DeploymentPlanStep">
+            <End Role="DeploymentPlanStep" EntitySet="DeploymentPlanStep" />
+            <End Role="DeploymentJobStep" EntitySet="DeploymentJobStep" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeploymentJobStepTarget_DeploymentJobStep" Association="Self.FK_DeploymentJobStepTarget_DeploymentJobStep">
+            <End Role="DeploymentJobStep" EntitySet="DeploymentJobStep" />
+            <End Role="DeploymentJobStepTarget" EntitySet="DeploymentJobStepTarget" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeploymentJobStepTarget_Target" Association="Self.FK_DeploymentJobStepTarget_Target">
+            <End Role="Target" EntitySet="Target" />
+            <End Role="DeploymentJobStepTarget" EntitySet="DeploymentJobStepTarget" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeploymentPlan_Project" Association="Self.FK_DeploymentPlan_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="DeploymentPlan" EntitySet="DeploymentPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeploymentPlanStep_DeploymentPlan" Association="Self.FK_DeploymentPlanStep_DeploymentPlan">
+            <End Role="DeploymentPlan" EntitySet="DeploymentPlan" />
+            <End Role="DeploymentPlanStep" EntitySet="DeploymentPlanStep" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeploymentPlanStep_Script" Association="Self.FK_DeploymentPlanStep_Script">
+            <End Role="Script" EntitySet="Script" />
+            <End Role="DeploymentPlanStep" EntitySet="DeploymentPlanStep" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeploymentPlanStep_TargetGroup" Association="Self.FK_DeploymentPlanStep_TargetGroup">
+            <End Role="TargetGroup" EntitySet="TargetGroup" />
+            <End Role="DeploymentPlanStep" EntitySet="DeploymentPlanStep" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectEnvironment_Project" Association="Self.FK_ProjectEnvironment_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="ProjectEnvironment" EntitySet="ProjectEnvironment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectTarget_ProjectEnvironment" Association="Self.FK_ProjectTarget_ProjectEnvironment">
+            <End Role="ProjectEnvironment" EntitySet="ProjectEnvironment" />
+            <End Role="ProjectTarget" EntitySet="ProjectTarget" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectTarget_Target" Association="Self.FK_ProjectTarget_Target">
+            <End Role="Target" EntitySet="Target" />
+            <End Role="ProjectTarget" EntitySet="ProjectTarget" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectTarget_TargetGroup" Association="Self.FK_ProjectTarget_TargetGroup">
+            <End Role="TargetGroup" EntitySet="TargetGroup" />
+            <End Role="ProjectTarget" EntitySet="ProjectTarget" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Script_Project" Association="Self.FK_Script_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Script" EntitySet="Script" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScriptParameter_Script" Association="Self.FK_ScriptParameter_Script">
+            <End Role="Script" EntitySet="Script" />
+            <End Role="ScriptParameter" EntitySet="ScriptParameter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Target_Credential" Association="Self.FK_Target_Credential">
+            <End Role="Credential" EntitySet="Credential" />
+            <End Role="Target" EntitySet="Target" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TargetGroup_Project" Association="Self.FK_TargetGroup_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="TargetGroup" EntitySet="TargetGroup" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DeploymentCockpitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Scripts" Relationship="DeploymentCockpitModel.FK_Script_Project" FromRole="Project" ToRole="Script" />
+          <NavigationProperty Name="TargetGroups" Relationship="DeploymentCockpitModel.FK_TargetGroup_Project" FromRole="Project" ToRole="TargetGroup" />
+          <NavigationProperty Name="Environments" Relationship="DeploymentCockpitModel.FK_ProjectEnvironment_Project" FromRole="Project" ToRole="ProjectEnvironment" />
+          <NavigationProperty Name="DeploymentPlans" Relationship="DeploymentCockpitModel.FK_DeploymentPlan_Project" FromRole="Project" ToRole="DeploymentPlan" />
+          <NavigationProperty Name="DeploymentJobs" Relationship="DeploymentCockpitModel.FK_DeploymentJob_Project" FromRole="Project" ToRole="DeploymentJob" />
+          </EntityType>
+        <EntityContainer Name="DeploymentCockpitEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="Credentials" EntityType="DeploymentCockpitModel.Credential" />
+          <EntitySet Name="Scripts" EntityType="DeploymentCockpitModel.Script" />
+          <AssociationSet Name="FK_Script_Project" Association="DeploymentCockpitModel.FK_Script_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Script" EntitySet="Scripts" />
+          </AssociationSet>
+          <EntitySet Name="Targets" EntityType="DeploymentCockpitModel.Target" />
+          <AssociationSet Name="FK_Target_Credential" Association="DeploymentCockpitModel.FK_Target_Credential">
+            <End Role="Credential" EntitySet="Credentials" />
+            <End Role="Target" EntitySet="Targets" />
+          </AssociationSet>
+          <EntitySet Name="TargetGroups" EntityType="DeploymentCockpitModel.TargetGroup" />
+          <AssociationSet Name="FK_TargetGroup_Project" Association="DeploymentCockpitModel.FK_TargetGroup_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="TargetGroup" EntitySet="TargetGroups" />
+          </AssociationSet>
+          <EntitySet Name="ProjectEnvironments" EntityType="DeploymentCockpitModel.ProjectEnvironment" />
+          <AssociationSet Name="FK_ProjectEnvironment_Project" Association="DeploymentCockpitModel.FK_ProjectEnvironment_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="ProjectEnvironment" EntitySet="ProjectEnvironments" />
+          </AssociationSet>
+          <EntitySet Name="ProjectTargets" EntityType="DeploymentCockpitModel.ProjectTarget" />
+          <AssociationSet Name="FK_ProjectTarget_ProjectEnvironment" Association="DeploymentCockpitModel.FK_ProjectTarget_ProjectEnvironment">
+            <End Role="ProjectEnvironment" EntitySet="ProjectEnvironments" />
+            <End Role="ProjectTarget" EntitySet="ProjectTargets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectTarget_Target" Association="DeploymentCockpitModel.FK_ProjectTarget_Target">
+            <End Role="Target" EntitySet="Targets" />
+            <End Role="ProjectTarget" EntitySet="ProjectTargets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectTarget_TargetGroup" Association="DeploymentCockpitModel.FK_ProjectTarget_TargetGroup">
+            <End Role="TargetGroup" EntitySet="TargetGroups" />
+            <End Role="ProjectTarget" EntitySet="ProjectTargets" />
+          </AssociationSet>
+          <EntitySet Name="DeploymentPlans" EntityType="DeploymentCockpitModel.DeploymentPlan" />
+          <AssociationSet Name="FK_DeploymentPlan_Project" Association="DeploymentCockpitModel.FK_DeploymentPlan_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="DeploymentPlan" EntitySet="DeploymentPlans" />
+          </AssociationSet>
+          <EntitySet Name="DeploymentPlanSteps" EntityType="DeploymentCockpitModel.DeploymentPlanStep" />
+          <AssociationSet Name="FK_DeploymentPlanStep_DeploymentPlan" Association="DeploymentCockpitModel.FK_DeploymentPlanStep_DeploymentPlan">
+            <End Role="DeploymentPlan" EntitySet="DeploymentPlans" />
+            <End Role="DeploymentPlanStep" EntitySet="DeploymentPlanSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeploymentPlanStep_Script" Association="DeploymentCockpitModel.FK_DeploymentPlanStep_Script">
+            <End Role="Script" EntitySet="Scripts" />
+            <End Role="DeploymentPlanStep" EntitySet="DeploymentPlanSteps" />
+          </AssociationSet>
+          <EntitySet Name="DeploymentJobs" EntityType="DeploymentCockpitModel.DeploymentJob" />
+          <AssociationSet Name="FK_DeploymentJob_DeploymentPlan" Association="DeploymentCockpitModel.FK_DeploymentJob_DeploymentPlan">
+            <End Role="DeploymentPlan" EntitySet="DeploymentPlans" />
+            <End Role="DeploymentJob" EntitySet="DeploymentJobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeploymentJob_Project" Association="DeploymentCockpitModel.FK_DeploymentJob_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="DeploymentJob" EntitySet="DeploymentJobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeploymentJob_ProjectEnvironment" Association="DeploymentCockpitModel.FK_DeploymentJob_ProjectEnvironment">
+            <End Role="ProjectEnvironment" EntitySet="ProjectEnvironments" />
+            <End Role="DeploymentJob" EntitySet="DeploymentJobs" />
+          </AssociationSet>
+          <EntitySet Name="ScriptParameters" EntityType="DeploymentCockpitModel.ScriptParameter" />
+          <AssociationSet Name="FK_ScriptParameter_Script" Association="DeploymentCockpitModel.FK_ScriptParameter_Script">
+            <End Role="Script" EntitySet="Scripts" />
+            <End Role="ScriptParameter" EntitySet="ScriptParameters" />
+          </AssociationSet>
+          <EntitySet Name="Variables" EntityType="DeploymentCockpitModel.Variable" />
+          <AssociationSet Name="FK_DeploymentPlanStep_TargetGroup" Association="DeploymentCockpitModel.FK_DeploymentPlanStep_TargetGroup">
+            <End Role="TargetGroup" EntitySet="TargetGroups" />
+            <End Role="DeploymentPlanStep" EntitySet="DeploymentPlanSteps" />
+          </AssociationSet>
+          <EntitySet Name="DeploymentJobSteps" EntityType="DeploymentCockpitModel.DeploymentJobStep" />
+          <EntitySet Name="DeploymentJobStepTargets" EntityType="DeploymentCockpitModel.DeploymentJobStepTarget" />
+          <AssociationSet Name="FK_DeploymentJobStep_DeploymentJob" Association="DeploymentCockpitModel.FK_DeploymentJobStep_DeploymentJob">
+            <End Role="DeploymentJob" EntitySet="DeploymentJobs" />
+            <End Role="DeploymentJobStep" EntitySet="DeploymentJobSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeploymentJobStep_DeploymentPlanStep" Association="DeploymentCockpitModel.FK_DeploymentJobStep_DeploymentPlanStep">
+            <End Role="DeploymentPlanStep" EntitySet="DeploymentPlanSteps" />
+            <End Role="DeploymentJobStep" EntitySet="DeploymentJobSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeploymentJobStepTarget_DeploymentJobStep" Association="DeploymentCockpitModel.FK_DeploymentJobStepTarget_DeploymentJobStep">
+            <End Role="DeploymentJobStep" EntitySet="DeploymentJobSteps" />
+            <End Role="DeploymentJobStepTarget" EntitySet="DeploymentJobStepTargets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeploymentJobStepTarget_Target" Association="DeploymentCockpitModel.FK_DeploymentJobStepTarget_Target">
+            <End Role="Target" EntitySet="Targets" />
+            <End Role="DeploymentJobStepTarget" EntitySet="DeploymentJobStepTargets" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Credential">
+          <Key>
+            <PropertyRef Name="CredentialID" />
+          </Key>
+          <Property Name="CredentialID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Domain" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Targets" Relationship="DeploymentCockpitModel.FK_Target_Credential" FromRole="Credential" ToRole="Target" />
+        </EntityType>
+        <EntityType Name="Script">
+          <Key>
+            <PropertyRef Name="ScriptID" />
+          </Key>
+          <Property Name="ScriptID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ScriptType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectID" Type="Int16" />
+          <NavigationProperty Name="Project" Relationship="DeploymentCockpitModel.FK_Script_Project" FromRole="Script" ToRole="Project" />
+          <NavigationProperty Name="DeploymentPlanSteps" Relationship="DeploymentCockpitModel.FK_DeploymentPlanStep_Script" FromRole="Script" ToRole="DeploymentPlanStep" />
+          <NavigationProperty Name="Parameters" Relationship="DeploymentCockpitModel.FK_ScriptParameter_Script" FromRole="Script" ToRole="ScriptParameter" />
+        </EntityType>
+        <Association Name="FK_Script_Project">
+          <End Type="DeploymentCockpitModel.Project" Role="Project" Multiplicity="0..1" />
+          <End Type="DeploymentCockpitModel.Script" Role="Script" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Script">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Target">
+          <Key>
+            <PropertyRef Name="TargetID" />
+          </Key>
+          <Property Name="TargetID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ComputerName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PortNumber" Type="Int32" Nullable="false" />
+          <Property Name="TargetKey" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CredentialID" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Credential" Relationship="DeploymentCockpitModel.FK_Target_Credential" FromRole="Target" ToRole="Credential" />
+          <NavigationProperty Name="ProjectTargets" Relationship="DeploymentCockpitModel.FK_ProjectTarget_Target" FromRole="Target" ToRole="ProjectTarget" />
+          <NavigationProperty Name="DeploymentJobStepTargets" Relationship="DeploymentCockpitModel.FK_DeploymentJobStepTarget_Target" FromRole="Target" ToRole="DeploymentJobStepTarget" />
+        </EntityType>
+        <Association Name="FK_Target_Credential">
+          <End Type="DeploymentCockpitModel.Credential" Role="Credential" Multiplicity="1" />
+          <End Type="DeploymentCockpitModel.Target" Role="Target" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Credential">
+              <PropertyRef Name="CredentialID" />
+            </Principal>
+            <Dependent Role="Target">
+              <PropertyRef Name="CredentialID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TargetGroup">
+          <Key>
+            <PropertyRef Name="TargetGroupID" />
+          </Key>
+          <Property Name="TargetGroupID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int16" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Project" Relationship="DeploymentCockpitModel.FK_TargetGroup_Project" FromRole="TargetGroup" ToRole="Project" />
+          <NavigationProperty Name="ProjectTargets" Relationship="DeploymentCockpitModel.FK_ProjectTarget_TargetGroup" FromRole="TargetGroup" ToRole="ProjectTarget" />
+          <NavigationProperty Name="DeploymentPlanSteps" Relationship="DeploymentCockpitModel.FK_DeploymentPlanStep_TargetGroup" FromRole="TargetGroup" ToRole="DeploymentPlanStep" />
+        </EntityType>
+        <Association Name="FK_TargetGroup_Project">
+          <End Type="DeploymentCockpitModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="DeploymentCockpitModel.TargetGroup" Role="TargetGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="TargetGroup">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProjectEnvironment">
+          <Key>
+            <PropertyRef Name="ProjectEnvironmentID" />
+          </Key>
+          <Property Name="ProjectEnvironmentID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int16" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Project" Relationship="DeploymentCockpitModel.FK_ProjectEnvironment_Project" FromRole="ProjectEnvironment" ToRole="Project" />
+          <NavigationProperty Name="ProjectTargets" Relationship="DeploymentCockpitModel.FK_ProjectTarget_ProjectEnvironment" FromRole="ProjectEnvironment" ToRole="ProjectTarget" />
+          <NavigationProperty Name="DeploymentJobs" Relationship="DeploymentCockpitModel.FK_DeploymentJob_ProjectEnvironment" FromRole="ProjectEnvironment" ToRole="DeploymentJob" />
+        </EntityType>
+        <Association Name="FK_ProjectEnvironment_Project">
+          <End Type="DeploymentCockpitModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="DeploymentCockpitModel.ProjectEnvironment" Role="ProjectEnvironment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectEnvironment">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProjectTarget">
+          <Key>
+            <PropertyRef Name="ProjectTargetID" />
+          </Key>
+          <Property Name="ProjectTargetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TargetGroupID" Type="Int16" Nullable="false" />
+          <Property Name="ProjectEnvironmentID" Type="Int16" Nullable="false" />
+          <Property Name="TargetID" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="ProjectEnvironment" Relationship="DeploymentCockpitModel.FK_ProjectTarget_ProjectEnvironment" FromRole="ProjectTarget" ToRole="ProjectEnvironment" />
+          <NavigationProperty Name="Target" Relationship="DeploymentCockpitModel.FK_ProjectTarget_Target" FromRole="ProjectTarget" ToRole="Target" />
+          <NavigationProperty Name="TargetGroup" Relationship="DeploymentCockpitModel.FK_ProjectTarget_TargetGroup" FromRole="ProjectTarget" ToRole="TargetGroup" />
+        </EntityType>
+        <Association Name="FK_ProjectTarget_ProjectEnvironment">
+          <End Type="DeploymentCockpitModel.ProjectEnvironment" Role="ProjectEnvironment" Multiplicity="1" />
+          <End Type="DeploymentCockpitModel.ProjectTarget" Role="ProjectTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectEnvironment">
+              <PropertyRef Name="ProjectEnvironmentID" />
+            </Principal>
+            <Dependent Role="ProjectTarget">
+              <PropertyRef Name="ProjectEnvironmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectTarget_Target">
+          <End Type="DeploymentCockpitModel.Target" Role="Target" Multiplicity="1" />
+          <End Type="DeploymentCockpitModel.ProjectTarget" Role="ProjectTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Target">
+              <PropertyRef Name="TargetID" />
+            </Principal>
+            <Dependent Role="ProjectTarget">
+              <PropertyRef Name="TargetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectTarget_TargetGroup">
+          <End Type="DeploymentCockpitModel.TargetGroup" Role="TargetGroup" Multiplicity="1" />
+          <End Type="DeploymentCockpitModel.ProjectTarget" Role="ProjectTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TargetGroup">
+              <PropertyRef Name="TargetGroupID" />
+            </Principal>
+            <Dependent Role="ProjectTarget">
+              <PropertyRef Name="TargetGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DeploymentPlan">
+          <Key>
+            <PropertyRef Name="DeploymentPlanID" />
+          </Key>
+          <Property Name="DeploymentPlanID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int16" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Project" Relationship="DeploymentCockpitModel.FK_DeploymentPlan_Project" FromRole="DeploymentPlan" ToRole="Project" />
+          <NavigationProperty Name="Steps" Relationship="DeploymentCockpitModel.FK_DeploymentPlanStep_DeploymentPlan" FromRole="DeploymentPlan" ToRole="DeploymentPlanStep" />
+          <NavigationProperty Name="DeploymentJobs" Relationship="DeploymentCockpitModel.FK_DeploymentJob_DeploymentPlan" FromRole="DeploymentPlan" ToRole="DeploymentJob" />
+        </EntityType>
+        <Association Name="FK_DeploymentPlan_Project">
+          <End Type="DeploymentCockpitModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="DeploymentCockpitModel.DeploymentPlan" Role="DeploymentPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="DeploymentPlan">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DeploymentPlanStep">
+          <Key>
+            <PropertyRef Name="DeploymentPlanStepID" />
+          </Key>
+          <Property Name="DeploymentPlanStepID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeploymentPlanID" Type="Int16" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExecutionOrder" Type="Int16" Nullable="false" />
+          <Property Name="ScriptID" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="DeploymentPlan" Relationship="DeploymentCockpitModel.FK_DeploymentPlanStep_DeploymentPlan" FromRole="DeploymentPlanStep" ToRole="DeploymentPlan" />
+          <NavigationProperty Name="Script" Relationship="DeploymentCockpitModel.FK_DeploymentPlanStep_Script" FromRole="DeploymentPlanStep" ToRole="Script" />
+          <Property Name="AllTargetGroups" Type="Boolean" Nullable="false" />
+          <Property Name="TargetGroupID" Type="Int16" />
+          <NavigationProperty Name="TargetGroup" Relationship="DeploymentCockpitModel.FK_DeploymentPlanStep_TargetGroup" FromRole="DeploymentPlanStep" ToRole="TargetGroup" />
+          <NavigationProperty Name="DeploymentJobSteps" Relationship="DeploymentCockpitModel.FK_DeploymentJobStep_DeploymentPlanStep" FromRole="DeploymentPlanStep" ToRole="DeploymentJobStep" />
+          <Property Name="RemoteExecution" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DeploymentPlanStep_DeploymentPlan">
+          <End Type="DeploymentCockpitModel.DeploymentPlan" Role="DeploymentPlan" Multiplicity="1" />
+          <End Type="DeploymentCockpitModel.DeploymentPlanStep" Role="DeploymentPlanStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeploymentPlan">
+              <PropertyRef Name="DeploymentPlanID" />
+            </Principal>
+            <Dependent Role="DeploymentPlanStep">
+              <PropertyRef Name="DeploymentPlanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeploymentPlanStep_Script">
+          <End Type="DeploymentCockpitModel.Script" Role="Script" Multiplicity="1" />
+          <End Type="DeploymentCockpitModel.DeploymentPlanStep" Role="DeploymentPlanStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Script">
+              <PropertyRef Name="ScriptID" />
+            </Principal>
+            <Dependent Role="DeploymentPlanStep">
+              <PropertyRef Name="ScriptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DeploymentJob">
+          <Key>
+            <PropertyRef Name="DeploymentJobID" />
+          </Key>
+          <Property Name="DeploymentJobID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int16" Nullable="false" />
+          <Property Name="SubmissionTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="StartTime" Type="DateTime" Precision="7" />
+          <Property Name="EndTime" Type="DateTime" Precision="7" />
+          <Property Name="StatusKey" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectEnvironmentID" Type="Int16" Nullable="false" />
+          <Property Name="DeploymentPlanID" Type="Int16" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DeploymentPlan" Relationship="DeploymentCockpitModel.FK_DeploymentJob_DeploymentPlan" FromRole="DeploymentJob" ToRole="DeploymentPlan" />
+          <NavigationProperty Name="Project" Relationship="DeploymentCockpitModel.FK_DeploymentJob_Project" FromRole="DeploymentJob" ToRole="Project" />
+          <NavigationProperty Name="ProjectEnvironment" Relationship="DeploymentCockpitModel.FK_DeploymentJob_ProjectEnvironment" FromRole="DeploymentJob" ToRole="ProjectEnvironment" />
+          <NavigationProperty Name="DeploymentJobSteps" Relationship="DeploymentCockpitModel.FK_DeploymentJobStep_DeploymentJob" FromRole="DeploymentJob" ToRole="DeploymentJobStep" />
+          <Property Name="Errors" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_DeploymentJob_DeploymentPlan">
+          <End Type="DeploymentCockpitModel.DeploymentPlan" Role="DeploymentPlan" Multiplicity="1" />
+          <End Type="DeploymentCockpitModel.DeploymentJob" Role="DeploymentJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeploymentPlan">
+              <PropertyRef Name="DeploymentPlanID" />
+            </Principal>
+            <Dependent Role="DeploymentJob">
+              <PropertyRef Name="DeploymentPlanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeploymentJob_Project">
+          <End Type="DeploymentCockpitModel.Project" Role="Project" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DeploymentCockpitModel.DeploymentJob" Role="DeploymentJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="DeploymentJob">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeploymentJob_ProjectEnvironment">
+          <End Type="DeploymentCockpitModel.ProjectEnvironment" Role="ProjectEnvironment" Multiplicity="1" />
+          <End Type="DeploymentCockpitModel.DeploymentJob" Role="DeploymentJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectEnvironment">
+              <PropertyRef Name="ProjectEnvironmentID" />
+            </Principal>
+            <Dependent Role="DeploymentJob">
+              <PropertyRef Name="ProjectEnvironmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ScriptParameter">
+          <Key>
+            <PropertyRef Name="ScriptParameterID" />
+          </Key>
+          <Property Name="ScriptParameterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ScriptID" Type="Int16" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DefaultValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsMandatory" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Script" Relationship="DeploymentCockpitModel.FK_ScriptParameter_Script" FromRole="ScriptParameter" ToRole="Script" />
+        </EntityType>
+        <Association Name="FK_ScriptParameter_Script">
+          <End Type="DeploymentCockpitModel.Script" Role="Script" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DeploymentCockpitModel.ScriptParameter" Role="ScriptParameter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Script">
+              <PropertyRef Name="ScriptID" />
+            </Principal>
+            <Dependent Role="ScriptParameter">
+              <PropertyRef Name="ScriptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Variable">
+          <Key>
+            <PropertyRef Name="VariableID" />
+          </Key>
+          <Property Name="VariableID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ScopeKey" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ScopeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_DeploymentPlanStep_TargetGroup">
+          <End Type="DeploymentCockpitModel.TargetGroup" Role="TargetGroup" Multiplicity="0..1" />
+          <End Type="DeploymentCockpitModel.DeploymentPlanStep" Role="DeploymentPlanStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TargetGroup">
+              <PropertyRef Name="TargetGroupID" />
+            </Principal>
+            <Dependent Role="DeploymentPlanStep">
+              <PropertyRef Name="TargetGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DeploymentJobStep">
+          <Key>
+            <PropertyRef Name="DeploymentJobStepID" />
+          </Key>
+          <Property Name="DeploymentJobStepID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeploymentJobID" Type="Int32" Nullable="false" />
+          <Property Name="DeploymentPlanStepID" Type="Int32" Nullable="false" />
+          <Property Name="StatusKey" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartTime" Type="DateTime" Precision="7" />
+          <Property Name="EndTime" Type="DateTime" Precision="7" />
+          <Property Name="ExecutedScript" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExecutionOutput" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DeploymentJob" Relationship="DeploymentCockpitModel.FK_DeploymentJobStep_DeploymentJob" FromRole="DeploymentJobStep" ToRole="DeploymentJob" />
+          <NavigationProperty Name="DeploymentPlanStep" Relationship="DeploymentCockpitModel.FK_DeploymentJobStep_DeploymentPlanStep" FromRole="DeploymentJobStep" ToRole="DeploymentPlanStep" />
+          <NavigationProperty Name="DeploymentJobStepTargets" Relationship="DeploymentCockpitModel.FK_DeploymentJobStepTarget_DeploymentJobStep" FromRole="DeploymentJobStep" ToRole="DeploymentJobStepTarget" />
+          <Property Name="ExecutionReference" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DeploymentJobStepTarget">
+          <Key>
+            <PropertyRef Name="DeploymentJobStepTargetID" />
+          </Key>
+          <Property Name="DeploymentJobStepTargetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeploymentJobStepID" Type="Int32" Nullable="false" />
+          <Property Name="TargetID" Type="Int16" Nullable="false" />
+          <Property Name="StatusKey" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartTime" Type="DateTime" Precision="7" />
+          <Property Name="EndTime" Type="DateTime" Precision="7" />
+          <Property Name="ExecutedScript" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExecutionOutput" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DeploymentJobStep" Relationship="DeploymentCockpitModel.FK_DeploymentJobStepTarget_DeploymentJobStep" FromRole="DeploymentJobStepTarget" ToRole="DeploymentJobStep" />
+          <NavigationProperty Name="Target" Relationship="DeploymentCockpitModel.FK_DeploymentJobStepTarget_Target" FromRole="DeploymentJobStepTarget" ToRole="Target" />
+          <Property Name="ExecutionReference" Type="Guid" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DeploymentJobStep_DeploymentJob">
+          <End Type="DeploymentCockpitModel.DeploymentJob" Role="DeploymentJob" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DeploymentCockpitModel.DeploymentJobStep" Role="DeploymentJobStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeploymentJob">
+              <PropertyRef Name="DeploymentJobID" />
+            </Principal>
+            <Dependent Role="DeploymentJobStep">
+              <PropertyRef Name="DeploymentJobID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeploymentJobStep_DeploymentPlanStep">
+          <End Type="DeploymentCockpitModel.DeploymentPlanStep" Role="DeploymentPlanStep" Multiplicity="1" />
+          <End Type="DeploymentCockpitModel.DeploymentJobStep" Role="DeploymentJobStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeploymentPlanStep">
+              <PropertyRef Name="DeploymentPlanStepID" />
+            </Principal>
+            <Dependent Role="DeploymentJobStep">
+              <PropertyRef Name="DeploymentPlanStepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeploymentJobStepTarget_DeploymentJobStep">
+          <End Type="DeploymentCockpitModel.DeploymentJobStep" Role="DeploymentJobStep" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DeploymentCockpitModel.DeploymentJobStepTarget" Role="DeploymentJobStepTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeploymentJobStep">
+              <PropertyRef Name="DeploymentJobStepID" />
+            </Principal>
+            <Dependent Role="DeploymentJobStepTarget">
+              <PropertyRef Name="DeploymentJobStepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeploymentJobStepTarget_Target">
+          <End Type="DeploymentCockpitModel.Target" Role="Target" Multiplicity="1" />
+          <End Type="DeploymentCockpitModel.DeploymentJobStepTarget" Role="DeploymentJobStepTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Target">
+              <PropertyRef Name="TargetID" />
+            </Principal>
+            <Dependent Role="DeploymentJobStepTarget">
+              <PropertyRef Name="TargetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DeploymentCockpitModelStoreContainer" CdmEntityContainer="DeploymentCockpitEntities">
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="DeploymentCockpitModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Credentials">
+            <EntityTypeMapping TypeName="DeploymentCockpitModel.Credential">
+              <MappingFragment StoreEntitySet="Credential">
+                <ScalarProperty Name="Domain" ColumnName="Domain" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CredentialID" ColumnName="CredentialID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Scripts">
+            <EntityTypeMapping TypeName="DeploymentCockpitModel.Script">
+              <MappingFragment StoreEntitySet="Script">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="ScriptType" ColumnName="ScriptType" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ScriptID" ColumnName="ScriptID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Targets">
+            <EntityTypeMapping TypeName="DeploymentCockpitModel.Target">
+              <MappingFragment StoreEntitySet="Target">
+                <ScalarProperty Name="CredentialID" ColumnName="CredentialID" />
+                <ScalarProperty Name="TargetKey" ColumnName="TargetKey" />
+                <ScalarProperty Name="PortNumber" ColumnName="PortNumber" />
+                <ScalarProperty Name="ComputerName" ColumnName="ComputerName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TargetID" ColumnName="TargetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TargetGroups">
+            <EntityTypeMapping TypeName="DeploymentCockpitModel.TargetGroup">
+              <MappingFragment StoreEntitySet="TargetGroup">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="TargetGroupID" ColumnName="TargetGroupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectEnvironments">
+            <EntityTypeMapping TypeName="DeploymentCockpitModel.ProjectEnvironment">
+              <MappingFragment StoreEntitySet="ProjectEnvironment">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ProjectEnvironmentID" ColumnName="ProjectEnvironmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectTargets">
+            <EntityTypeMapping TypeName="DeploymentCockpitModel.ProjectTarget">
+              <MappingFragment StoreEntitySet="ProjectTarget">
+                <ScalarProperty Name="TargetID" ColumnName="TargetID" />
+                <ScalarProperty Name="ProjectEnvironmentID" ColumnName="ProjectEnvironmentID" />
+                <ScalarProperty Name="TargetGroupID" ColumnName="TargetGroupID" />
+                <ScalarProperty Name="ProjectTargetID" ColumnName="ProjectTargetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeploymentPlans">
+            <EntityTypeMapping TypeName="DeploymentCockpitModel.DeploymentPlan">
+              <MappingFragment StoreEntitySet="DeploymentPlan">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="DeploymentPlanID" ColumnName="DeploymentPlanID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeploymentPlanSteps">
+            <EntityTypeMapping TypeName="DeploymentCockpitModel.DeploymentPlanStep">
+              <MappingFragment StoreEntitySet="DeploymentPlanStep">
+                <ScalarProperty Name="RemoteExecution" ColumnName="RemoteExecution" />
+                <ScalarProperty Name="TargetGroupID" ColumnName="TargetGroupID" />
+                <ScalarProperty Name="AllTargetGroups" ColumnName="AllTargetGroups" />
+                <ScalarProperty Name="ScriptID" ColumnName="ScriptID" />
+                <ScalarProperty Name="ExecutionOrder" ColumnName="ExecutionOrder" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DeploymentPlanID" ColumnName="DeploymentPlanID" />
+                <ScalarProperty Name="DeploymentPlanStepID" ColumnName="DeploymentPlanStepID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeploymentJobs">
+            <EntityTypeMapping TypeName="DeploymentCockpitModel.DeploymentJob">
+              <MappingFragment StoreEntitySet="DeploymentJob">
+                <ScalarProperty Name="Errors" ColumnName="Errors" />
+                <ScalarProperty Name="SubmissionTime" ColumnName="SubmissionTime" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="DeploymentPlanID" ColumnName="DeploymentPlanID" />
+                <ScalarProperty Name="ProjectEnvironmentID" ColumnName="ProjectEnvironmentID" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="StatusKey" ColumnName="StatusKey" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="DeploymentJobID" ColumnName="DeploymentJobID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScriptParameters">
+            <EntityTypeMapping TypeName="DeploymentCockpitModel.ScriptParameter">
+              <MappingFragment StoreEntitySet="ScriptParameter">
+                <ScalarProperty Name="IsMandatory" ColumnName="IsMandatory" />
+                <ScalarProperty Name="DefaultValue" ColumnName="DefaultValue" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ScriptID" ColumnName="ScriptID" />
+                <ScalarProperty Name="ScriptParameterID" ColumnName="ScriptParameterID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Variables">
+            <EntityTypeMapping TypeName="DeploymentCockpitModel.Variable">
+              <MappingFragment StoreEntitySet="Variable">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ScopeID" ColumnName="ScopeID" />
+                <ScalarProperty Name="ScopeKey" ColumnName="ScopeKey" />
+                <ScalarProperty Name="VariableID" ColumnName="VariableID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeploymentJobSteps">
+            <EntityTypeMapping TypeName="DeploymentCockpitModel.DeploymentJobStep">
+              <MappingFragment StoreEntitySet="DeploymentJobStep">
+                <ScalarProperty Name="ExecutionReference" ColumnName="ExecutionReference" />
+                <ScalarProperty Name="ExecutionOutput" ColumnName="ExecutionOutput" />
+                <ScalarProperty Name="ExecutedScript" ColumnName="ExecutedScript" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="StatusKey" ColumnName="StatusKey" />
+                <ScalarProperty Name="DeploymentPlanStepID" ColumnName="DeploymentPlanStepID" />
+                <ScalarProperty Name="DeploymentJobID" ColumnName="DeploymentJobID" />
+                <ScalarProperty Name="DeploymentJobStepID" ColumnName="DeploymentJobStepID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeploymentJobStepTargets">
+            <EntityTypeMapping TypeName="DeploymentCockpitModel.DeploymentJobStepTarget">
+              <MappingFragment StoreEntitySet="DeploymentJobStepTarget">
+                <ScalarProperty Name="ExecutionReference" ColumnName="ExecutionReference" />
+                <ScalarProperty Name="ExecutionOutput" ColumnName="ExecutionOutput" />
+                <ScalarProperty Name="ExecutedScript" ColumnName="ExecutedScript" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="StatusKey" ColumnName="StatusKey" />
+                <ScalarProperty Name="TargetID" ColumnName="TargetID" />
+                <ScalarProperty Name="DeploymentJobStepID" ColumnName="DeploymentJobStepID" />
+                <ScalarProperty Name="DeploymentJobStepTargetID" ColumnName="DeploymentJobStepTargetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

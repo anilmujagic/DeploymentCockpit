@@ -1,0 +1,48 @@
+﻿<div class="form-group">
+    <label>Name</label>
+    <input type="text" ng-model="deploymentPlanStep.name" class="form-control" />
+</div>
+<div class="form-group">
+    <label>Description</label>
+    <textarea ng-model="deploymentPlanStep.description" class="form-control" rows="5" />
+</div>
+<div class="form-group">
+    <label>Execution Order</label>
+    <input type="text" ng-model="deploymentPlanStep.executionOrder" class="form-control" />
+</div>
+<div class="form-group">
+    <label>Script</label>
+    <select ng-model="deploymentPlanStep.scriptID" ng-options="c.scriptID as c.name group by c.projectName for c in scripts"
+            class="form-control"></select>
+</div>
+<div class="form-group">
+    <label>Target Group</label>
+    <select ng-model="deploymentPlanStep.targetGroupID" ng-options="c.targetGroupID as c.name for c in targetGroups"
+            class="form-control"
+            ng-change="onTargetGroupChanged()"
+            ng-disabled="deploymentPlanStep.allTargetGroups">
+        <option></option>
+    </select>
+</div>
+<div class="form-group">
+    <div class="checkbox-inline">
+        <label>
+            <input type="checkbox" ng-model="deploymentPlanStep.allTargetGroups"
+                   ng-change="onAllTargetGroupsChange()" />
+            All Target Groups
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <div class="checkbox-inline">
+        <label>
+            <input type="checkbox" ng-model="deploymentPlanStep.remoteExecution" />
+            Remote Execution
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <button class="btn btn-success pull-right" ng-click="save(deploymentPlanStep)">
+        <span class="glyphicon glyphicon-ok"></span> Save
+    </button>
+</div>

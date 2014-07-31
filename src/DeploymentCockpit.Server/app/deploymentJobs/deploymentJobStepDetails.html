@@ -1,0 +1,16 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Execution Details</h3>
+</div>
+<div class="modal-body">
+    <div class="form-group">
+        <label>Script</label>
+        <textarea ng-model="executionDetails.executedScript" class="form-control code-text" rows="10" readonly />
+    </div>
+    <div class="form-group">
+        <label>Output</label>
+        <textarea ng-model="executionDetails.executionOutput" class="form-control code-text" rows="15" readonly />
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="$dismiss()">Close</button>
+</div>

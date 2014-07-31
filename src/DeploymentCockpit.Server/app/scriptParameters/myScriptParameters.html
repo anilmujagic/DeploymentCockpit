@@ -1,0 +1,40 @@
+﻿<div class="panel panel-info panel-borderless">
+    <div class="panel-heading">
+        Script Parameters
+        <a href="" class="pull-right" title="Create new" ng-click="create()">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+    <div class="panel-body">
+        <table class="table table-condensed table-hover table-striped table-borderless">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Default Value</th>
+                    <th>Mandatory</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="scriptParameter in scriptParameters | orderBy:'name'">
+                    <td>
+                        <a href="" ng-click="edit(scriptParameter)">
+                            {{scriptParameter.name}}
+                        </a>
+                    </td>
+                    <td>
+                        {{scriptParameter.defaultValue}}
+                    </td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok" ng-show="scriptParameter.isMandatory"></span>
+                    </td>
+                    <td>
+                        <a href="" class="pull-right" title="Delete" ng-click="delete(scriptParameter)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

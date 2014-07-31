@@ -1,0 +1,37 @@
+﻿<div class="panel panel-info panel-borderless">
+    <div class="panel-heading">
+        Deployment Jobs
+        <a href="#/DeploymentJob/Create/{{projectID}}" class="pull-right" title="Create new">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+    <div class="panel-body">
+        <table class="table table-condensed table-hover table-striped table-borderless">
+            <thead>
+                <tr>
+                    <th>Deployment Plan</th>
+                    <th>Product Version</th>
+                    <th>Environment</th>
+                    <th>Submission Time</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="deploymentJob in deploymentJobs | orderBy:'-submissionTime'">
+                <td>{{deploymentJob.deploymentPlanName}}</td>
+                <td>{{deploymentJob.productVersion}}</td>
+                <td>{{deploymentJob.projectEnvironmentName}}</td>
+                <td><span title="{{deploymentJob.submissionTime}}">{{deploymentJob.submissionTimeDisplay}}</span></td>
+                <td><span title="{{deploymentJob.startTime}}">{{deploymentJob.startTimeDisplay}}</span></td>
+                <td><span title="{{deploymentJob.endTime}}">{{deploymentJob.endTimeDisplay}}</span></td>
+                <td>
+                    <a href="#/DeploymentJob/Details/{{deploymentJob.deploymentJobID}}"
+                       ng-class="'deployment-status-' + deploymentJob.statusKey.toLowerCase()">
+                        {{deploymentJob.statusKey}}
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

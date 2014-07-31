@@ -1,0 +1,44 @@
+﻿<div class="row">
+    <div class="col-md-10">
+        <h2>Scripts</h2>
+    </div>
+    <div class="col-md-2">
+        <div class="button-bar pull-right">
+            <div class="btn-group">
+                <a href="#/Script/Create" class="btn btn-default" title="Create new">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="row" ng-show="isLoading()">
+    <div class="col-md-12">
+        <div my-loading-indicator></div>
+    </div>
+</div>
+<div class="row" ng-hide="isLoading()">
+    <div class="col-md-12">
+        <table class="table table-condensed table-hover table-striped table-borderless">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Project</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tr ng-repeat="script in scripts | orderBy:['projectName', 'name']">
+                <td><a href="#/Script/Edit/{{script.scriptID}}">{{script.name}}</a></td>
+                <td>{{script.scriptType}}</td>
+                <td>{{script.projectName}}</td>
+                <td>
+                    <a href="" class="pull-right" title="Delete" ng-click="delete(script)">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

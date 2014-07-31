@@ -1,0 +1,36 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Target</h3>
+</div>
+<div class="modal-body">
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" ng-model="target.name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <textarea ng-model="target.description" class="form-control" rows="5" />
+    </div>
+    <div class="form-group">
+        <label>Computer Name</label>
+        <input type="text" ng-model="target.computerName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Port Number</label>
+        <a href="" ng-click="revertToDefaultPortNumber(target)" class="pull-right">Revert to default port number</a>
+        <input type="text" ng-model="target.portNumber" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Target Key</label>
+        <a href="" ng-click="generateNewTargetKey(target)" class="pull-right">Generate new key</a>
+        <input type="text" ng-model="target.targetKey" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Credential</label>
+        <select ng-model="target.credentialID" ng-options="c.credentialID as c.name for c in credentials"
+                class="form-control"></select>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="save(target)">Save</button>
+    <button class="btn btn-default" ng-click="$dismiss()">Cancel</button>
+</div>

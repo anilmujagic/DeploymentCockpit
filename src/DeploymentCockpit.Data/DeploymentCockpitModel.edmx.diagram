@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f082e5fba3a748f481fa13a0f99152a5" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="DeploymentCockpitModel.Project" Width="1.5" PointX="5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DeploymentCockpitModel.Credential" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="DeploymentCockpitModel.Script" Width="1.875" PointX="9.125" PointY="0.5" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_Script_Project" />
+        <EntityTypeShape EntityType="DeploymentCockpitModel.Target" Width="1.5" PointX="0.5" PointY="3.375" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_Target_Credential" />
+        <EntityTypeShape EntityType="DeploymentCockpitModel.TargetGroup" Width="1.5" PointX="2.625" PointY="0.5" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_TargetGroup_Project" />
+        <EntityTypeShape EntityType="DeploymentCockpitModel.ProjectEnvironment" Width="1.75" PointX="4.75" PointY="3.5" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_ProjectEnvironment_Project" />
+        <EntityTypeShape EntityType="DeploymentCockpitModel.ProjectTarget" Width="1.875" PointX="2.5" PointY="3.25" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_ProjectTarget_ProjectEnvironment" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_ProjectTarget_Target" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_ProjectTarget_TargetGroup" />
+        <EntityTypeShape EntityType="DeploymentCockpitModel.DeploymentPlan" Width="1.625" PointX="7.125" PointY="1.875" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentPlan_Project" />
+        <EntityTypeShape EntityType="DeploymentCockpitModel.DeploymentPlanStep" Width="1.875" PointX="9.125" PointY="3.75" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentPlanStep_DeploymentPlan" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentPlanStep_Script" />
+        <EntityTypeShape EntityType="DeploymentCockpitModel.DeploymentJob" Width="1.875" PointX="6.875" PointY="4.75" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentJob_DeploymentPlan" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentJob_Project" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentJob_ProjectEnvironment" />
+        <EntityTypeShape EntityType="DeploymentCockpitModel.ScriptParameter" Width="1.625" PointX="11.5" PointY="0.5" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_ScriptParameter_Script" />
+        <EntityTypeShape EntityType="DeploymentCockpitModel.Variable" Width="1.5" PointX="0.5" PointY="7" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentPlanStep_TargetGroup" />
+        <EntityTypeShape EntityType="DeploymentCockpitModel.DeploymentJobStep" Width="1.75" PointX="4.75" PointY="6.125" />
+        <EntityTypeShape EntityType="DeploymentCockpitModel.DeploymentJobStepTarget" Width="1.875" PointX="2.5" PointY="6.125" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentJobStep_DeploymentJob" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentJobStep_DeploymentPlanStep" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentJobStepTarget_DeploymentJobStep" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentJobStepTarget_Target" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

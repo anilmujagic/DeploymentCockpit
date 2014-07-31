@@ -1,0 +1,75 @@
+﻿<div class="row">
+    <div class="col-md-10">
+        <h2>
+            {{deploymentJob.deploymentPlanName}}
+            <small>version</small> {{deploymentJob.productVersion}}
+            <small>to</small> {{deploymentJob.projectEnvironmentName}}
+        </h2>
+        <p class="text-muted">{{deploymentJob.notes}}</p>
+    </div>
+    <div class="col-md-2">
+        <div class="button-bar pull-right">
+            <a href="#/Project/Details/{{deploymentJob.projectID}}">
+                Back to project
+            </a>
+            &nbsp;
+            <div class="btn-group">
+                <a href="#/DeploymentJob/Edit/{{deploymentJob.deploymentJobID}}?projectID={{deploymentJob.projectID}}"
+                   class="btn btn-default" title="Edit">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info panel-borderless">
+            <div class="panel-heading">
+                Deployment Job Steps
+                <a href="" class="pull-right" title="Refresh" ng-click="reloadData()">
+                    <span class="glyphicon glyphicon-refresh"></span>
+                </a>
+            </div>
+            <div class="panel-body">
+                <table class="table table-condensed table-hover table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Deployment Plan Step</th>
+                            <th>Target</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="deploymentJobStep in deploymentJobSteps | orderBy:['deploymentJobStepID', 'deploymentJobStepTargetID']">
+                        <td>{{deploymentJobStep.deploymentPlanStepName}}</td>
+                        <td>{{deploymentJobStep.targetName}}</td>
+                        <td><span title="{{deploymentJobStep.startTime}}">{{deploymentJobStep.startTimeDisplay}}</span></td>
+                        <td><span title="{{deploymentJobStep.endTime}}">{{deploymentJobStep.endTimeDisplay}}</span></td>
+                        <td>
+                            <a href="" ng-click="showExecutionDetails(deploymentJobStep.executionReference)">
+                                <img src="/assets/img/deployment-running.gif"
+                                     ng-show="deploymentJobStep.statusKey === 'Running'"
+                                     title="{{deploymentJobStep.statusKey}}" alt="{{deploymentJobStep.statusKey}}" />
+                                <span class="glyphicon glyphicon-ok deployment-status-finished"
+                                      ng-show="deploymentJobStep.statusKey === 'Finished'"
+                                      title="{{deploymentJobStep.statusKey}}" alt="{{deploymentJobStep.statusKey}}"></span>
+                                <span class="glyphicon glyphicon-remove deployment-status-failed"
+                                      ng-show="deploymentJobStep.statusKey === 'Failed'"
+                                      title="{{deploymentJobStep.statusKey}}" alt="{{deploymentJobStep.statusKey}}"></span>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="deploymentJob.errors.length > 0">
+    <div class="col-md-12">
+        <h3>Errors</h3>
+        <pre>{{deploymentJob.errors}}</pre>
+    </div>
+</div>

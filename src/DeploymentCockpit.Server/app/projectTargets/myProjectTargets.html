@@ -1,0 +1,43 @@
+﻿<div class="panel panel-info panel-borderless">
+    <div class="panel-heading">
+        Targets
+        <a href="" class="pull-right" title="Add" ng-click="add()">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+    <div class="panel-body">
+        <!-- Target Groups -->
+        <table class="table table-condensed table-borderless project-targets-table">
+            <tbody>
+                <tr ng-repeat="targetGroup in projectTargets | orderBy:'name'">
+                    <td>
+                        {{targetGroup.name}}
+                    </td>
+                    <td>
+                        <!-- Project Environments -->
+                        <table class="table table-condensed table-hover table-borderless project-targets-table">
+                            <tbody>
+                                <tr ng-repeat="environment in targetGroup.environments | orderBy:'name'">
+                                    <td>
+                                        {{environment.name}}
+                                    </td>
+                                    <td>
+                                        <!-- Targets -->
+                                        <span ng-repeat="projectTarget in environment.targets | orderBy:'name'">
+                                            {{projectTarget.name}}
+                                            <a href="" class="pull-right" title="Remove project target"
+                                               ng-click="delete(projectTarget)">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </a>
+                                            <br />
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

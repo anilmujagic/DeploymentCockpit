@@ -1,0 +1,29 @@
+﻿<div class="panel panel-info panel-borderless">
+    <div class="panel-heading">
+        Variables
+        <a href="" class="pull-right" title="Create new" ng-click="create()">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+    <div class="panel-body">
+        <table class="table table-condensed table-hover table-striped table-borderless">
+            <tbody>
+                <tr ng-repeat="variable in variables | orderBy:'name'">
+                    <td>
+                        <a href="" ng-click="edit(variable)">
+                            {{variable.name}}
+                        </a>
+                    </td>
+                    <td>
+                        {{variable.value}}
+                    </td>
+                    <td>
+                        <a href="" class="pull-right" title="Delete" ng-click="delete(variable)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

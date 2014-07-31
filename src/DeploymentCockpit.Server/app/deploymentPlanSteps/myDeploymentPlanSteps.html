@@ -1,0 +1,41 @@
+﻿<div class="panel panel-info panel-borderless">
+    <div class="panel-heading">
+        Steps
+        <a href="#/DeploymentPlanStep/Create/{{deploymentPlanID}}?projectID={{projectID}}" class="pull-right"
+           title="Create new">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+    <div class="panel-body">
+        <table class="table table-condensed table-hover table-striped table-borderless">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Script</th>
+                    <th>Target Group</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tr ng-repeat="deploymentPlanStep in deploymentPlanSteps | orderBy:'executionOrder'">
+                <td>
+                    <a href="#/DeploymentPlanStep/Edit/{{deploymentPlanStep.deploymentPlanStepID}}?projectID={{projectID}}">
+                        {{deploymentPlanStep.name}}
+                    </a>
+                </td>
+                <td>
+                    <a href="#/Script/Edit/{{deploymentPlanStep.scriptID}}">
+                        {{deploymentPlanStep.scriptName}}
+                    </a>
+                </td>
+                <td>
+                    {{deploymentPlanStep.targetGroupInfo}}
+                </td>
+                <td>
+                    <a href="" class="pull-right" title="Delete" ng-click="delete(deploymentPlanStep)">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

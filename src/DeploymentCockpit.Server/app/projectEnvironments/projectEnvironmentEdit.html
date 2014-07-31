@@ -1,0 +1,20 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Project Environment</h3>
+</div>
+<div class="modal-body">
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" ng-model="projectEnvironment.name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <textarea ng-model="projectEnvironment.description" class="form-control" rows="5" />
+    </div>
+    <div my-variables scope-key="'Environment'" scope-id="projectEnvironment.projectEnvironmentID"
+         ng-show="projectEnvironment.projectEnvironmentID">
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="save(projectEnvironment)">Save</button>
+    <button class="btn btn-default" ng-click="$dismiss()">Cancel</button>
+</div>

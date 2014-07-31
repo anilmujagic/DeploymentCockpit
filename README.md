@@ -1,4 +1,3 @@
 DeploymentCockpit
 =================
-
-Deployment automation tool
+Deployment automation system

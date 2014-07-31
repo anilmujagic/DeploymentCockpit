@@ -1,0 +1,110 @@
+﻿@font-face {
+    font-family: 'DIN Condensed Web';
+    src: url(fonts/DINCondensedWeb.ttf);
+}
+
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+    font-family: 'Ubuntu', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+
+/* Bootstrap Customization */
+h1, h2, h3
+.h1, .h2, .h3 {
+    font-family: 'DIN Condensed Web', 'Ubuntu', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h4, h5, h6
+.h4, .h5, .h6 {
+    font-family: 'Ubuntu', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.navbar-brand {
+    font-family: 'DIN Condensed Web', 'Ubuntu', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: x-large;
+}
+
+.table.table-borderless {
+    border: 0 !important;
+}
+
+.table.table-borderless tr,
+.table.table-borderless th,
+.table.table-borderless td {
+    border: 0 !important;
+}
+
+.panel.panel-borderless {
+    border: 0 !important;
+    box-shadow: 0 0 0 !important;
+}
+
+
+/* UI Bootstrap*/
+.nav,
+.pagination,
+.carousel,
+.panel-title a {
+    cursor: pointer;
+}
+
+
+/* Toastr Customization */
+.toast-top-right {
+  top: 63px;
+}
+
+
+/* Site Styles */
+.button-bar {
+    margin-top: 20px;  /* Should be equal to Bootstrap's h2 margin. */
+}
+
+.loading-indicator {
+    padding: 2em;
+}
+
+.list-button {
+    margin-left: 0.5em;
+}
+
+
+/* Script Editor */
+.code-text {
+    font-family: 'Ubuntu Mono', Consolas, 'Lucida Console', 'Courier New', Courier, monospace;
+}
+
+.script-editor {
+    background-color: #333333;
+    color: #eeeeee;
+}
+
+
+/* Project Targets */
+.project-targets-table {
+    margin: 0 !important;
+}
+
+.project-targets-table tr,
+.project-targets-table th,
+.project-targets-table td {
+    padding-top: 0 !important;
+}
+
+
+/* Deployment Status */
+.deployment-status-finished {
+    color: limegreen;
+}
+
+.deployment-status-failed {
+    color: red;
+}
+
+
+/* Helpers */
+.full-width {
+    width: 100%;
+}
