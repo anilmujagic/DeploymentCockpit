@@ -19,7 +19,12 @@ goto :eof
 
 :Help
 echo Parameters are missing!
-echo Example 1:
+echo.
+echo Usage:
+echo   GenerateChangeScript.bat DatabaseName ServerName [Username Password]
+echo.
+echo Example (Windows user):
 echo   GenerateChangeScript.bat DeploymentCockpit .\SQLEXPRESS
-echo Example 2:
+echo.
+echo Example (SQL user):
 echo   GenerateChangeScript.bat DeploymentCockpit .\SQLEXPRESS myUsername myPassword
