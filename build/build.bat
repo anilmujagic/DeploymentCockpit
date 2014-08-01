@@ -12,6 +12,7 @@ rd .\BuildOutput /S /Q
 md .\BuildOutput
 
 md .\BuildOutput\Database
+copy .\GenerateChangeScript.bat .\BuildOutput\Database
 copy ..\src\DeploymentCockpit.Database\bin\Release\DeploymentCockpit.Database.dacpac .\BuildOutput\Database
 copy ..\src\DeploymentCockpit.Database\bin\Release\DeploymentCockpit.Database_Create.sql .\BuildOutput\Database
 
