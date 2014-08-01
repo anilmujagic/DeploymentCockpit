@@ -15,6 +15,7 @@ md .\BuildOutput\Database
 copy .\GenerateChangeScript.bat .\BuildOutput\Database
 copy ..\src\DeploymentCockpit.Database\bin\Release\DeploymentCockpit.Database.dacpac .\BuildOutput\Database
 copy ..\src\DeploymentCockpit.Database\bin\Release\DeploymentCockpit.Database_Create.sql .\BuildOutput\Database
+PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& {(Get-Content .\BuildOutput\Database\DeploymentCockpit.Database_Create.sql) | ForEach-Object { $_ -replace 'DeploymentCockpit.Database', 'DeploymentCockpit' } | Set-Content .\BuildOutput\Database\DeploymentCockpit.Database_Create.sql}"
 
 md .\BuildOutput\Server
 xcopy ..\src\DeploymentCockpit.Server\bin\*.dll .\BuildOutput\Server\bin /I
