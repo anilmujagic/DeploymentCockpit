@@ -28,7 +28,7 @@ There are following entities that can be defined in Deployment Cockpit:
  
 **Deployment Plans** are lists of steps which are supposed to be executed for deployment to be complete. 
  
-**Deployment Plan Step** is one of the step in Deployment Plan which specifies the script that should be executed in that step. It also specifies if the script should be executed for specific or all target groups and if execution is supposed to happen remotely on target machine (e.g. start/stop windows service, set IIS application offline) or locally on deployment server by using information about target machine (e.g. pushing deployment package to shared directory on target machine). Execution can also be done from deployment server without specific target group (e.g. database scripts) 
+**Deployment Plan Step** is one of the steps in Deployment Plan which specifies the script that should be executed in that step. It also specifies if the script should be executed for specific or all target groups and if execution is supposed to happen remotely on target machine (e.g. start/stop windows service, set IIS application offline) or locally on deployment server by using information about target machine (e.g. pushing deployment package to shared directory on target machine). Execution can also be done from deployment server without specific target group (e.g. update database by running SQL scripts against DB server) 
  
 **Deployment Jobs** are used to initiate deployment by specifying Deployment Plan which should be used, version of the application to be deployed, and target Environment. 
  
