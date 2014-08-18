@@ -2,6 +2,6 @@
 
 app.directive("myNavBar", function () {
     return {
-        templateUrl: "/app/common/myNavBar.html"
+        templateUrl: "app/common/myNavBar.html"
     };
 });

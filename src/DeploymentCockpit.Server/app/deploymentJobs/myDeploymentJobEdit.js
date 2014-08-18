@@ -2,7 +2,7 @@
 
 app.directive("myDeploymentJobEdit", function () {
     return {
-        templateUrl: "/app/deploymentJobs/myDeploymentJobEdit.html",
+        templateUrl: "app/deploymentJobs/myDeploymentJobEdit.html",
         scope: {
             projectID: "=projectId",
             deploymentJob: "="

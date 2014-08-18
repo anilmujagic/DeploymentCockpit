@@ -2,7 +2,7 @@
 
 deploymentCockpit.crudServiceFactory = (function () {
     var create = function (resource, restResourceName) {
-        var url = "/api/" + restResourceName + "/:id";
+        var url = "api/" + restResourceName + "/:id";
         var _resource = resource(url, { id: "@id" }, { "update": { method: "PUT" } });
 
         return {

@@ -35,7 +35,7 @@ app.controller("DeploymentJobDetailsCtrl", function ($scope, $routeParams, $moda
         $scope.executionDetails = deploymentJobStepsSvc.get(executionReference);
 
         $scope.modalInstance = $modal.open({
-            templateUrl: "/app/deploymentJobs/deploymentJobStepDetails.html",
+            templateUrl: "app/deploymentJobs/deploymentJobStepDetails.html",
             scope: $scope,
             size: 'lg'
         });

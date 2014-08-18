@@ -2,7 +2,7 @@
 
 app.directive("myTargetGroups", function () {
     return {
-        templateUrl: "/app/targetGroups/myTargetGroups.html",
+        templateUrl: "app/targetGroups/myTargetGroups.html",
         scope: {
             projectID: "=projectId"
         },
@@ -25,7 +25,7 @@ app.directive("myTargetGroups", function () {
                 $scope.targetGroup = targetGroup;
 
                 $scope.modalInstance = $modal.open({
-                    templateUrl: "/app/targetGroups/targetGroupEdit.html",
+                    templateUrl: "app/targetGroups/targetGroupEdit.html",
                     scope: $scope
                 });
 

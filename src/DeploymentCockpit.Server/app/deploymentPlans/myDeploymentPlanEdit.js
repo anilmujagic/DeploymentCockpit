@@ -2,7 +2,7 @@
 
 app.directive("myDeploymentPlanEdit", function () {
     return {
-        templateUrl: "/app/deploymentPlans/myDeploymentPlanEdit.html",
+        templateUrl: "app/deploymentPlans/myDeploymentPlanEdit.html",
         scope: {
             deploymentPlan: "="
         },

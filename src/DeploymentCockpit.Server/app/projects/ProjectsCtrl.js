@@ -19,7 +19,7 @@ app.controller("ProjectsCtrl", function ($scope, $modal, projectsSvc, notificati
         $scope.project = project;
 
         $scope.modalInstance = $modal.open({
-            templateUrl: "/app/projects/projectEdit.html",
+            templateUrl: "app/projects/projectEdit.html",
             scope: $scope
         });
 

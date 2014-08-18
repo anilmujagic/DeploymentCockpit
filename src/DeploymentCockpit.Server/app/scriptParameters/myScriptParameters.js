@@ -2,7 +2,7 @@
 
 app.directive("myScriptParameters", function () {
     return {
-        templateUrl: "/app/scriptParameters/myScriptParameters.html",
+        templateUrl: "app/scriptParameters/myScriptParameters.html",
         scope: {
             scriptID: "=scriptId"
         },
@@ -25,7 +25,7 @@ app.directive("myScriptParameters", function () {
                 $scope.scriptParameter = scriptParameter;
 
                 $scope.modalInstance = $modal.open({
-                    templateUrl: "/app/scriptParameters/scriptParameterEdit.html",
+                    templateUrl: "app/scriptParameters/scriptParameterEdit.html",
                     scope: $scope
                 });
 

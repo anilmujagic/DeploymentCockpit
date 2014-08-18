@@ -2,7 +2,7 @@
 
 app.directive("myProjectTargets", function () {
     return {
-        templateUrl: "/app/projectTargets/myProjectTargets.html",
+        templateUrl: "app/projectTargets/myProjectTargets.html",
         scope: {
             projectID: "=projectId"
         },
@@ -27,7 +27,7 @@ app.directive("myProjectTargets", function () {
                 $scope.projectTarget = {};
 
                 $scope.modalInstance = $modal.open({
-                    templateUrl: "/app/projectTargets/projectTargetAdd.html",
+                    templateUrl: "app/projectTargets/projectTargetAdd.html",
                     scope: $scope
                 });
 

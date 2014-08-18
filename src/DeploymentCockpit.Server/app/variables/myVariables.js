@@ -2,7 +2,7 @@
 
 app.directive("myVariables", function () {
     return {
-        templateUrl: "/app/variables/myVariables.html",
+        templateUrl: "app/variables/myVariables.html",
         scope: {
             scopeKey: "=scopeKey",
             scopeID: "=scopeId"
@@ -32,7 +32,7 @@ app.directive("myVariables", function () {
                 $scope.variable = variable;
 
                 $scope.modalInstance = $modal.open({
-                    templateUrl: "/app/variables/variableEdit.html",
+                    templateUrl: "app/variables/variableEdit.html",
                     scope: $scope
                 });
 

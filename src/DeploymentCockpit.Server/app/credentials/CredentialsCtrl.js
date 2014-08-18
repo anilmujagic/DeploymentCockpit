@@ -19,7 +19,7 @@ app.controller("CredentialsCtrl", function ($scope, $modal, credentialsSvc, noti
         $scope.credential = credential;
 
         $scope.modalInstance = $modal.open({
-            templateUrl: "/app/credentials/credentialEdit.html",
+            templateUrl: "app/credentials/credentialEdit.html",
             scope: $scope
         });
 

@@ -2,7 +2,7 @@
 
 app.directive("myScriptEdit", function () {
     return {
-        templateUrl: "/app/scripts/myScriptEdit.html",
+        templateUrl: "app/scripts/myScriptEdit.html",
         scope: {
             scriptID: "=scriptId",
             script: "="

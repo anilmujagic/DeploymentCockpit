@@ -31,7 +31,7 @@ app.controller("TargetsCtrl", function ($scope, $modal, targetsSvc, credentialsS
         $scope.target = target;
 
         $scope.modalInstance = $modal.open({
-            templateUrl: "/app/targets/targetEdit.html",
+            templateUrl: "app/targets/targetEdit.html",
             scope: $scope
         });
 
