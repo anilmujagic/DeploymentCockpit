@@ -20,6 +20,7 @@ PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& {(Get-Content .\BuildO
 md .\BuildOutput\Server
 xcopy ..\src\DeploymentCockpit.Server\bin\*.dll .\BuildOutput\Server\bin /I
 xcopy ..\src\DeploymentCockpit.Server\App_Start\*.cs .\BuildOutput\Server\App_Start /I
+copy ..\src\DeploymentCockpit.Server\Global.asax .\BuildOutput\Server
 copy ..\src\DeploymentCockpit.Server\Web.config .\BuildOutput\Server
 copy ..\src\DeploymentCockpit.Server\AppSettings.config .\BuildOutput\Server
 copy ..\src\DeploymentCockpit.Server\ConnectionStrings.config .\BuildOutput\Server
