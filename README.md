@@ -1,6 +1,6 @@
-# DeploymentCockpit
+# Deployment Cockpit
 
-Deployment Cockpit is deployment automation tool. It is built around the concept of multiple small reusable scripts which, combined with project definitions, are executed in specified order. 
+Deployment Cockpit is a deployment automation tool. It is built around the concept of multiple small reusable scripts which, combined with project definitions, are executed in specified order. 
  
  
 ## System Overview
