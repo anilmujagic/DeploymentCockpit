@@ -7,7 +7,7 @@ Deployment Cockpit is a deployment automation tool. It is built around the conce
 
 Deployment Cockpit consists of three main components: Server, Job Runner and Targets. 
  
-**Server** is the web application where all scripts and project definitions are stored. It is the central place of the system from which deployments are initiated and monitored. 
+**Server** is the web application where all scripts and project definitions are stored and managed. It is the central place of the system from which deployments are initiated and monitored. 
  
 **Job Runner** is windows service responsible for execution of deployment jobs initiated by the Server. It usually (but not necessary) runs on the same machine as the Server. 
  
