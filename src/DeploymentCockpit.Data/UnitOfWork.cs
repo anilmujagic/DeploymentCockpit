@@ -11,6 +11,7 @@ namespace DeploymentCockpit.Data
 {
     public class UnitOfWork : IUnitOfWork
     {
+        private readonly DeploymentCockpitEntities _db;
         private readonly Dictionary<Type, object> _repositories = new Dictionary<Type, object>();
 
         public UnitOfWork(DeploymentCockpitEntities db)
@@ -20,8 +21,6 @@ namespace DeploymentCockpit.Data
 
             _db = db;
         }
-
-        private readonly DeploymentCockpitEntities _db;
 
         public void Commit()
         {
