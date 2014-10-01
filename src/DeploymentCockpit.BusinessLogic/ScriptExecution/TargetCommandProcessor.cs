@@ -43,8 +43,8 @@ namespace DeploymentCockpit.ScriptExecution
                     var json = EncryptionHelper.Decrypt(encryptedJson, encriptionKey, encriptionSalt);
 
                     var command = JsonConvert.DeserializeObject<ScriptExecutionCommand>(json);
-                    if (command.CommandTime.AddSeconds(60) < DateTime.UtcNow)
-                        throw new TimeoutException();  // To prevent re-execution of script by using sniffed packet.
+                    // if (command.CommandTime.AddSeconds(60) < DateTime.UtcNow)
+                    //     throw new TimeoutException();  // To prevent re-execution of script by using sniffed packet.
 #if DEBUG
                     Console.WriteLine("Executing {0} script.", command.ScriptType);
 #endif
