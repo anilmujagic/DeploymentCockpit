@@ -81,33 +81,4 @@
   <ItemGroup>
     <RefactorLog Include="DeploymentCockpit.Database.refactorlog" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Snapshots\DeploymentCockpit.Database_0001.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0002.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0003.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0004.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0005.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0006.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0007.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0008.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0009.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0010.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0011.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0012.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0013.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0014.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0015.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0016.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0017.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0018.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0019.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0020.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0021.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0022.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0023.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0024.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0025.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0026.dacpac" />
-    <None Include="Snapshots\DeploymentCockpit.Database_0027.dacpac" />
-  </ItemGroup>
 </Project>
