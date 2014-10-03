@@ -9,9 +9,9 @@ set sqlPackageDir="C:\Program Files (x86)\Microsoft SQL Server\110\DAC\bin"
 
 if not [%3] == [] (
     if [%4] == [] goto Help
-    call %sqlPackageDir%\SqlPackage.exe /Action:Script /SourceFile:DeploymentCockpit.Database.dacpac /TargetDatabaseName:%1 /TargetServerName:%2 /TargetUser:%3 /TargetPassword:%4 /OutputPath:ChangeScript.sql
+    call %sqlPackageDir%\SqlPackage.exe /Action:Script /p:GenerateSmartDefaults=True /SourceFile:DeploymentCockpit.Database.dacpac /TargetDatabaseName:%1 /TargetServerName:%2 /TargetUser:%3 /TargetPassword:%4 /OutputPath:ChangeScript.sql
 ) else (
-    call %sqlPackageDir%\SqlPackage.exe /Action:Script /SourceFile:DeploymentCockpit.Database.dacpac /TargetDatabaseName:%1 /TargetServerName:%2 /OutputPath:ChangeScript.sql
+    call %sqlPackageDir%\SqlPackage.exe /Action:Script /p:GenerateSmartDefaults=True /SourceFile:DeploymentCockpit.Database.dacpac /TargetDatabaseName:%1 /TargetServerName:%2 /OutputPath:ChangeScript.sql
 )
 
 set sqlPackageDir=
