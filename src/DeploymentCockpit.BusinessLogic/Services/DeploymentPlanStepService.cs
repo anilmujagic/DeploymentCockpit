@@ -28,12 +28,12 @@ namespace DeploymentCockpit.Services
             }
         }
 
-        public IEnumerable<DeploymentPlanStep> GetAllForDeploymentPlan(short deploymentPlanID)
+        public IEnumerable<DeploymentPlanStep> GetEnabledForDeploymentPlan(short deploymentPlanID)
         {
             using (var uow = _unitOfWorkFactory.Create())
             {
                 return uow.Repository<DeploymentPlanStep>()
-                    .GetAll(s => s.DeploymentPlanID == deploymentPlanID);
+                    .GetAll(s => s.DeploymentPlanID == deploymentPlanID && s.IsEnabled);
             }
         }
 

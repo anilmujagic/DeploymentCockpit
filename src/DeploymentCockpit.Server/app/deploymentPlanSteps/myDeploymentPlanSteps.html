@@ -11,6 +11,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Enabled</th>
                     <th>Script</th>
                     <th>Target Group</th>
                     <th></th>
@@ -21,6 +22,9 @@
                     <a href="#/DeploymentPlanStep/Edit/{{deploymentPlanStep.deploymentPlanStepID}}?projectID={{projectID}}">
                         {{deploymentPlanStep.name}}
                     </a>
+                </td>
+                <td>
+                    <span class="glyphicon glyphicon-ok" ng-show="deploymentPlanStep.isEnabled"></span>
                 </td>
                 <td>
                     <a href="#/Script/Edit/{{deploymentPlanStep.scriptID}}">

@@ -114,7 +114,7 @@ namespace DeploymentCockpit.Services
 
         private void ExecuteDeploymentSteps(DeploymentJob job)
         {
-            var planSteps = _deploymentPlanStepService.GetAllForDeploymentPlan(job.DeploymentPlanID)
+            var planSteps = _deploymentPlanStepService.GetEnabledForDeploymentPlan(job.DeploymentPlanID)
                 .OrderBy(s => s.ExecutionOrder)
                 .ToList();
 
