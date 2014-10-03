@@ -81,4 +81,7 @@
   <ItemGroup>
     <RefactorLog Include="DeploymentCockpit.Database.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Snapshots\DeploymentCockpit.Database_0.1.0.dacpac" />
+  </ItemGroup>
 </Project>
