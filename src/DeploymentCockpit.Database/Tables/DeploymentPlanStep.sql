@@ -4,6 +4,7 @@
     [DeploymentPlanID] SMALLINT NOT NULL,
     [Name] NVARCHAR(100) NOT NULL, 
     [Description] NVARCHAR(MAX) NULL, 
+    [IsEnabled] BIT NOT NULL,
     [ExecutionOrder] SMALLINT NOT NULL,
     [ScriptID] SMALLINT NOT NULL,
     [AllTargetGroups] BIT NOT NULL,

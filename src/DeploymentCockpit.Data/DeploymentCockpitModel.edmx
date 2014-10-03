@@ -76,6 +76,7 @@
           <Property Name="DeploymentPlanID" Type="smallint" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
           <Property Name="ExecutionOrder" Type="smallint" Nullable="false" />
           <Property Name="ScriptID" Type="smallint" Nullable="false" />
           <Property Name="AllTargetGroups" Type="bit" Nullable="false" />
@@ -799,6 +800,7 @@
           <Property Name="DeploymentPlanID" Type="Int16" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
           <Property Name="ExecutionOrder" Type="Int16" Nullable="false" />
           <Property Name="ScriptID" Type="Int16" Nullable="false" />
           <NavigationProperty Name="DeploymentPlan" Relationship="DeploymentCockpitModel.FK_DeploymentPlanStep_DeploymentPlan" FromRole="DeploymentPlanStep" ToRole="DeploymentPlan" />
@@ -1117,6 +1119,7 @@
           <EntitySetMapping Name="DeploymentPlanSteps">
             <EntityTypeMapping TypeName="DeploymentCockpitModel.DeploymentPlanStep">
               <MappingFragment StoreEntitySet="DeploymentPlanStep">
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
                 <ScalarProperty Name="RemoteExecution" ColumnName="RemoteExecution" />
                 <ScalarProperty Name="TargetGroupID" ColumnName="TargetGroupID" />
                 <ScalarProperty Name="AllTargetGroups" ColumnName="AllTargetGroups" />

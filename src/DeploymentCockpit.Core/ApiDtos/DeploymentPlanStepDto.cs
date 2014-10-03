@@ -20,6 +20,8 @@ namespace DeploymentCockpit.ApiDtos
 
         public string Description { get; set; }
 
+        public bool IsEnabled { get; set; }
+
         [Required(ErrorMessage = "The Execution Order field is required.")]
         [Range(1, short.MaxValue)]
         public short? ExecutionOrder { get; set; }

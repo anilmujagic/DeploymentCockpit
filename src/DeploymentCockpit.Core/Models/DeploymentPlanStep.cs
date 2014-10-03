@@ -23,6 +23,7 @@ namespace DeploymentCockpit.Models
         public short DeploymentPlanID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public bool IsEnabled { get; set; }
         public short ExecutionOrder { get; set; }
         public short ScriptID { get; set; }
         public bool AllTargetGroups { get; set; }
