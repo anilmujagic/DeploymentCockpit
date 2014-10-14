@@ -10,9 +10,9 @@ namespace DeploymentCockpit.Common
     public static class VariableHelper
     {
         public const string ProductVersionVariable = "ProductVersion";
-        public const string TargetComputerNameVariable = "Target.ComputerName";
-        public const string CredentialUsernameVariable = "Credential.Username";
-        public const string CredentialPasswordVariable = "Credential.Password";
+        public const string TargetComputerNameVariable = "TargetComputerName";
+        public const string CredentialUsernameVariable = "CredentialUsername";
+        public const string CredentialPasswordVariable = "CredentialPassword";
 
         public static string FormatPlaceholder(string variableName)
         {
