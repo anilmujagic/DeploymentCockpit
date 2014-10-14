@@ -59,7 +59,7 @@ namespace DeploymentCockpit.Services
                     value = variable.Value;
 
                 if (value.IsNullOrWhiteSpace())
-                    value = this.GetValueFromPredefinedVariable(parameter.Name, job.ProductVersion,
+                    value = this.GetValueFromPredefinedVariable(parameter.Name, job.DeploymentJobID, job.ProductVersion,
                         targetComputerName, credentialUsername, credentialPassword);
 
                 if (value.IsNullOrWhiteSpace())
@@ -85,9 +85,12 @@ namespace DeploymentCockpit.Services
             return scriptBody;
         }
 
-        private string GetValueFromPredefinedVariable(string parameterName, string productVersion,
+        private string GetValueFromPredefinedVariable(string parameterName, int deploymentJobID, string productVersion,
             string targetComputerName = null, string credentialUsername = null, string credentialPassword = null)
         {
+            if (parameterName == VariableHelper.DeploymentJobIDVariable)
+                return deploymentJobID.ToString("D");
+
             if (parameterName == VariableHelper.ProductVersionVariable)
                 return productVersion;
 

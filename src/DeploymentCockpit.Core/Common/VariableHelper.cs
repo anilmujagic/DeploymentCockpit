@@ -9,6 +9,7 @@ namespace DeploymentCockpit.Common
 {
     public static class VariableHelper
     {
+        public const string DeploymentJobIDVariable = "DeploymentJobID";
         public const string ProductVersionVariable = "ProductVersion";
         public const string TargetComputerNameVariable = "TargetComputerName";
         public const string CredentialUsernameVariable = "CredentialUsername";
