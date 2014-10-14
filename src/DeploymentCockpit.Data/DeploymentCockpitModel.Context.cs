@@ -40,5 +40,6 @@ namespace DeploymentCockpit.Data
         public virtual DbSet<Variable> Variables { get; set; }
         public virtual DbSet<DeploymentJobStep> DeploymentJobSteps { get; set; }
         public virtual DbSet<DeploymentJobStepTarget> DeploymentJobStepTargets { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

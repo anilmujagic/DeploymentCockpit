@@ -68,6 +68,7 @@
     <Compile Include="ApiDtos\TargetGroupDto.cs" />
     <Compile Include="ApiDtos\ScriptDto.cs" />
     <Compile Include="ApiDtos\TargetDto.cs" />
+    <Compile Include="ApiDtos\UserDto.cs" />
     <Compile Include="ApiDtos\VariableDto.cs" />
     <Compile Include="Common\AutoMapperConfiguration.cs" />
     <Compile Include="Common\VariableHelper.cs" />
@@ -150,6 +151,9 @@
     </Compile>
     <Compile Include="Models\Target.custom.cs" />
     <Compile Include="Models\TargetGroup.cs">
+      <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
       <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Variable.cs">

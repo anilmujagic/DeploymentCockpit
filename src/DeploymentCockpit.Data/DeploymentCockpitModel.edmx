@@ -151,6 +151,14 @@
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="Variable">
           <Key>
             <PropertyRef Name="VariableID" />
@@ -421,6 +429,7 @@
           <EntitySet Name="ScriptParameter" EntityType="Self.ScriptParameter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Target" EntityType="Self.Target" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TargetGroup" EntityType="Self.TargetGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Variable" EntityType="Self.Variable" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_DeploymentJob_DeploymentPlan" Association="Self.FK_DeploymentJob_DeploymentPlan">
             <End Role="DeploymentPlan" EntitySet="DeploymentPlan" />
@@ -607,6 +616,7 @@
             <End Role="Target" EntitySet="Targets" />
             <End Role="DeploymentJobStepTarget" EntitySet="DeploymentJobStepTargets" />
           </AssociationSet>
+          <EntitySet Name="Users" EntityType="DeploymentCockpitModel.User" />
           </EntityContainer>
         <EntityType Name="Credential">
           <Key>
@@ -1025,6 +1035,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1198,6 +1216,15 @@
                 <ScalarProperty Name="TargetID" ColumnName="TargetID" />
                 <ScalarProperty Name="DeploymentJobStepID" ColumnName="DeploymentJobStepID" />
                 <ScalarProperty Name="DeploymentJobStepTargetID" ColumnName="DeploymentJobStepTargetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DeploymentCockpitModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
