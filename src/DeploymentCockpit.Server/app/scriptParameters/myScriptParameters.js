@@ -8,7 +8,9 @@ app.directive("myScriptParameters", function () {
         },
         controller: function ($scope, $modal, scriptParametersSvc, notificationSvc) {
             var reloadData = function () {
-                $scope.scriptParameters = scriptParametersSvc.getAll({ scriptID: $scope.scriptID });
+                if ($scope.scriptID) {
+                    $scope.scriptParameters = scriptParametersSvc.getAll({ scriptID: $scope.scriptID });
+                }
             };
 
             reloadData();
