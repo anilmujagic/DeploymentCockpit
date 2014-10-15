@@ -26,9 +26,6 @@ app.directive("myDeploymentJobs", function () {
                         function () {
                             notificationSvc.success(deploymentJob.name + " deployment job is deleted.");
                             reloadData();
-                        },
-                        function () {
-                            notificationSvc.error("Deployment job deletion failed.");
                         }
                     );
             };

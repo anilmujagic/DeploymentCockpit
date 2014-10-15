@@ -20,9 +20,6 @@ app.controller("ScriptsCtrl", function ($scope, scriptsSvc, notificationSvc) {
                 function () {
                     notificationSvc.success(script.name + " script is deleted.");
                     reloadData();
-                },
-                function () {
-                    notificationSvc.error("Script deletion failed.");
                 }
             );
     };

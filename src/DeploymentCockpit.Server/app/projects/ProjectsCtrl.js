@@ -34,13 +34,6 @@ app.controller("ProjectsCtrl", function ($scope, $modal, projectsSvc, notificati
                 function (response) {
                     notificationSvc.success(project.name + " project is saved.");
                     $scope.modalInstance.close();
-                },
-                function (response) {
-                    if (response.data && (response.data instanceof Array)) {
-                        notificationSvc.errors(response.data);
-                        return;
-                    }
-                    notificationSvc.error("Project save failed.");
                 }
             );
     };
@@ -61,9 +54,6 @@ app.controller("ProjectsCtrl", function ($scope, $modal, projectsSvc, notificati
                 function () {
                     notificationSvc.success(project.name + " project is deleted.");
                     reloadData();
-                },
-                function () {
-                    notificationSvc.error("Project deletion failed.");
                 }
             );
     };

@@ -38,13 +38,6 @@ app.directive("myScriptEdit", function () {
                             } else {
                                 $location.url("Script/Edit/" + response.scriptID);
                             }
-                        },
-                        function (response) {
-                            if (response.data && (response.data instanceof Array)) {
-                                notificationSvc.errors(response.data);
-                                return;
-                            }
-                            notificationSvc.error("Script save failed.");
                         }
                     );
             };
@@ -72,17 +65,13 @@ app.directive("myScriptEdit", function () {
 
                 scriptExecutionSvc.execute(descriptor).$promise.then(
                     function (response) {
-                        $scope.output += response.output + "\n\n";
-                        $scope.isExecutionInProgress = false;
+                        $scope.output += response.output;
                     },
                     function (response) {
-                        if (response.data && (response.data instanceof Array)) {
-                            notificationSvc.errors(response.data);
-                        } else {
-                            var message = "Script execution failed.";
-                            notificationSvc.error(message);
-                            $scope.output += message + "\n" + response + "\n\n";
-                        }
+                        $scope.output += "Script execution failed.\n" + JSON.stringify(response.data, null, "  ");
+                    })
+                    .finally(function () {
+                        $scope.output += "\n\n";
                         $scope.isExecutionInProgress = false;
                     });
             };

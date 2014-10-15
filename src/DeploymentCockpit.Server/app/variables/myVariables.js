@@ -47,13 +47,6 @@ app.directive("myVariables", function () {
                         function (response) {
                             notificationSvc.success(variable.name + " variable is saved.");
                             $scope.modalInstance.close();
-                        },
-                        function (response) {
-                            if (response.data && (response.data instanceof Array)) {
-                                notificationSvc.errors(response.data);
-                                return;
-                            }
-                            notificationSvc.error("Script parameter save failed.");
                         }
                     );
             };
@@ -67,9 +60,6 @@ app.directive("myVariables", function () {
                         function () {
                             notificationSvc.success(variable.name + " variable is deleted.");
                             reloadData();
-                        },
-                        function () {
-                            notificationSvc.error("Variable deletion failed.");
                         }
                     );
             };

@@ -46,13 +46,6 @@ app.controller("TargetsCtrl", function ($scope, $modal, targetsSvc, credentialsS
                 function (response) {
                     notificationSvc.success(target.name + " target is saved.");
                     $scope.modalInstance.close();
-                },
-                function (response) {
-                    if (response.data && (response.data instanceof Array)) {
-                        notificationSvc.errors(response.data);
-                        return;
-                    }
-                    notificationSvc.error("Target save failed.");
                 }
             );
     };
@@ -66,9 +59,6 @@ app.controller("TargetsCtrl", function ($scope, $modal, targetsSvc, credentialsS
                 function () {
                     notificationSvc.success(target.name + " target is deleted.");
                     reloadData();
-                },
-                function () {
-                    notificationSvc.error("Target deletion failed.");
                 }
             );
     };

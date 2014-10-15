@@ -40,13 +40,6 @@ app.directive("myTargetGroups", function () {
                         function (response) {
                             notificationSvc.success(targetGroup.name + " target group is saved.");
                             $scope.modalInstance.close();
-                        },
-                        function (response) {
-                            if (response.data && (response.data instanceof Array)) {
-                                notificationSvc.errors(response.data);
-                                return;
-                            }
-                            notificationSvc.error("Target group save failed.");
                         }
                     );
             };
@@ -60,9 +53,6 @@ app.directive("myTargetGroups", function () {
                         function () {
                             notificationSvc.success(targetGroup.name + " target group is deleted.");
                             reloadData();
-                        },
-                        function () {
-                            notificationSvc.error("Target group deletion failed.");
                         }
                     );
             };

@@ -32,13 +32,6 @@ app.directive("myDeploymentPlanStepEdit", function () {
                             } else {
                                 $location.url("DeploymentPlanStep/Edit/" + response.deploymentPlanStepID);
                             }
-                        },
-                        function (response) {
-                            if (response.data && (response.data instanceof Array)) {
-                                notificationSvc.errors(response.data);
-                                return;
-                            }
-                            notificationSvc.error("Deployment step save failed.");
                         }
                     );
             };

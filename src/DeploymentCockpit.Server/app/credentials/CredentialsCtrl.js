@@ -55,13 +55,6 @@ app.controller("CredentialsCtrl", function ($scope, $modal, credentialsSvc, noti
                 function (response) {
                     notificationSvc.success(credential.name + " credential is saved.");
                     $scope.modalInstance.close();
-                },
-                function (response) {
-                    if (response.data && (response.data instanceof Array)) {
-                        notificationSvc.errors(response.data);
-                        return;
-                    }
-                    notificationSvc.error("Credential save failed.");
                 }
             );
     };
@@ -75,9 +68,6 @@ app.controller("CredentialsCtrl", function ($scope, $modal, credentialsSvc, noti
                 function () {
                     notificationSvc.success(credential.name + " credential is deleted.");
                     reloadData();
-                },
-                function () {
-                    notificationSvc.error("Credential deletion failed.");
                 }
             );
     };

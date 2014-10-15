@@ -28,13 +28,6 @@ app.directive("myDeploymentJobEdit", function () {
                         function (response) {
                             notificationSvc.success("Deployment job is saved.");
                             $location.url("DeploymentJob/Details/" + response.deploymentJobID);
-                        },
-                        function (response) {
-                            if (response.data && (response.data instanceof Array)) {
-                                notificationSvc.errors(response.data);
-                                return;
-                            }
-                            notificationSvc.error("Deployment job save failed.");
                         }
                     );
             };

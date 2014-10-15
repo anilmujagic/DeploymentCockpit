@@ -50,13 +50,6 @@ app.directive("myProjectTargets", function () {
                         function (response) {
                             notificationSvc.success("Project target is added.");
                             $scope.modalInstance.close();
-                        },
-                        function (response) {
-                            if (response.data && (response.data instanceof Array)) {
-                                notificationSvc.errors(response.data);
-                                return;
-                            }
-                            notificationSvc.error("Project target save failed.");
                         }
                     );
             };
@@ -70,9 +63,6 @@ app.directive("myProjectTargets", function () {
                         function () {
                             notificationSvc.success(projectTarget.name + " project target is removed.");
                             reloadData();
-                        },
-                        function () {
-                            notificationSvc.error("Project target removal failed.");
                         }
                     );
             };

@@ -40,13 +40,6 @@ app.directive("myProjectEnvironments", function () {
                         function (response) {
                             notificationSvc.success(projectEnvironment.name + " project environment is saved.");
                             $scope.modalInstance.close();
-                        },
-                        function (response) {
-                            if (response.data && (response.data instanceof Array)) {
-                                notificationSvc.errors(response.data);
-                                return;
-                            }
-                            notificationSvc.error("Project environment save failed.");
                         }
                     );
             };
@@ -60,9 +53,6 @@ app.directive("myProjectEnvironments", function () {
                         function () {
                             notificationSvc.success(projectEnvironment.name + " project environment is deleted.");
                             reloadData();
-                        },
-                        function () {
-                            notificationSvc.error("Project environment deletion failed.");
                         }
                     );
             };

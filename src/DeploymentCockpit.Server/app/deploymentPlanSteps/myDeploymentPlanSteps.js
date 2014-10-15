@@ -27,9 +27,6 @@ app.directive("myDeploymentPlanSteps", function () {
                         function () {
                             notificationSvc.success(deploymentPlanStep.name + " deployment step is deleted.");
                             reloadData();
-                        },
-                        function () {
-                            notificationSvc.error("Deployment step deletion failed.");
                         }
                     );
             };

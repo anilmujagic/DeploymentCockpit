@@ -26,9 +26,6 @@ app.directive("myDeploymentPlans", function () {
                         function () {
                             notificationSvc.success(deploymentPlan.name + " deployment plan is deleted.");
                             reloadData();
-                        },
-                        function () {
-                            notificationSvc.error("Deployment plan deletion failed.");
                         }
                     );
             };
