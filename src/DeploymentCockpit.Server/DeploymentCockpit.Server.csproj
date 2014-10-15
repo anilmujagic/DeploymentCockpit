@@ -16,8 +16,8 @@
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
   </PropertyGroup>
@@ -214,6 +214,7 @@
       <Link>Properties\MasterAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Filters\AuthorizedUsersFilter.cs" />
     <Compile Include="Controllers\Api\ApiControllerExtensions.cs" />
     <Compile Include="Controllers\Api\CredentialsController.cs" />
     <Compile Include="Controllers\Api\CrudApiController.cs" />

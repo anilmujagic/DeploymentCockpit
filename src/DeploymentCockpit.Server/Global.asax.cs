@@ -8,6 +8,8 @@ using Autofac;
 using Autofac.Integration.WebApi;
 using DeploymentCockpit.Common;
 using DeploymentCockpit.DI;
+using DeploymentCockpit.Interfaces;
+using DeploymentCockpit.Server.Filters;
 
 namespace DeploymentCockpit.Server
 {
@@ -27,6 +29,12 @@ namespace DeploymentCockpit.Server
         {
             var builder = new ContainerBuilder();
             builder.RegisterModule<DeploymentCockpitMainModule>();
+            
+            builder.RegisterWebApiFilterProvider(GlobalConfiguration.Configuration);
+            builder.Register(c => new AuthorizedUsersFilter(c.Resolve<IUserService>()))
+                .AsWebApiAuthorizationFilterFor<ApiController>()
+                .InstancePerRequest();            
+
             builder.RegisterApiControllers(typeof(WebApiApplication).Assembly);
 
             var container = builder.Build();
