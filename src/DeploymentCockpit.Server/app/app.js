@@ -2,7 +2,7 @@
 
 var app = angular.module("app", ["ngRoute", "ngResource", "ui.bootstrap"]);
 
-app.config(function ($routeProvider, $locationProvider) {
+app.config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
         .when("/Settings", { controller: "SettingsCtrl", templateUrl: "app/settings/settings.html" })
 
@@ -31,6 +31,8 @@ app.config(function ($routeProvider, $locationProvider) {
         .otherwise({ redirectTo: "/Projects" });
 
     //$locationProvider.html5Mode(true);
+
+    $httpProvider.interceptors.push("httpInterceptor");
 });
 
 app.run(function ($rootScope) {

@@ -104,6 +104,7 @@
   <ItemGroup>
     <Content Include="app\app.js" />
     <Content Include="app\common\crudServiceFactory.js" />
+    <Content Include="app\common\httpInterceptor.js" />
     <Content Include="app\common\myLoadingIndicator.html" />
     <Content Include="app\common\myLoadingIndicator.js" />
     <Content Include="app\common\myNavBar.html" />
