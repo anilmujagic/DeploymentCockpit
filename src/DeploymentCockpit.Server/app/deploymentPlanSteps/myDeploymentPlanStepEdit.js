@@ -30,7 +30,8 @@ app.directive("myDeploymentPlanStepEdit", function () {
                             if (deploymentPlanStep.deploymentPlanStepID) {
                                 $location.url("DeploymentPlan/Details/" + response.deploymentPlanID);
                             } else {
-                                $location.url("DeploymentPlanStep/Edit/" + response.deploymentPlanStepID);
+                                $location.url("DeploymentPlanStep/Edit/" + response.deploymentPlanStepID
+                                    + "?projectID=" + $scope.projectID);
                             }
                         }
                     );

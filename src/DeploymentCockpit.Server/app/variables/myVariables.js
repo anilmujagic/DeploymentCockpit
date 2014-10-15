@@ -9,10 +9,12 @@ app.directive("myVariables", function () {
         },
         controller: function ($scope, $modal, variablesSvc, notificationSvc) {
             var reloadData = function () {
-                $scope.variables = variablesSvc.getAll({
-                    scopeKey: $scope.scopeKey,
-                    scopeID: $scope.scopeID
-                });
+                if ($scope.scopeKey && $scope.scopeID) {
+                    $scope.variables = variablesSvc.getAll({
+                        scopeKey: $scope.scopeKey,
+                        scopeID: $scope.scopeID
+                    });
+                }
             };
 
             reloadData();
