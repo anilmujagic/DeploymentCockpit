@@ -99,6 +99,7 @@
     <Compile Include="Interfaces\ITargetService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IUnitOfWorkFactory.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Interfaces\IVariableService.cs" />
     <Compile Include="Models\Credential.cs">
       <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>

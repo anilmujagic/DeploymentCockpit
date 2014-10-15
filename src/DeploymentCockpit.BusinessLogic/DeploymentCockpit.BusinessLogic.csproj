@@ -84,6 +84,7 @@
     <Compile Include="Services\TargetService.cs" />
     <Compile Include="ScriptExecution\TargetCommandProcessor.cs" />
     <Compile Include="ScriptExecution\TargetCommandSender.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\VariableService.cs" />
   </ItemGroup>
   <ItemGroup>
