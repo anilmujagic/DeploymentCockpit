@@ -4,6 +4,8 @@
             {{deploymentJob.deploymentPlanName}}
             <small>version</small> {{deploymentJob.productVersion}}
             <small>to</small> {{deploymentJob.projectEnvironmentName}}
+            <small>status</small>
+            <span ng-class="'deployment-status-' + deploymentJob.statusKey.toLowerCase()">{{deploymentJob.statusKey}}</span>
         </h2>
         <p class="text-muted">{{deploymentJob.notes}}</p>
     </div>

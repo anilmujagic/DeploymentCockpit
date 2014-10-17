@@ -95,6 +95,14 @@ h4, h5, h6
 
 
 /* Deployment Status */
+.deployment-status-queued {
+    color: darkorange;
+}
+
+.deployment-status-running {
+    color: deepskyblue;
+}
+
 .deployment-status-finished {
     color: limegreen;
 }
