@@ -30,6 +30,7 @@ namespace DeploymentCockpit.Server.Filters
             {
                 actionContext.Response =
                     actionContext.Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Unauthorized");
+                return;
             }
             
             var user = _userService.GetByUsername(principal.Identity.Name);
@@ -37,6 +38,7 @@ namespace DeploymentCockpit.Server.Filters
             {
                 actionContext.Response =
                     actionContext.Request.CreateErrorResponse(HttpStatusCode.Forbidden, "Forbidden");
+                return;
             }
         }
     }
