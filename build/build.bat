@@ -40,14 +40,12 @@ xcopy ..\src\DeploymentCockpit.Target\bin\Release\DeploymentCockpit.Target.exe* 
 xcopy ..\src\DeploymentCockpit.Target\bin\Release\*.dll .\BuildOutput\Target
 copy ..\src\DeploymentCockpit.Target\AppSettings.config .\BuildOutput\Target
 
-if "%1" == "update" (
-    rem Add .sample extension to avoid replacing files during update
-    ren .\BuildOutput\Server\AppSettings.config AppSettings.config.sample
-    ren .\BuildOutput\Server\ConnectionStrings.config ConnectionStrings.config.sample
-    ren .\BuildOutput\JobRunner\AppSettings.config AppSettings.config.sample
-    ren .\BuildOutput\JobRunner\ConnectionStrings.config ConnectionStrings.config.sample
-    ren .\BuildOutput\Target\AppSettings.config AppSettings.config.sample
-)
+rem Add .sample extension to avoid replacing files during update
+ren .\BuildOutput\Server\AppSettings.config AppSettings.config.sample
+ren .\BuildOutput\Server\ConnectionStrings.config ConnectionStrings.config.sample
+ren .\BuildOutput\JobRunner\AppSettings.config AppSettings.config.sample
+ren .\BuildOutput\JobRunner\ConnectionStrings.config ConnectionStrings.config.sample
+ren .\BuildOutput\Target\AppSettings.config AppSettings.config.sample
 
 .\tools\7z.exe a .\BuildOutput\DeploymentCockpit.zip .\BuildOutput\*
 rd .\BuildOutput\Database /S /Q
