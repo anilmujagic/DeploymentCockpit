@@ -26,7 +26,7 @@ app.directive("myDeploymentJobEdit", function () {
                 deploymentJobsSvc.save(deploymentJob, deploymentJob.deploymentJobID)
                     .$promise.then(
                         function (response) {
-                            notificationSvc.success("Deployment job is saved.");
+                            notificationSvc.saved("Deployment job");
                             $location.url("DeploymentJob/Details/" + response.deploymentJobID);
                         }
                     );

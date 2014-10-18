@@ -53,20 +53,20 @@ app.controller("CredentialsCtrl", function ($scope, $modal, credentialsSvc, noti
         credentialsSvc.save(credential, credential.credentialID)
             .$promise.then(
                 function (response) {
-                    notificationSvc.success(credential.name + " credential is saved.");
+                    notificationSvc.saved(credential.name);
                     $scope.modalInstance.close();
                 }
             );
     };
 
     $scope.delete = function (credential) {
-        if (!confirm("Do you really want to delete this?")) {
+        if (!notificationSvc.confirmDelete(credential.name)) {
             return;
         }
         credentialsSvc.delete(credential.credentialID)
             .$promise.then(
                 function () {
-                    notificationSvc.success(credential.name + " credential is deleted.");
+                    notificationSvc.deleted(credential.name);
                     reloadData();
                 }
             );

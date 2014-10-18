@@ -40,20 +40,20 @@ app.directive("myScriptParameters", function () {
                 scriptParametersSvc.save(scriptParameter, scriptParameter.scriptParameterID)
                     .$promise.then(
                         function (response) {
-                            notificationSvc.success(scriptParameter.name + " script parameter is saved.");
+                            notificationSvc.saved(scriptParameter.name);
                             $scope.modalInstance.close();
                         }
                     );
             };
 
             $scope.delete = function (scriptParameter) {
-                if (!confirm("Do you really want to delete this?")) {
+                if (!notificationSvc.confirmDelete(scriptParameter.name)) {
                     return;
                 }
                 scriptParametersSvc.delete(scriptParameter.scriptParameterID)
                     .$promise.then(
                         function () {
-                            notificationSvc.success(scriptParameter.name + " script parameter is deleted.");
+                            notificationSvc.deleted(scriptParameter.name);
                             reloadData();
                         }
                     );

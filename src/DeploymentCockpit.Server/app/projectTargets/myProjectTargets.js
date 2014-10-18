@@ -61,7 +61,7 @@ app.directive("myProjectTargets", function () {
                 projectTargetsSvc.delete(projectTarget.projectTargetID)
                     .$promise.then(
                         function () {
-                            notificationSvc.success(projectTarget.name + " project target is removed.");
+                            notificationSvc.success("Project target is removed.");
                             reloadData();
                         }
                     );

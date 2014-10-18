@@ -12,13 +12,13 @@ app.controller("ScriptsCtrl", function ($scope, scriptsSvc, notificationSvc) {
     };
 
     $scope.delete = function (script) {
-        if (!confirm("Do you really want to delete this?")) {
+        if (!notificationSvc.confirmDelete(script.name)) {
             return;
         }
         scriptsSvc.delete(script.scriptID)
             .$promise.then(
                 function () {
-                    notificationSvc.success(script.name + " script is deleted.");
+                    notificationSvc.deleted(script.name);
                     reloadData();
                 }
             );

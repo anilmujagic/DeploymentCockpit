@@ -38,20 +38,20 @@ app.directive("myTargetGroups", function () {
                 targetGroupsSvc.save(targetGroup, targetGroup.targetGroupID)
                     .$promise.then(
                         function (response) {
-                            notificationSvc.success(targetGroup.name + " target group is saved.");
+                            notificationSvc.saved(targetGroup.name);
                             $scope.modalInstance.close();
                         }
                     );
             };
 
             $scope.delete = function (targetGroup) {
-                if (!confirm("Do you really want to delete this?")) {
+                if (!notificationSvc.confirmDelete(targetGroup.name)) {
                     return;
                 }
                 targetGroupsSvc.delete(targetGroup.targetGroupID)
                     .$promise.then(
                         function () {
-                            notificationSvc.success(targetGroup.name + " target group is deleted.");
+                            notificationSvc.deleted(targetGroup.name);
                             reloadData();
                         }
                     );

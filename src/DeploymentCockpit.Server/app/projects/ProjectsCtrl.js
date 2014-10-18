@@ -32,14 +32,14 @@ app.controller("ProjectsCtrl", function ($scope, $modal, projectsSvc, notificati
         projectsSvc.save(project, project.projectID)
             .$promise.then(
                 function (response) {
-                    notificationSvc.success(project.name + " project is saved.");
+                    notificationSvc.saved(project.name);
                     $scope.modalInstance.close();
                 }
             );
     };
 
     $scope.delete = function (project) {
-        if (!confirm("Do you really want to delete this?")) {
+        if (!notificationSvc.confirmDelete(project.name)) {
             return;
         }
         var dangerMessage = "!!! DANGER !!!\n\n" +
@@ -52,7 +52,7 @@ app.controller("ProjectsCtrl", function ($scope, $modal, projectsSvc, notificati
         projectsSvc.delete(project.projectID)
             .$promise.then(
                 function () {
-                    notificationSvc.success(project.name + " project is deleted.");
+                    notificationSvc.deleted(project.name);
                     reloadData();
                 }
             );

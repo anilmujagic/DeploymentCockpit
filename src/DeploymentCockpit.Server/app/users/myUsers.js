@@ -36,20 +36,20 @@ app.directive("myUsers", function () {
                 usersSvc.save(user, user.userID)
                     .$promise.then(
                         function (response) {
-                            notificationSvc.success(user.name + " user is saved.");
+                            notificationSvc.saved(user.name);
                             $scope.modalInstance.close();
                         }
                     );
             };
 
             $scope.delete = function (user) {
-                if (!confirm("Do you really want to delete this?")) {
+                if (!notificationSvc.confirmDelete(user.name)) {
                     return;
                 }
                 usersSvc.delete(user.userID)
                     .$promise.then(
                         function () {
-                            notificationSvc.success(user.name + " user is deleted.");
+                            notificationSvc.deleted(user.name);
                             reloadData();
                         }
                     );

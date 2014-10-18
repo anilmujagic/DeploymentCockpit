@@ -11,7 +11,7 @@ app.directive("myDeploymentPlanEdit", function () {
                 deploymentPlansSvc.save(deploymentPlan, deploymentPlan.deploymentPlanID)
                     .$promise.then(
                         function (response) {
-                            notificationSvc.success(deploymentPlan.name + " deployment plan is saved.");
+                            notificationSvc.saved(deploymentPlan.name);
                             $location.url("DeploymentPlan/Details/" + response.deploymentPlanID);
                         }
                     );

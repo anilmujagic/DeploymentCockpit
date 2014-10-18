@@ -16,19 +16,6 @@ app.directive("myDeploymentJobs", function () {
             $scope.isLoading = function () {
                 return !$scope.deploymentJobs.$resolved;
             };
-
-            $scope.delete = function (deploymentJob) {
-                if (!confirm("Do you really want to delete this?")) {
-                    return;
-                }
-                deploymentJobsSvc.delete(deploymentJob.deploymentJobID)
-                    .$promise.then(
-                        function () {
-                            notificationSvc.success(deploymentJob.name + " deployment job is deleted.");
-                            reloadData();
-                        }
-                    );
-            };
         }
     };
 });

@@ -18,13 +18,13 @@ app.directive("myDeploymentPlans", function () {
             };
 
             $scope.delete = function (deploymentPlan) {
-                if (!confirm("Do you really want to delete this?")) {
+                if (!notificationSvc.confirmDelete(deploymentPlan.name)) {
                     return;
                 }
                 deploymentPlansSvc.delete(deploymentPlan.deploymentPlanID)
                     .$promise.then(
                         function () {
-                            notificationSvc.success(deploymentPlan.name + " deployment plan is deleted.");
+                            notificationSvc.deleted(deploymentPlan.name);
                             reloadData();
                         }
                     );

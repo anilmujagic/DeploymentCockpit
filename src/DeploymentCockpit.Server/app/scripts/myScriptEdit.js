@@ -32,7 +32,7 @@ app.directive("myScriptEdit", function () {
                 scriptsSvc.save(script, script.scriptID)
                     .$promise.then(
                         function (response) {
-                            notificationSvc.success(script.name + " script is saved.");
+                            notificationSvc.saved(script.name);
                             if (script.scriptID) {
                                 $location.url("Scripts");
                             } else {

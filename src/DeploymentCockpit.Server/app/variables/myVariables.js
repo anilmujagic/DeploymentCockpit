@@ -47,20 +47,20 @@ app.directive("myVariables", function () {
                 variablesSvc.save(variable, variable.variableID)
                     .$promise.then(
                         function (response) {
-                            notificationSvc.success(variable.name + " variable is saved.");
+                            notificationSvc.saved(variable.name);
                             $scope.modalInstance.close();
                         }
                     );
             };
 
             $scope.delete = function (variable) {
-                if (!confirm("Do you really want to delete this?")) {
+                if (!notificationSvc.confirmDelete(variable.name)) {
                     return;
                 }
                 variablesSvc.delete(variable.variableID)
                     .$promise.then(
                         function () {
-                            notificationSvc.success(variable.name + " variable is deleted.");
+                            notificationSvc.deleted(variable.name);
                             reloadData();
                         }
                     );

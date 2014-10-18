@@ -26,7 +26,7 @@ app.directive("myDeploymentPlanStepEdit", function () {
                 deploymentPlanStepsSvc.save(deploymentPlanStep, deploymentPlanStep.deploymentPlanStepID)
                     .$promise.then(
                         function (response) {
-                            notificationSvc.success(deploymentPlanStep.name + " deployment step environment is saved.");
+                            notificationSvc.saved(deploymentPlanStep.name);
                             if (deploymentPlanStep.deploymentPlanStepID) {
                                 $location.url("DeploymentPlan/Details/" + response.deploymentPlanID);
                             } else {

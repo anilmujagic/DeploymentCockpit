@@ -44,20 +44,20 @@ app.controller("TargetsCtrl", function ($scope, $modal, targetsSvc, credentialsS
         targetsSvc.save(target, target.targetID)
             .$promise.then(
                 function (response) {
-                    notificationSvc.success(target.name + " target is saved.");
+                    notificationSvc.saved(target.name);
                     $scope.modalInstance.close();
                 }
             );
     };
 
     $scope.delete = function (target) {
-        if (!confirm("Do you really want to delete this?")) {
+        if (!notificationSvc.confirmDelete(target.name)) {
             return;
         }
         targetsSvc.delete(target.targetID)
             .$promise.then(
                 function () {
-                    notificationSvc.success(target.name + " target is deleted.");
+                    notificationSvc.deleted(target.name);
                     reloadData();
                 }
             );

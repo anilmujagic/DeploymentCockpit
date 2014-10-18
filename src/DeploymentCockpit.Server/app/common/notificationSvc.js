@@ -22,6 +22,19 @@ app.factory("notificationSvc", function () {
             for (var i = 0; i < errors.length; i++) {
                 this.error(errors[i]);
             }
+        },
+
+        saved: function (name) {
+            console.log("[Saved] " + name);
+            toastr.success(name, "Saved");
+        },
+        deleted: function (name) {
+            console.log("[Deleted] " + name);
+            toastr.success(name, "Deleted");
+        },
+
+        confirmDelete: function (name) {
+            return confirm('Are you sure you want to delete "' + name + '"?');
         }
     };
 });

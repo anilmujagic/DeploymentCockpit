@@ -38,20 +38,20 @@ app.directive("myProjectEnvironments", function () {
                 projectEnvironmentsSvc.save(projectEnvironment, projectEnvironment.projectEnvironmentID)
                     .$promise.then(
                         function (response) {
-                            notificationSvc.success(projectEnvironment.name + " project environment is saved.");
+                            notificationSvc.saved(projectEnvironment.name);
                             $scope.modalInstance.close();
                         }
                     );
             };
 
             $scope.delete = function (projectEnvironment) {
-                if (!confirm("Do you really want to delete this?")) {
+                if (!notificationSvc.confirmDelete(projectEnvironment.name)) {
                     return;
                 }
                 projectEnvironmentsSvc.delete(projectEnvironment.projectEnvironmentID)
                     .$promise.then(
                         function () {
-                            notificationSvc.success(projectEnvironment.name + " project environment is deleted.");
+                            notificationSvc.deleted(projectEnvironment.name);
                             reloadData();
                         }
                     );
