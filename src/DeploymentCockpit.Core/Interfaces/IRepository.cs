@@ -14,6 +14,13 @@ namespace DeploymentCockpit.Interfaces
         
         T GetByKey(params object[] keyValues);
 
+        #region GetCount
+
+        int GetCount();
+        int GetCount(Expression<Func<T, bool>> whereCondition);
+
+        #endregion
+
         #region GetAll
 
         IEnumerable<T> GetAll();

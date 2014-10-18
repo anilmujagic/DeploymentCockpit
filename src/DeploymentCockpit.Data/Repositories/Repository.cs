@@ -46,6 +46,16 @@ namespace DeploymentCockpit.Data.Repositories
             return _db.Set<T>().Find(keyValues);
         }
 
+        public int GetCount()
+        {
+            return _db.Set<T>().Count();
+        }
+
+        public int GetCount(Expression<Func<T, bool>> whereCondition)
+        {
+            return _db.Set<T>().Count(whereCondition);
+        }
+
         public IEnumerable<T> GetAll()
         {
             return _db.Set<T>().ToList();

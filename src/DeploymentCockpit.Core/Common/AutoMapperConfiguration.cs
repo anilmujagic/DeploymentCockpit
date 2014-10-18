@@ -60,6 +60,9 @@ namespace DeploymentCockpit.Common
             
             Mapper.CreateMap<Variable, VariableDto>();
             Mapper.CreateMap<VariableDto, Variable>();
+
+            Mapper.CreateMap<User, UserDto>();
+            Mapper.CreateMap<UserDto, User>();
         }
     }
 }

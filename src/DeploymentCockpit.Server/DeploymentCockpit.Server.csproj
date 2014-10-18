@@ -187,6 +187,10 @@
     <Content Include="app\targets\targets.html" />
     <Content Include="app\targets\TargetsCtrl.js" />
     <Content Include="app\targets\targetsSvc.js" />
+    <Content Include="app\users\myUsers.html" />
+    <Content Include="app\users\myUsers.js" />
+    <Content Include="app\users\userEdit.html" />
+    <Content Include="app\users\usersSvc.js" />
     <Content Include="app\variables\variableEdit.html" />
     <Content Include="app\variables\myVariables.html" />
     <Content Include="app\variables\myVariables.js" />
@@ -215,6 +219,7 @@
       <Link>Properties\MasterAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Filters\AuthorizedUsersFilter.cs" />
     <Compile Include="Controllers\Api\ApiControllerExtensions.cs" />
     <Compile Include="Controllers\Api\CredentialsController.cs" />

@@ -9,5 +9,6 @@ namespace DeploymentCockpit.Interfaces
     public interface IUserService : ICrudService<User>
     {
         User GetByUsername(string username);
+        int GetCount();
     }
 }

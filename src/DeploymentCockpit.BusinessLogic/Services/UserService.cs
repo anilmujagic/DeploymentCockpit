@@ -24,5 +24,14 @@ namespace DeploymentCockpit.Services
                     .SingleOrDefault();
             }
         }
+
+        public int GetCount()
+        {
+            using (var uow = _unitOfWorkFactory.Create())
+            {
+                return uow.Repository<User>()
+                    .GetCount();
+            }
+        }
     }
 }
