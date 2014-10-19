@@ -16,30 +16,11 @@ namespace DeploymentCockpit.DI
     {
         protected override void Load(ContainerBuilder builder)
         {
-            #region Ambient Contexts
-
-            //Log.LogTarget = new SomeLogTarget();
-            DomainContext.ConfigurationProvider = new AppSettingsConfigurationProvider();
-
-            #endregion
-
-
             #region Single Instance
 
             builder.RegisterType<UnitOfWorkFactory>()
                 .As<IUnitOfWorkFactory>()
                 .InstancePerLifetimeScope();
-
-            #endregion
-
-
-            #region Business Logic
-
-            var businessLogicAssembly = typeof(ProjectService).Assembly;
-
-            builder.RegisterAssemblyTypes(businessLogicAssembly)
-                .Where(t => t.Name.EndsWith("Service"))
-                .AsImplementedInterfaces();
 
             #endregion
 
@@ -58,9 +39,15 @@ namespace DeploymentCockpit.DI
             #endregion
 
 
-            builder.RegisterType<TargetCommandSender>().As<ITargetCommandSender>();
-            builder.RegisterType<TargetCommandProcessor>().As<ITargetCommandProcessor>();
-            builder.RegisterType<ScriptRunner>().As<IScriptRunner>();
+            #region Business Logic
+
+            var businessLogicAssembly = typeof(ProjectService).Assembly;
+
+            builder.RegisterAssemblyTypes(businessLogicAssembly)
+                .Where(t => t.Name.EndsWith("Service"))
+                .AsImplementedInterfaces();
+
+            #endregion
         }
     }
 }

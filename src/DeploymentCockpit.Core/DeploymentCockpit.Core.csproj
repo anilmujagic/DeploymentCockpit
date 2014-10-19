@@ -37,16 +37,22 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
+    <Reference Include="clrzmq">
+      <HintPath>..\packages\clrzmq.3.0.0-rc1\lib\net40\clrzmq.dll</HintPath>
+    </Reference>
     <Reference Include="Insula.Common">
       <HintPath>..\packages\Insula.Common.1.0.3\lib\portable-win+net40+sl40+wp\Insula.Common.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -70,7 +76,9 @@
     <Compile Include="ApiDtos\TargetDto.cs" />
     <Compile Include="ApiDtos\UserDto.cs" />
     <Compile Include="ApiDtos\VariableDto.cs" />
+    <Compile Include="Common\AppSettingsConfigurationProvider.cs" />
     <Compile Include="Common\AutoMapperConfiguration.cs" />
+    <Compile Include="Common\EncryptionHelper.cs" />
     <Compile Include="Common\VariableHelper.cs" />
     <Compile Include="Common\DateTimeExtensions.cs" />
     <Compile Include="Common\DomainContext.cs" />
@@ -163,6 +171,9 @@
     <Compile Include="Models\Variable.custom.cs" />
     <Compile Include="Models\VariableScope.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScriptExecution\ScriptRunner.cs" />
+    <Compile Include="ScriptExecution\TargetCommandProcessor.cs" />
+    <Compile Include="ScriptExecution\TargetCommandSender.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Models\DeploymentCockpitModel.tt">

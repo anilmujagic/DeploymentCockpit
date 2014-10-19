@@ -28,6 +28,7 @@ namespace DeploymentCockpit.Server
         private void RegisterControllerFactory()
         {
             var builder = new ContainerBuilder();
+            builder.RegisterModule<DeploymentCockpitCoreModule>();
             builder.RegisterModule<DeploymentCockpitMainModule>();
             
             builder.RegisterWebApiFilterProvider(GlobalConfiguration.Configuration);

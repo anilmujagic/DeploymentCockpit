@@ -52,6 +52,7 @@ namespace DeploymentCockpit.JobRunner
         private static IContainer InitDI()
         {
             var builder = new ContainerBuilder();
+            builder.RegisterModule<DeploymentCockpitCoreModule>();
             builder.RegisterModule<DeploymentCockpitMainModule>();
             return builder.Build();
         }

@@ -50,6 +50,7 @@
     <Compile Include="..\MasterAssemblyInfo.cs">
       <Link>Properties\MasterAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="DeploymentCockpitCoreModule.cs" />
     <Compile Include="DeploymentCockpitMainModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

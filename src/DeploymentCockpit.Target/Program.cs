@@ -51,7 +51,7 @@ namespace DeploymentCockpit.Target
         private static IContainer InitDI()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterModule<DeploymentCockpitMainModule>();
+            builder.RegisterModule<DeploymentCockpitCoreModule>();
             return builder.Build();
         }
     }
