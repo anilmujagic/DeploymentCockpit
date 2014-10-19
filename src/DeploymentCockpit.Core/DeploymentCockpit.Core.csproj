@@ -74,7 +74,7 @@
     <Compile Include="Common\VariableHelper.cs" />
     <Compile Include="Common\DateTimeExtensions.cs" />
     <Compile Include="Common\DomainContext.cs" />
-    <Compile Include="Common\EnumHelperExtensions.cs" />
+    <Compile Include="Common\EnumExtensions.cs" />
     <Compile Include="Common\ExceptionExtensions.cs" />
     <Compile Include="Interfaces\IConfigurationProvider.cs" />
     <Compile Include="Interfaces\ICredentialService.cs" />
