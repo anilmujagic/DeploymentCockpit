@@ -62,7 +62,7 @@
       <Link>Properties\MasterAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Common\AppSettingsConfigurationProvider.cs" />
-    <Compile Include="Common\EncriptionHelper.cs" />
+    <Compile Include="Common\EncryptionHelper.cs" />
     <Compile Include="ScriptExecution\ScriptRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CredentialService.cs" />
