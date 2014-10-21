@@ -9,7 +9,7 @@ app.directive("myVariables", function () {
         },
         controller: function ($scope, $modal, variablesSvc, notificationSvc) {
             var reloadData = function () {
-                if ($scope.scopeKey && $scope.scopeID) {
+                if ($scope.scopeKey === "Global" || ($scope.scopeKey && $scope.scopeID)) {
                     $scope.variables = variablesSvc.getAll({
                         scopeKey: $scope.scopeKey,
                         scopeID: $scope.scopeID
