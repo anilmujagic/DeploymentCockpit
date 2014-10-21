@@ -115,6 +115,8 @@
     <Content Include="app\credentials\CredentialsCtrl.js" />
     <Content Include="app\credentials\credentialsSvc.js" />
     <Content Include="app\credentials\credentialEdit.html" />
+    <Content Include="app\dashboard\dashboard.html" />
+    <Content Include="app\dashboard\DashboardCtrl.js" />
     <Content Include="app\deploymentJobs\deploymentJobCreate.html" />
     <Content Include="app\deploymentJobs\DeploymentJobCreateCtrl.js" />
     <Content Include="app\deploymentJobs\deploymentJobDetails.html" />
@@ -124,6 +126,8 @@
     <Content Include="app\deploymentJobs\deploymentJobStepDetails.html" />
     <Content Include="app\deploymentJobs\deploymentJobStepsSvc.js" />
     <Content Include="app\deploymentJobs\deploymentJobsSvc.js" />
+    <Content Include="app\deploymentJobs\myActiveDeploymentJobs.html" />
+    <Content Include="app\deploymentJobs\myActiveDeploymentJobs.js" />
     <Content Include="app\deploymentJobs\myDeploymentJobEdit.html" />
     <Content Include="app\deploymentJobs\myDeploymentJobEdit.js" />
     <Content Include="app\deploymentJobs\myDeploymentJobs.html" />

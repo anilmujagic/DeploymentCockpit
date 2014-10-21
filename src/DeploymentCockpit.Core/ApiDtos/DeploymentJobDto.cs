@@ -15,6 +15,7 @@ namespace DeploymentCockpit.ApiDtos
 
         [Required(ErrorMessage = "The Project field is required.")]
         public short? ProjectID { get; set; }
+        public string ProjectName { get; set; }
 
         public DateTime SubmissionTime { get; set; }
         public string SubmissionTimeDisplay

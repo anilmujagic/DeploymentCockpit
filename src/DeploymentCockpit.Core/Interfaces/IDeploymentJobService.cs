@@ -11,7 +11,7 @@ namespace DeploymentCockpit.Interfaces
     {
         DeploymentJob GetWithRelations(int id);
         IEnumerable<TDto> GetAllForProjectAs<TDto>(short projectID);
-
+        IEnumerable<TDto> GetAllActiveAs<TDto>();
         DeploymentJob GetNextJobInTheQueue();
     }
 }

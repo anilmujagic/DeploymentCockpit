@@ -4,6 +4,8 @@ var app = angular.module("app", ["ngRoute", "ngResource", "ui.bootstrap"]);
 
 app.config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
+        .when("/Dashboard", { controller: "DashboardCtrl", templateUrl: "app/dashboard/dashboard.html" })
+
         .when("/Settings", { controller: "SettingsCtrl", templateUrl: "app/settings/settings.html" })
 
         .when("/Projects", { controller: "ProjectsCtrl", templateUrl: "app/projects/projects.html" })
@@ -28,7 +30,7 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider) {
         .when("/DeploymentJob/Edit/:deploymentJobID", { controller: "DeploymentJobEditCtrl", templateUrl: "app/deploymentJobs/deploymentJobEdit.html" })
         .when("/DeploymentJob/Details/:deploymentJobID", { controller: "DeploymentJobDetailsCtrl", templateUrl: "app/deploymentJobs/deploymentJobDetails.html" })
 
-        .otherwise({ redirectTo: "/Projects" });
+        .otherwise({ redirectTo: "/Dashboard" });
 
     //$locationProvider.html5Mode(true);
 

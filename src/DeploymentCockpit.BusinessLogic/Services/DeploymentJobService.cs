@@ -40,6 +40,25 @@ namespace DeploymentCockpit.Services
             }
         }
 
+        public IEnumerable<TDto> GetAllActiveAs<TDto>()
+        {
+            var activeStatusKeys = new string[]
+                {
+                    DeploymentStatus.Queued.ToString(),
+                    DeploymentStatus.Running.ToString()
+                };
+
+            using (var uow = _unitOfWorkFactory.Create())
+            {
+                return uow.Repository<DeploymentJob>()
+                    .GetAllAs<TDto, Project, DeploymentPlan, ProjectEnvironment>(
+                        j => activeStatusKeys.Contains(j.StatusKey),
+                        j => j.Project,
+                        j => j.DeploymentPlan,
+                        j => j.ProjectEnvironment);
+            }
+        }
+
         public DeploymentJob GetNextJobInTheQueue()
         {
             using (var uow = _unitOfWorkFactory.Create())
