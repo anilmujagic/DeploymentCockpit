@@ -11,7 +11,9 @@ namespace DeploymentCockpit.Data
     {
         public IUnitOfWork Create()
         {
-            return new UnitOfWork(new DeploymentCockpitEntities());
+            var ctx = new DeploymentCockpitEntities();
+            ctx.Configuration.LazyLoadingEnabled = false;
+            return new UnitOfWork(ctx);
         }
     }
 }
