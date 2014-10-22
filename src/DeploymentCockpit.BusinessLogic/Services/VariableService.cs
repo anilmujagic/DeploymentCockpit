@@ -31,7 +31,6 @@ namespace DeploymentCockpit.Services
             string credentialUsername = null, string credentialPassword = null)
         {
             List<Variable> variables;
-
             using (var uow = _unitOfWorkFactory.Create())
             {
                 variables = uow.Repository<Variable>()
@@ -46,9 +45,40 @@ namespace DeploymentCockpit.Services
                     .ToList();
             }
 
-            var scriptBody = script.Body;
+            var parameters = script.Parameters
+                .OrderBy(v => v.Name)
+                .ToList();
+            parameters.Add(new ScriptParameter { Name = VariableHelper.DeploymentJobNumberVariable });
+            parameters.Add(new ScriptParameter { Name = VariableHelper.ProductVersionVariable });
+            parameters.Add(new ScriptParameter { Name = VariableHelper.TargetComputerNameVariable });
+            parameters.Add(new ScriptParameter { Name = VariableHelper.CredentialUsernameVariable });
+            parameters.Add(new ScriptParameter { Name = VariableHelper.CredentialPasswordVariable });
 
-            foreach (var parameter in script.Parameters)
+            // Replace variable placeholders with values in multiple passes
+            // to enable using variables inside other variables.
+            var cyclesLeft = 10;
+            var originalBody = script.Body;
+            while (true)
+            {
+                var processedBody = this.ReplacePlaceholders(originalBody, script.Name, parameters, variables,
+                    job, targetGroupID, targetComputerName, credentialUsername, credentialPassword);
+
+                if (processedBody == originalBody)  // Nothing left to replace
+                    return processedBody;
+
+                originalBody = processedBody;
+
+                if (--cyclesLeft == 0)
+                    throw new Exception("Possible cyclic reference in variables.");
+            }
+        }
+
+        private string ReplacePlaceholders(string scriptBody, string scriptName,
+            IEnumerable<ScriptParameter> parameters, IEnumerable<Variable> variables, DeploymentJob job,
+            short? targetGroupID = null, string targetComputerName = null,
+            string credentialUsername = null, string credentialPassword = null)
+        {
+            foreach (var parameter in parameters)
             {
                 var variable = variables
                     .FirstOrDefault(v => v.Name == parameter.Name && !v.Value.IsNullOrWhiteSpace());
@@ -70,7 +100,7 @@ namespace DeploymentCockpit.Services
                     if (parameter.IsMandatory)
                         throw new Exception(
                             "Variables did not provide value for mandatory parameter [{0}] in script [{1}]."
-                                .FormatString(parameter.Name, script.Name));
+                                .FormatString(parameter.Name, scriptName));
 
                     continue;
                 }
