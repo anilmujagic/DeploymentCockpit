@@ -88,7 +88,7 @@ namespace DeploymentCockpit.Services
         private string GetValueFromPredefinedVariable(string parameterName, int deploymentJobID, string productVersion,
             string targetComputerName = null, string credentialUsername = null, string credentialPassword = null)
         {
-            if (parameterName == VariableHelper.DeploymentJobIDVariable)
+            if (parameterName == VariableHelper.DeploymentJobNumberVariable)
                 return deploymentJobID.ToString("D");
 
             if (parameterName == VariableHelper.ProductVersionVariable)
