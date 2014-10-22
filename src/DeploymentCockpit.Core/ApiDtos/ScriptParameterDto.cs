@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DeploymentCockpit.Common;
 
 namespace DeploymentCockpit.ApiDtos
 {
-    public class ScriptParameterDto
+    public class ScriptParameterDto : IValidatableObject
     {
         public int ScriptParameterID { get; set; }
 
@@ -21,5 +22,15 @@ namespace DeploymentCockpit.ApiDtos
         public string DefaultValue { get; set; }
 
         public bool IsMandatory { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (VariableHelper.AllPredefined.Contains(this.Name))
+            {
+                yield return new ValidationResult(
+                    "Don't add parameters for predefined variables.",
+                    new[] { "Name" });
+            }
+        }
     }
 }

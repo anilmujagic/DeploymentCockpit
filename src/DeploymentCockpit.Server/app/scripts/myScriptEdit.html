@@ -28,6 +28,12 @@
         </div>
     </div>
     <div class="col-md-8">
+        <div class="well well-sm" ng-show="isExistingScript()">
+            <small>
+                <strong>Predefined variables:</strong>
+                DeploymentJobNumber, ProductVersion, TargetComputerName, CredentialUsername, CredentialPassword
+            </small>
+        </div>
         <div my-script-parameters script-id="scriptID" ng-show="isExistingScript()"></div>
     </div>
 </div>

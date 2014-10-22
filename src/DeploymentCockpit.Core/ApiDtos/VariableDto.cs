@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DeploymentCockpit.Common;
 
 namespace DeploymentCockpit.ApiDtos
 {
-    public class VariableDto
+    public class VariableDto : IValidatableObject
     {
         public int VariableID { get; set; }
 
@@ -21,5 +22,15 @@ namespace DeploymentCockpit.ApiDtos
         public string Name { get; set; }
 
         public string Value { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (VariableHelper.AllPredefined.Contains(this.Name))
+            {
+                yield return new ValidationResult(
+                    "A variable cannot have the same name as one of the predefined variables.",
+                    new[] { "Name" });
+            }
+        }
     }
 }

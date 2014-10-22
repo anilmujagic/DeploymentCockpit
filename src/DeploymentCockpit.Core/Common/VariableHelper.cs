@@ -15,6 +15,18 @@ namespace DeploymentCockpit.Common
         public const string CredentialUsernameVariable = "CredentialUsername";
         public const string CredentialPasswordVariable = "CredentialPassword";
 
+        public static IEnumerable<string> AllPredefined
+        {
+            get
+            {
+                yield return DeploymentJobNumberVariable;
+                yield return ProductVersionVariable;
+                yield return TargetComputerNameVariable;
+                yield return CredentialUsernameVariable;
+                yield return CredentialPasswordVariable;
+            }
+        }
+
         public static string FormatPlaceholder(string variableName)
         {
             return "{0}{1}{2}".FormatString(
