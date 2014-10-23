@@ -20,7 +20,7 @@ app.directive("myScriptParameters", function () {
             };
 
             $scope.create = function () {
-                $scope.edit({ scriptID: $scope.scriptID });
+                $scope.edit({ scriptID: $scope.scriptID, isMandatory: true });
             };
 
             $scope.edit = function (scriptParameter) {
