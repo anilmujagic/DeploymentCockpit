@@ -10,14 +10,19 @@
         <table class="table table-condensed table-hover table-striped table-borderless">
             <thead>
                 <tr>
+                    <th>Order</th>
                     <th>Name</th>
                     <th>Enabled</th>
                     <th>Script</th>
                     <th>Target Group</th>
+                    <th>Remote</th>
                     <th></th>
                 </tr>
             </thead>
             <tr ng-repeat="deploymentPlanStep in deploymentPlanSteps | orderBy:'executionOrder'">
+                <td>
+                    {{deploymentPlanStep.executionOrder}}
+                </td>
                 <td>
                     <a href="#/DeploymentPlanStep/Edit/{{deploymentPlanStep.deploymentPlanStepID}}?projectID={{projectID}}">
                         {{deploymentPlanStep.name}}
@@ -33,6 +38,9 @@
                 </td>
                 <td>
                     {{deploymentPlanStep.targetGroupInfo}}
+                </td>
+                <td>
+                    <span class="glyphicon glyphicon-ok" ng-show="deploymentPlanStep.remoteExecution"></span>
                 </td>
                 <td>
                     <a href="" class="pull-right" title="Delete" ng-click="delete(deploymentPlanStep)">
