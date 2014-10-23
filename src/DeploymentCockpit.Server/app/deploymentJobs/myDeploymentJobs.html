@@ -10,11 +10,12 @@
             <thead>
                 <tr>
                     <th>Deployment Plan</th>
-                    <th>Product Version</th>
+                    <th>Version</th>
                     <th>Environment</th>
                     <th>Submission Time</th>
                     <th>Start Time</th>
                     <th>End Time</th>
+                    <th>Duration</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -25,6 +26,7 @@
                 <td><span title="{{deploymentJob.submissionTime}}">{{deploymentJob.submissionTimeDisplay}}</span></td>
                 <td><span title="{{deploymentJob.startTime}}">{{deploymentJob.startTimeDisplay}}</span></td>
                 <td><span title="{{deploymentJob.endTime}}">{{deploymentJob.endTimeDisplay}}</span></td>
+                <td><span>{{deploymentJob.duration}}</span></td>
                 <td>
                     <a href="#/DeploymentJob/Details/{{deploymentJob.deploymentJobID}}"
                        ng-class="'deployment-status-' + deploymentJob.statusKey.toLowerCase()">

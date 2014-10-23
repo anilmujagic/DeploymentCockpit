@@ -42,6 +42,7 @@
                             <th>Target</th>
                             <th>Start Time</th>
                             <th>End Time</th>
+                            <th>Duration</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -50,6 +51,7 @@
                         <td>{{deploymentJobStep.targetName}}</td>
                         <td><span title="{{deploymentJobStep.startTime}}">{{deploymentJobStep.startTimeDisplay}}</span></td>
                         <td><span title="{{deploymentJobStep.endTime}}">{{deploymentJobStep.endTimeDisplay}}</span></td>
+                        <td><span>{{deploymentJobStep.duration}}</span></td>
                         <td>
                             <a href="" ng-click="showExecutionDetails(deploymentJobStep.executionReference)">
                                 <img src="assets/img/deployment-running.gif"

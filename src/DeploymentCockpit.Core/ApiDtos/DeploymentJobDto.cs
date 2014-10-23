@@ -35,10 +35,23 @@ namespace DeploymentCockpit.ApiDtos
             get { return this.EndTime.GetDisplayValue(); }
         }
 
+        public string Duration
+        {
+            get
+            {
+                if (!this.StartTime.HasValue)
+                    return "-";
+
+                return (this.EndTime ?? DateTime.UtcNow)
+                    .Subtract(this.StartTime.Value)
+                    .ToDisplayString();
+            }
+        }
+
         public string StatusKey { get; set; }
 
-        [Required]
-        [MaxLength(100, ErrorMessage = "Name cannot be longer than 100 characters.")]
+        [Required(ErrorMessage = "The Version field is required.")]
+        [MaxLength(100, ErrorMessage = "Version string cannot be longer than 100 characters.")]
         public string ProductVersion { get; set; }
 
         [Required(ErrorMessage = "The Project Environment field is required.")]

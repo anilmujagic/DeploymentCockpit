@@ -79,6 +79,7 @@
     <Compile Include="Common\AppSettingsConfigurationProvider.cs" />
     <Compile Include="Common\AutoMapperConfiguration.cs" />
     <Compile Include="Common\EncryptionHelper.cs" />
+    <Compile Include="Common\TimeSpanExtensions.cs" />
     <Compile Include="Common\VariableHelper.cs" />
     <Compile Include="Common\DateTimeExtensions.cs" />
     <Compile Include="Common\DomainContext.cs" />

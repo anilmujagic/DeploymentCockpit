@@ -23,6 +23,19 @@ namespace DeploymentCockpit.ApiDtos
             get { return this.EndTime.GetDisplayValue(); }
         }
 
+        public string Duration
+        {
+            get
+            {
+                if (!this.StartTime.HasValue)
+                    return "-";
+
+                return (this.EndTime ?? DateTime.UtcNow)
+                    .Subtract(this.StartTime.Value)
+                    .ToDisplayString();
+            }
+        }
+
         public Guid ExecutionReference { get; set; }
     }
 
