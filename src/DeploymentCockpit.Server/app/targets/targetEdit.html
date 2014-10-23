@@ -26,7 +26,8 @@
     </div>
     <div class="form-group">
         <label>Credential</label>
-        <select ng-model="target.credentialID" ng-options="c.credentialID as c.name for c in credentials"
+        <select ng-model="target.credentialID"
+                ng-options="c.credentialID as c.name for c in credentials | orderBy:'name'"
                 class="form-control"></select>
     </div>
 </div>

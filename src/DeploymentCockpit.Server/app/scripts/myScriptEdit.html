@@ -10,7 +10,8 @@
         </div>
         <div class="form-group">
             <label>Project</label>
-            <select ng-model="script.projectID" ng-options="c.projectID as c.name for c in projects"
+            <select ng-model="script.projectID"
+                    ng-options="c.projectID as c.name for c in projects | orderBy:'name'"
                     class="form-control">
                 <option value=""></option>
             </select>

@@ -20,12 +20,14 @@
 </div>
 <div class="form-group">
     <label>Script</label>
-    <select ng-model="deploymentPlanStep.scriptID" ng-options="c.scriptID as c.name group by c.projectName for c in scripts"
+    <select ng-model="deploymentPlanStep.scriptID"
+            ng-options="c.scriptID as c.name group by c.projectName for c in scripts | orderBy:'name'"
             class="form-control"></select>
 </div>
 <div class="form-group">
     <label>Target Group</label>
-    <select ng-model="deploymentPlanStep.targetGroupID" ng-options="c.targetGroupID as c.name for c in targetGroups"
+    <select ng-model="deploymentPlanStep.targetGroupID"
+            ng-options="c.targetGroupID as c.name for c in targetGroups | orderBy:'name'"
             class="form-control"
             ng-change="onTargetGroupChanged()"
             ng-disabled="deploymentPlanStep.allTargetGroups">

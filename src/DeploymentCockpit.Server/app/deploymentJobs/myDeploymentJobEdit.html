@@ -1,7 +1,7 @@
 ﻿<div class="form-group">
     <label>Deployment Plan</label>
     <select ng-model="deploymentJob.deploymentPlanID"
-            ng-options="p.deploymentPlanID as p.name for p in deploymentPlans"
+            ng-options="p.deploymentPlanID as p.name for p in deploymentPlans | orderBy:'name'"
             class="form-control"
             ng-disabled="isExistingJob()"></select>
 </div>
@@ -13,10 +13,9 @@
 <div class="form-group">
     <label>Environment</label>
     <select ng-model="deploymentJob.projectEnvironmentID"
-            ng-options="e.projectEnvironmentID as e.name for e in projectEnvironments"
+            ng-options="e.projectEnvironmentID as e.name for e in projectEnvironments | orderBy:'name'"
             class="form-control"
-            ng-disabled="isExistingJob()">
-    </select>
+            ng-disabled="isExistingJob()"></select>
 </div>
 <div class="form-group">
     <label>Notes</label><span class="text-danger" ng-show="isJobRunning()"> Cannot edit running job</span>
