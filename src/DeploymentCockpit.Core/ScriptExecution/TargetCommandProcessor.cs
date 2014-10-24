@@ -38,6 +38,7 @@ namespace DeploymentCockpit.ScriptExecution
             {
                 using (var socket = context.CreateSocket(SocketType.REP))
                 {
+                    Log.Info(string.Empty);
                     Log.Info("Listening...");
                     socket.Bind(endpoint);
                     var encryptedJson = socket.Receive(Encoding.UTF8);
@@ -55,6 +56,7 @@ namespace DeploymentCockpit.ScriptExecution
                     Log.Info("Sending results...");
                     var encryptedOutput = EncryptionHelper.Encrypt(output, encriptionKey, encriptionSalt);
                     socket.Send(encryptedOutput, Encoding.UTF8);
+                    Log.Success("Results sent");
                 }
             }
         }
