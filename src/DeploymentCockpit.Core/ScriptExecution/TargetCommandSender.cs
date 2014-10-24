@@ -25,10 +25,14 @@ namespace DeploymentCockpit.ScriptExecution
             {
                 using (var socket = context.CreateSocket(SocketType.REQ))
                 {
+                    Log.Info("Connecting to {0} on port {1}...", computerName, portNumber);
                     socket.Connect(endpoint);
+                    Log.Info("Sending command...");
                     socket.Send(encryptedJson, Encoding.UTF8);
 
+                    Log.Info("Waiting for results...");
                     var encryptedReply = socket.Receive(Encoding.UTF8);
+                    Log.Success("Results received");
                     var reply = EncryptionHelper.Decrypt(encryptedReply, encriptionKey, encriptionSalt);
 
                     return reply;

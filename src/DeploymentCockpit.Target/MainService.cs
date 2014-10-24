@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Timers;
+using DeploymentCockpit.Common;
 using DeploymentCockpit.Interfaces;
 using Insula.Common;
 
@@ -33,11 +33,7 @@ namespace DeploymentCockpit.Target
             }
             catch (Exception ex)
             {
-                foreach (var error in ex.GetExceptionTreeAsFlatList())
-                {
-                    Debug.WriteLine(ex.Message);
-                    Debug.WriteLine(ex.StackTrace);
-                }
+                Log.Exception(ex);
             }
             finally
             {

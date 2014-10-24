@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -70,9 +69,10 @@ namespace DeploymentCockpit.Services
             }
             catch (Exception ex)
             {
+                Log.Exception(ex);
+
                 foreach (var error in ex.GetExceptionTreeAsFlatList())
                 {
-                    Debug.WriteLine(error.Message);
                     result.Output += error.Message + Environment.NewLine;
                     result.Output += error.StackTrace;
                 }

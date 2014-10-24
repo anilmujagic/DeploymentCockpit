@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -90,6 +89,8 @@ namespace DeploymentCockpit.Services
             if (job == null)
                 return;
 
+            Log.Info("Processing Job {0}...", job.DeploymentJobID);
+
             job.Status = DeploymentStatus.Running;
             job.StartTime = DateTime.UtcNow;
             _deploymentJobService.Update(job);
@@ -98,12 +99,13 @@ namespace DeploymentCockpit.Services
             {
                 this.ExecuteDeploymentSteps(job);
                 job.Status = DeploymentStatus.Finished;
+                Log.Success("Processing Job {0} DONE", job.DeploymentJobID);
             }
             catch (Exception ex)
             {
+                Log.Exception(ex);
                 job.Status = DeploymentStatus.Failed;
                 job.Errors = ex.GetAllMessages();
-                Debug.WriteLine(ex.GetAllMessagesWithStackTraces());
             }
             finally
             {

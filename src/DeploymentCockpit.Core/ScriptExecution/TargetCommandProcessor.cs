@@ -38,18 +38,21 @@ namespace DeploymentCockpit.ScriptExecution
             {
                 using (var socket = context.CreateSocket(SocketType.REP))
                 {
+                    Log.Info("Listening...");
                     socket.Bind(endpoint);
                     var encryptedJson = socket.Receive(Encoding.UTF8);
+                    Log.Info("Command received");
                     var json = EncryptionHelper.Decrypt(encryptedJson, encriptionKey, encriptionSalt);
 
                     var command = JsonConvert.DeserializeObject<ScriptExecutionCommand>(json);
                     // if (command.CommandTime.AddSeconds(60) < DateTime.UtcNow)
                     //     throw new TimeoutException();  // To prevent re-execution of script by using sniffed packet.
-#if DEBUG
-                    Console.WriteLine("Executing {0} script.", command.ScriptType);
-#endif
-                    var output = _scriptRunner.Run(command.ScriptBody, command.ScriptType.ToEnum<ScriptType>());
 
+                    Log.Info("Executing {0} script...", command.ScriptType);
+                    var output = _scriptRunner.Run(command.ScriptBody, command.ScriptType.ToEnum<ScriptType>());
+                    Log.Success("Script executed");
+
+                    Log.Info("Sending results...");
                     var encryptedOutput = EncryptionHelper.Encrypt(output, encriptionKey, encriptionSalt);
                     socket.Send(encryptedOutput, Encoding.UTF8);
                 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -52,7 +51,7 @@ namespace DeploymentCockpit.Common
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.GetAllMessages());
+                Log.Exception(ex);
             }
 
             return null;
