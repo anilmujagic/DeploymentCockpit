@@ -89,7 +89,7 @@ namespace DeploymentCockpit.Services
             if (job == null)
                 return;
 
-            Log.Info("Processing Job {0}...", job.DeploymentJobID);
+            Log.Info("{0}Processing Job {1}...", Environment.NewLine, job.DeploymentJobID);
 
             job.Status = DeploymentStatus.Running;
             job.StartTime = DateTime.UtcNow;
@@ -156,6 +156,8 @@ namespace DeploymentCockpit.Services
                     else  // Execute on deployment server
                     {
                         jobStep.ExecutedScript = _variableService.ResolveVariables(script, planStep, job);
+                        jobStep.ExecutionOutput = "Waiting for output...";
+                        _deploymentJobStepService.Update(jobStep);
 
                         var descriptor = new ScriptJobDescriptor
                             {
@@ -219,6 +221,9 @@ namespace DeploymentCockpit.Services
 
                         // Don't log real password.
                         jobStepTarget.ExecutedScript = scriptBody.Replace(tempPassword, "**********");
+                        jobStepTarget.ExecutionOutput = "Waiting for output...";
+                        _deploymentJobStepTargetService.Update(jobStepTarget);
+
                         scriptBody = scriptBody.Replace(tempPassword, password);
 
                         var descriptor = new ScriptJobDescriptor
