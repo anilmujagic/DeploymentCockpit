@@ -38,8 +38,7 @@ namespace DeploymentCockpit.ScriptExecution
             {
                 using (var socket = context.CreateSocket(SocketType.REP))
                 {
-                    Log.Info(string.Empty);
-                    Log.Info("Listening...");
+                    Log.Info("{0}Listening...", Environment.NewLine);
                     socket.Bind(endpoint);
                     var encryptedJson = socket.Receive(Encoding.UTF8);
                     Log.Info("Command received");
