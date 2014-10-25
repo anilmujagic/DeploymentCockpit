@@ -11,5 +11,6 @@ namespace DeploymentCockpit.Interfaces
     {
         Target GetWithCredential(short id);
         IEnumerable<TDto> GetAllWithCredentialAs<TDto>();
+        string GenerateConfigFile(short id);
     }
 }

@@ -34,8 +34,12 @@
                 <td>{{target.computerName}}</td>
                 <td>{{target.credentialName}}</td>
                 <td>
-                    <a href="" class="pull-right" title="Delete" ng-click="delete(target)">
+                    <a href="" class="pull-right list-button" title="Delete" ng-click="delete(target)">
                         <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                    <a href="api/targets/{{target.targetID}}?generateConfigFile=true"
+                       class="pull-right list-button" title="Download configuration file">
+                        <span class="glyphicon glyphicon-download-alt"></span>
                     </a>
                 </td>
             </tr>
