@@ -37,7 +37,7 @@ namespace DeploymentCockpit.Common
 
         public static void Exception(Exception ex)
         {
-            Entry(LogType.Error, ex.GetAllMessagesWithStackTraces());
+            Entry(LogType.Error, ex.GetAllMessages());
         }
 
         public static void Error(string message, params object[] args)
