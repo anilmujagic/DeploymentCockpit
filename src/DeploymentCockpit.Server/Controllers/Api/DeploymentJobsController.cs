@@ -68,12 +68,13 @@ namespace DeploymentCockpit.Server.Controllers.Api
             return _service.GetAllForProjectAs<DeploymentJobDto>(projectID);
         }
 
-        public IEnumerable<DeploymentJobDto> GetAllActive(bool allActive)
+        public HttpResponseMessage GetAllActive(bool allActive)
         {
-            if (allActive)
-                return _service.GetAllActiveAs<DeploymentJobDto>();
+            if (allActive != true)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+                    "Parameter 'allActive=true' must be set to get all active deployment jobs.");
 
-            throw new HttpResponseException(HttpStatusCode.BadRequest);
+            return Request.CreateResponse(HttpStatusCode.OK, _service.GetAllActiveAs<DeploymentJobDto>());
         }
     }
 }
