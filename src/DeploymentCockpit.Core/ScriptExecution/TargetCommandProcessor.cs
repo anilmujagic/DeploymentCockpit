@@ -8,7 +8,7 @@ using DeploymentCockpit.Interfaces;
 using DeploymentCockpit.Models;
 using Insula.Common;
 using Newtonsoft.Json;
-using ZeroMQ;
+using NetMQ;
 
 namespace DeploymentCockpit.ScriptExecution
 {
@@ -34,13 +34,13 @@ namespace DeploymentCockpit.ScriptExecution
             var encriptionKey = DomainContext.TargetKey;
             var encriptionSalt = DomainContext.ServerKey;
 
-            using (var context = ZmqContext.Create())
+            using (var context = NetMQContext.Create())
             {
-                using (var socket = context.CreateSocket(SocketType.REP))
+                using (var socket = context.CreateResponseSocket())
                 {
                     Log.Info("{0}Listening...", Environment.NewLine);
                     socket.Bind(endpoint);
-                    var encryptedJson = socket.Receive(Encoding.UTF8);
+                    var encryptedJson = socket.ReceiveString(Encoding.UTF8);
                     Log.Info("Command received");
                     var json = EncryptionHelper.Decrypt(encryptedJson, encriptionKey, encriptionSalt);
 

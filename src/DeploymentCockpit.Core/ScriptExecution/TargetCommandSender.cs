@@ -8,7 +8,7 @@ using DeploymentCockpit.Interfaces;
 using DeploymentCockpit.Models;
 using Insula.Common;
 using Newtonsoft.Json;
-using ZeroMQ;
+using NetMQ;
 
 namespace DeploymentCockpit.ScriptExecution
 {
@@ -21,9 +21,9 @@ namespace DeploymentCockpit.ScriptExecution
             var json = JsonConvert.SerializeObject(command);
             var encryptedJson = EncryptionHelper.Encrypt(json, encriptionKey, encriptionSalt);
 
-            using (var context = ZmqContext.Create())
+            using (var context = NetMQContext.Create())
             {
-                using (var socket = context.CreateSocket(SocketType.REQ))
+                using (var socket = context.CreateRequestSocket())
                 {
                     Log.Info("Connecting to {0} on port {1}...", computerName, portNumber);
                     socket.Connect(endpoint);
@@ -31,7 +31,7 @@ namespace DeploymentCockpit.ScriptExecution
                     socket.Send(encryptedJson, Encoding.UTF8);
 
                     Log.Info("Waiting for results...");
-                    var encryptedReply = socket.Receive(Encoding.UTF8);
+                    var encryptedReply = socket.ReceiveString(Encoding.UTF8);
                     Log.Success("Results received");
                     var reply = EncryptionHelper.Decrypt(encryptedReply, encriptionKey, encriptionSalt);
 
