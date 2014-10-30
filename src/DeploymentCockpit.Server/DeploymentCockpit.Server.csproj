@@ -213,7 +213,6 @@
     <Content Include="ext\toastr\toastr.min.css" />
     <Content Include="ext\toastr\toastr.min.js" />
     <Content Include="ext\ui-bootstrap\ui-bootstrap.min.js" />
-    <Content Include="ext\underscore\underscore-min.js" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="Web.config" />
