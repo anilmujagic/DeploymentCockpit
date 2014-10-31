@@ -93,7 +93,12 @@ namespace DeploymentCockpit.Services
 
         private IEnumerable<VariableDto> GetVariables(VariableScope scope, int scopeID)
         {
-            return _variableService.GetAllForScopeAs<VariableDto>(scope, scopeID) ?? Enumerable.Empty<VariableDto>();
+            var variables = _variableService.GetAllForScopeAs<VariableDto>(scope, scopeID);
+
+            if (variables.IsNullOrEmpty())
+                return Enumerable.Empty<VariableDto>();
+
+            return variables.OrderBy(v => v.Name);
         }
     }
 }
