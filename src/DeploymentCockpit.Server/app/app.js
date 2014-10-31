@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-var app = angular.module("app", ["ngRoute", "ngResource", "ui.bootstrap"]);
+var app = angular.module("app", ["ngRoute", "ngResource", "ui.bootstrap", "RecursionHelper"]);
 
 app.config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
@@ -10,6 +10,7 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider) {
 
         .when("/Projects", { controller: "ProjectsCtrl", templateUrl: "app/projects/projects.html" })
         .when("/Project/Details/:projectID", { controller: "ProjectDetailsCtrl", templateUrl: "app/projects/projectDetails.html" })
+        .when("/Project/VariablesHierarchy/:projectID", { controller: "VariablesHierarchyCtrl", templateUrl: "app/projects/variablesHierarchy.html" })
 
         .when("/Credentials", { controller: "CredentialsCtrl", templateUrl: "app/credentials/credentials.html" })
 

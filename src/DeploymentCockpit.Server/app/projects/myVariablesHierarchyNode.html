@@ -1,0 +1,14 @@
+﻿<h5><strong>{{node.scopeKey}}:</strong> {{node.scopeName}}</h5>
+<table class="table table-bordered">
+    <tbody>
+        <tr ng-repeat="variable in node.variables">
+            <td width="25%">{{variable.name}}</td>
+            <td>{{variable.value}}</td>
+        </tr>
+    </tbody>
+</table>
+<ul>
+    <li ng-repeat="child in node.children">
+        <div my-variables-hierarchy-node node="child"></div>
+    </li>
+</ul>

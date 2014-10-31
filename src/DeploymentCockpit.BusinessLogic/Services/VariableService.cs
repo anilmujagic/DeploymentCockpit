@@ -17,6 +17,12 @@ namespace DeploymentCockpit.Services
         {
         }
 
+        public IEnumerable<TDto> GetAllForScopeAs<TDto>(VariableScope scope, int scopeID)
+        {
+            var scopeKey = scope.GetName();
+            return this.GetAllForScopeAs<TDto>(scopeKey, scopeID);
+        }
+
         public IEnumerable<TDto> GetAllForScopeAs<TDto>(string scopeKey, int scopeID)
         {
             using (var uow = _unitOfWorkFactory.Create())

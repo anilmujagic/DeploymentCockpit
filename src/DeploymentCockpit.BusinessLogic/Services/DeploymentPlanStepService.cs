@@ -37,6 +37,15 @@ namespace DeploymentCockpit.Services
             }
         }
 
+        public IEnumerable<DeploymentPlanStep> GetAllForDeploymentPlan(short deploymentPlanID)
+        {
+            using (var uow = _unitOfWorkFactory.Create())
+            {
+                return uow.Repository<DeploymentPlanStep>()
+                    .GetAll(s => s.DeploymentPlanID == deploymentPlanID);
+            }
+        }
+
         public IEnumerable<TDto> GetAllForDeploymentPlanAs<TDto>(short deploymentPlanID)
         {
             using (var uow = _unitOfWorkFactory.Create())

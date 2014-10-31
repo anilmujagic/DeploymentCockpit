@@ -70,7 +70,7 @@ namespace DeploymentCockpit.Server.Controllers.Api
 
         public HttpResponseMessage GetAllActive(bool allActive)
         {
-            if (allActive != true)
+            if (!allActive)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
                     "Parameter 'allActive=true' must be set to get all active deployment jobs.");
 

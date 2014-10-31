@@ -9,6 +9,7 @@ namespace DeploymentCockpit.Interfaces
 {
     public interface IVariableService : ICrudService<Variable>
     {
+        IEnumerable<TDto> GetAllForScopeAs<TDto>(VariableScope scope, int scopeID);
         IEnumerable<TDto> GetAllForScopeAs<TDto>(string scopeKey, int scopeID);
         string ResolveVariables(Script script, DeploymentPlanStep planStep, DeploymentJob job,
             short? targetGroupID = null, string targetComputerName = null,

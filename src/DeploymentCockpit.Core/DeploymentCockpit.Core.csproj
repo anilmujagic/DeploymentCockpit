@@ -76,6 +76,7 @@
     <Compile Include="ApiDtos\TargetDto.cs" />
     <Compile Include="ApiDtos\UserDto.cs" />
     <Compile Include="ApiDtos\VariableDto.cs" />
+    <Compile Include="ApiDtos\VariablesHierarchyInfoDto.cs" />
     <Compile Include="Common\AppSettingsConfigurationProvider.cs" />
     <Compile Include="Common\AutoMapperConfiguration.cs" />
     <Compile Include="Common\EncryptionHelper.cs" />

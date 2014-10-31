@@ -31,5 +31,14 @@ namespace DeploymentCockpit.Server.Controllers.Api
         {
             return this.GetAll();
         }
+
+        public HttpResponseMessage Get(short projectID, bool variablesHierarchy)
+        {
+            if (!variablesHierarchy)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+                    "Parameter 'variablesHierarchy=true' must be set to get the hierarchy.");
+
+            return Request.CreateResponse(HttpStatusCode.OK, _service.GetVariablesHierarchy(projectID));
+        }
     }
 }

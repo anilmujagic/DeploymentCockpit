@@ -11,6 +11,7 @@ namespace DeploymentCockpit.Interfaces
     {
         DeploymentPlanStep GetWithRelations(int id);
         IEnumerable<DeploymentPlanStep> GetEnabledForDeploymentPlan(short deploymentPlanID);
+        IEnumerable<DeploymentPlanStep> GetAllForDeploymentPlan(short deploymentPlanID);
         IEnumerable<TDto> GetAllForDeploymentPlanAs<TDto>(short deploymentPlanID);
     }
 }
