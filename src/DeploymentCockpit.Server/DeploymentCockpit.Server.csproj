@@ -227,6 +227,7 @@
       <Link>Properties\MasterAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Api\DeploymentJobParametersController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Filters\AuthorizedUsersFilter.cs" />
     <Compile Include="Controllers\Api\ApiControllerExtensions.cs" />

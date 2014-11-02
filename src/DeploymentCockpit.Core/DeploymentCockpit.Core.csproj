@@ -60,6 +60,7 @@
       <Link>Properties\MasterAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ApiDtos\CredentialDto.cs" />
+    <Compile Include="ApiDtos\DeploymentJobParameterDto.cs" />
     <Compile Include="ApiDtos\DeploymentJobStepFlatDto.cs" />
     <Compile Include="ApiDtos\ExecutionInfo.cs" />
     <Compile Include="ApiDtos\DeploymentJobStepTargetDto.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Interfaces\ICredentialService.cs" />
     <Compile Include="Interfaces\ICrudService.cs" />
     <Compile Include="Interfaces\IDeploymentJobExecutionService.cs" />
+    <Compile Include="Interfaces\IDeploymentJobParameterService.cs" />
     <Compile Include="Interfaces\IDeploymentJobStepTargetService.cs" />
     <Compile Include="Interfaces\IDeploymentJobStepService.cs" />
     <Compile Include="Interfaces\IDeploymentJobService.cs" />

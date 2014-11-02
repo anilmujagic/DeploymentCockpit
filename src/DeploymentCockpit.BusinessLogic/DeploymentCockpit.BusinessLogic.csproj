@@ -60,6 +60,7 @@
     <Compile Include="Services\CrudService.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\DeploymentJobExecutionService.cs" />
+    <Compile Include="Services\DeploymentJobParameterService.cs" />
     <Compile Include="Services\DeploymentJobStepTargetService.cs" />
     <Compile Include="Services\DeploymentJobStepService.cs" />
     <Compile Include="Services\DeploymentJobService.cs" />
