@@ -160,8 +160,8 @@
     <Content Include="app\projectEnvironments\myProjectEnvironments.html" />
     <Content Include="app\projectEnvironments\myProjectEnvironments.js" />
     <Content Include="app\projectEnvironments\projectEnvironmentsSvc.js" />
-    <Content Include="app\projects\myVariablesHierarchyNode.html" />
-    <Content Include="app\projects\myVariablesHierarchyNode.js" />
+    <Content Include="app\variables\myVariablesHierarchyNode.html" />
+    <Content Include="app\variables\myVariablesHierarchyNode.js" />
     <Content Include="app\projects\projectEdit.html" />
     <Content Include="app\projects\projectDetails.html" />
     <Content Include="app\projects\ProjectDetailsCtrl.js" />
@@ -169,8 +169,8 @@
     <Content Include="app\projects\projectsSvc.js" />
     <Content Include="app\projects\projects.html" />
     <Content Include="app\init.js" />
-    <Content Include="app\projects\variablesHierarchy.html" />
-    <Content Include="app\projects\VariablesHierarchyCtrl.js" />
+    <Content Include="app\variables\variablesHierarchy.html" />
+    <Content Include="app\variables\VariablesHierarchyCtrl.js" />
     <Content Include="app\projectTargets\projectTargetAdd.html" />
     <Content Include="app\projectTargets\myProjectTargets.html" />
     <Content Include="app\projectTargets\myProjectTargets.js" />

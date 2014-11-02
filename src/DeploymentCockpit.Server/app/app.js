@@ -10,7 +10,8 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider) {
 
         .when("/Projects", { controller: "ProjectsCtrl", templateUrl: "app/projects/projects.html" })
         .when("/Project/Details/:projectID", { controller: "ProjectDetailsCtrl", templateUrl: "app/projects/projectDetails.html" })
-        .when("/Project/VariablesHierarchy/:projectID", { controller: "VariablesHierarchyCtrl", templateUrl: "app/projects/variablesHierarchy.html" })
+
+        .when("/Variables/VariablesHierarchy/:projectID", { controller: "VariablesHierarchyCtrl", templateUrl: "app/variables/variablesHierarchy.html" })
 
         .when("/Credentials", { controller: "CredentialsCtrl", templateUrl: "app/credentials/credentials.html" })
 

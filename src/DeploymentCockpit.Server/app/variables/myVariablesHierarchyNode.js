@@ -1,6 +1,6 @@
 ﻿app.directive("myVariablesHierarchyNode", function (RecursionHelper) {
     return {
-        templateUrl: "app/projects/myVariablesHierarchyNode.html",
+        templateUrl: "app/variables/myVariablesHierarchyNode.html",
         scope: {
             node: "="
         },
