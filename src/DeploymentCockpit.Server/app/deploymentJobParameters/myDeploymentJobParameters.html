@@ -1,0 +1,18 @@
+﻿<div class="panel panel-info panel-borderless">
+    <div class="panel-heading">
+        Deployment Job Parameters
+        <a href="" class="pull-right" title="Create new" ng-click="create()">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+    <div class="panel-body">
+        <ul class="list-unstyled">
+            <li ng-repeat="parameter in parameters | orderBy:'name'">
+                <a href="" ng-click="edit(parameter)">{{parameter.name}}</a>
+                <a href="" class="pull-right" title="Delete" ng-click="delete(parameter)">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
