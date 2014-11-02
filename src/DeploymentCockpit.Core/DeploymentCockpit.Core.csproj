@@ -123,6 +123,9 @@
     <Compile Include="Models\DeploymentJob.cs">
       <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DeploymentJobParameter.cs">
+      <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DeploymentJobStepTarget.custom.cs" />
     <Compile Include="Models\DeploymentJobStep.custom.cs" />
     <Compile Include="Models\DeploymentJob.custom.cs" />

@@ -39,6 +39,9 @@
         <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentJobStepTarget_DeploymentJobStep" />
         <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentJobStepTarget_Target" />
         <EntityTypeShape EntityType="DeploymentCockpitModel.User" Width="1.5" PointX="11.5" PointY="3.25" />
+        <EntityTypeShape EntityType="DeploymentCockpitModel.DeploymentJobParameter" Width="2.125" PointX="6.875" PointY="9" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentJobParameter_Project" ManuallyRouted="false" >
+        </AssociationConnector>
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

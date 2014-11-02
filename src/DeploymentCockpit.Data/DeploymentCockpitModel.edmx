@@ -31,6 +31,14 @@
           <Property Name="Notes" Type="nvarchar(max)" />
           <Property Name="Errors" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="DeploymentJobParameter">
+          <Key>
+            <PropertyRef Name="DeploymentJobParameterID" />
+          </Key>
+          <Property Name="DeploymentJobParameterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="smallint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="DeploymentJobStep">
           <Key>
             <PropertyRef Name="DeploymentJobStepID" />
@@ -204,6 +212,20 @@
             </Principal>
             <Dependent Role="DeploymentJob">
               <PropertyRef Name="ProjectEnvironmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeploymentJobParameter_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DeploymentJobParameter" Type="Self.DeploymentJobParameter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="DeploymentJobParameter">
+              <PropertyRef Name="ProjectID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -418,6 +440,7 @@
         <EntityContainer Name="DeploymentCockpitModelStoreContainer">
           <EntitySet Name="Credential" EntityType="Self.Credential" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeploymentJob" EntityType="Self.DeploymentJob" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeploymentJobParameter" EntityType="Self.DeploymentJobParameter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeploymentJobStep" EntityType="Self.DeploymentJobStep" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeploymentJobStepTarget" EntityType="Self.DeploymentJobStepTarget" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeploymentPlan" EntityType="Self.DeploymentPlan" Schema="dbo" store:Type="Tables" />
@@ -442,6 +465,10 @@
           <AssociationSet Name="FK_DeploymentJob_ProjectEnvironment" Association="Self.FK_DeploymentJob_ProjectEnvironment">
             <End Role="ProjectEnvironment" EntitySet="ProjectEnvironment" />
             <End Role="DeploymentJob" EntitySet="DeploymentJob" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeploymentJobParameter_Project" Association="Self.FK_DeploymentJobParameter_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="DeploymentJobParameter" EntitySet="DeploymentJobParameter" />
           </AssociationSet>
           <AssociationSet Name="FK_DeploymentJobStep_DeploymentJob" Association="Self.FK_DeploymentJobStep_DeploymentJob">
             <End Role="DeploymentJob" EntitySet="DeploymentJob" />
@@ -524,6 +551,7 @@
           <NavigationProperty Name="Environments" Relationship="DeploymentCockpitModel.FK_ProjectEnvironment_Project" FromRole="Project" ToRole="ProjectEnvironment" />
           <NavigationProperty Name="DeploymentPlans" Relationship="DeploymentCockpitModel.FK_DeploymentPlan_Project" FromRole="Project" ToRole="DeploymentPlan" />
           <NavigationProperty Name="DeploymentJobs" Relationship="DeploymentCockpitModel.FK_DeploymentJob_Project" FromRole="Project" ToRole="DeploymentJob" />
+          <NavigationProperty Name="DeploymentJobParameters" Relationship="DeploymentCockpitModel.FK_DeploymentJobParameter_Project" FromRole="Project" ToRole="DeploymentJobParameter" />
           </EntityType>
         <EntityContainer Name="DeploymentCockpitEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Projects" EntityType="Self.Project" />
@@ -617,6 +645,11 @@
             <End Role="DeploymentJobStepTarget" EntitySet="DeploymentJobStepTargets" />
           </AssociationSet>
           <EntitySet Name="Users" EntityType="DeploymentCockpitModel.User" />
+          <EntitySet Name="DeploymentJobParameters" EntityType="DeploymentCockpitModel.DeploymentJobParameter" />
+          <AssociationSet Name="FK_DeploymentJobParameter_Project" Association="DeploymentCockpitModel.FK_DeploymentJobParameter_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="DeploymentJobParameter" EntitySet="DeploymentJobParameters" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Credential">
           <Key>
@@ -1043,6 +1076,29 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="DeploymentJobParameter">
+          <Key>
+            <PropertyRef Name="DeploymentJobParameterID" />
+          </Key>
+          <Property Name="DeploymentJobParameterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int16" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Project" Relationship="DeploymentCockpitModel.FK_DeploymentJobParameter_Project" FromRole="DeploymentJobParameter" ToRole="Project" />
+        </EntityType>
+        <Association Name="FK_DeploymentJobParameter_Project">
+          <End Type="DeploymentCockpitModel.Project" Role="Project" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DeploymentCockpitModel.DeploymentJobParameter" Role="DeploymentJobParameter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="DeploymentJobParameter">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1225,6 +1281,15 @@
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeploymentJobParameters">
+            <EntityTypeMapping TypeName="DeploymentCockpitModel.DeploymentJobParameter">
+              <MappingFragment StoreEntitySet="DeploymentJobParameter">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="DeploymentJobParameterID" ColumnName="DeploymentJobParameterID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
