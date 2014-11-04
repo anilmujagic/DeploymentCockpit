@@ -1,7 +1,7 @@
 ﻿<div class="panel panel-info panel-borderless">
     <div class="panel-heading">
         Variables
-        <a href="" class="pull-right" title="Create new" ng-click="create()">
+        <a href="" class="pull-right" title="Create new" ng-click="create()" ng-hide="readOnly">
             <span class="glyphicon glyphicon-plus"></span>
         </a>
     </div>
@@ -10,15 +10,16 @@
             <tbody>
                 <tr ng-repeat="variable in variables | orderBy:'name'">
                     <td>
-                        <a href="" ng-click="edit(variable)">
+                        <a href="" ng-click="edit(variable)" ng-hide="readOnly">
                             {{variable.name}}
                         </a>
+                        <span ng-show="readOnly">{{variable.name}}</span>
                     </td>
                     <td>
                         {{variable.value}}
                     </td>
                     <td>
-                        <a href="" class="pull-right" title="Delete" ng-click="delete(variable)">
+                        <a href="" class="pull-right" title="Delete" ng-click="delete(variable)" ng-hide="readOnly">
                             <span class="glyphicon glyphicon-remove"></span>
                         </a>
                     </td>

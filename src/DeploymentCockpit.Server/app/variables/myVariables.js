@@ -5,7 +5,8 @@ app.directive("myVariables", function () {
         templateUrl: "app/variables/myVariables.html",
         scope: {
             scopeKey: "=scopeKey",
-            scopeID: "=scopeId"
+            scopeID: "=scopeId",
+            readOnly: "=readOnly"
         },
         controller: function ($scope, $modal, variablesSvc, notificationSvc) {
             var reloadData = function () {

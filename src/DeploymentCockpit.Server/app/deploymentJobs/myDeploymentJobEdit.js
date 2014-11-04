@@ -7,9 +7,11 @@ app.directive("myDeploymentJobEdit", function () {
             projectID: "=projectId",
             deploymentJob: "="
         },
-        controller: function ($scope, $location, deploymentJobsSvc, notificationSvc, deploymentPlansSvc, projectEnvironmentsSvc) {
+        controller: function ($scope, $location, deploymentJobsSvc, notificationSvc,
+            deploymentPlansSvc, projectEnvironmentsSvc, deploymentJobParametersSvc) {
             $scope.deploymentPlans = deploymentPlansSvc.getAll({ projectID: $scope.projectID });
             $scope.projectEnvironments = projectEnvironmentsSvc.getAll({ projectID: $scope.projectID });
+            $scope.parameters = deploymentJobParametersSvc.getAll({ projectID: $scope.projectID });
 
             $scope.isExistingJob = function () {
                 if ($scope.deploymentJob.deploymentJobID) {
@@ -22,7 +24,19 @@ app.directive("myDeploymentJobEdit", function () {
                 return $scope.deploymentJob.statusKey === "Running";
             }
 
-            $scope.save = function (deploymentJob) {
+            $scope.save = function (deploymentJob, parameters) {
+                deploymentJob.variables = [];
+                if (parameters && parameters.length) {
+                    for (var i = 0; i < parameters.length; i++) {
+                        if (parameters[i].value) {
+                            deploymentJob.variables.push({
+                                name: parameters[i].name,
+                                value: parameters[i].value
+                            });
+                        }
+                    }
+                }
+
                 deploymentJobsSvc.save(deploymentJob, deploymentJob.deploymentJobID)
                     .$promise.then(
                         function (response) {

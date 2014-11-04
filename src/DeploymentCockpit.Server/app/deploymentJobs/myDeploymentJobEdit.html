@@ -1,29 +1,48 @@
-﻿<div class="form-group">
-    <label>Deployment Plan</label>
-    <select ng-model="deploymentJob.deploymentPlanID"
-            ng-options="p.deploymentPlanID as p.name for p in deploymentPlans | orderBy:'name'"
-            class="form-control"
-            ng-disabled="isExistingJob()"></select>
-</div>
-<div class="form-group">
-    <label>Version</label>
-    <input type="text" ng-model="deploymentJob.productVersion" class="form-control"
-           ng-disabled="isExistingJob()" />
-</div>
-<div class="form-group">
-    <label>Environment</label>
-    <select ng-model="deploymentJob.projectEnvironmentID"
-            ng-options="e.projectEnvironmentID as e.name for e in projectEnvironments | orderBy:'name'"
-            class="form-control"
-            ng-disabled="isExistingJob()"></select>
-</div>
-<div class="form-group">
-    <label>Notes</label><span class="text-danger" ng-show="isJobRunning()"> Cannot edit running job</span>
-    <textarea ng-model="deploymentJob.notes" class="form-control" rows="5"
-              ng-disabled="isJobRunning()" />
-</div>
-<div class="form-group">
-    <button class="btn btn-success pull-right" ng-click="save(deploymentJob)">
-        <span class="glyphicon glyphicon-ok"></span> Save
-    </button>
+﻿<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Deployment Plan</label>
+            <select ng-model="deploymentJob.deploymentPlanID"
+                    ng-options="p.deploymentPlanID as p.name for p in deploymentPlans | orderBy:'name'"
+                    class="form-control"
+                    ng-disabled="isExistingJob()"></select>
+        </div>
+        <div class="form-group">
+            <label>Version</label>
+            <input type="text" ng-model="deploymentJob.productVersion" class="form-control"
+                   ng-disabled="isExistingJob()" />
+        </div>
+        <div class="form-group">
+            <label>Environment</label>
+            <select ng-model="deploymentJob.projectEnvironmentID"
+                    ng-options="e.projectEnvironmentID as e.name for e in projectEnvironments | orderBy:'name'"
+                    class="form-control"
+                    ng-disabled="isExistingJob()"></select>
+        </div>
+        <div class="form-group">
+            <label>Notes</label><span class="text-danger" ng-show="isJobRunning()"> Cannot edit running job</span>
+            <textarea ng-model="deploymentJob.notes" class="form-control" rows="5"
+                      ng-disabled="isJobRunning()" />
+        </div>
+        <div class="form-group">
+            <button class="btn btn-success pull-right" ng-click="save(deploymentJob, parameters)">
+                <span class="glyphicon glyphicon-ok"></span> Save
+            </button>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="panel panel-info panel-borderless" ng-show="!deploymentJob.deploymentJobID && parameters.length">
+            <div class="panel-heading">
+                Parameters
+            </div>
+            <div class="panel-body">
+                <div class="form-group" ng-repeat="parameter in parameters | orderBy:'name'">
+                    <label>{{parameter.name}}</label>
+                    <input type="text" ng-model="parameter.value" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div my-variables scope-key="'DeploymentJob'" scope-id="deploymentJob.deploymentJobID" read-only="true"
+             ng-show="deploymentJob.deploymentJobID"></div>
+    </div>
 </div>
