@@ -46,7 +46,8 @@ namespace DeploymentCockpit.Services
                         || (v.ScopeKey == VariableScope.TargetGroup.ToString() && v.ScopeID == targetGroupID)
                         || (v.ScopeKey == VariableScope.Environment.ToString() && v.ScopeID == job.ProjectEnvironmentID)
                         || (v.ScopeKey == VariableScope.DeploymentPlan.ToString() && v.ScopeID == planStep.DeploymentPlanID)
-                        || (v.ScopeKey == VariableScope.DeploymentStep.ToString() && v.ScopeID == planStep.DeploymentPlanStepID))
+                        || (v.ScopeKey == VariableScope.DeploymentStep.ToString() && v.ScopeID == planStep.DeploymentPlanStepID)
+                        || (v.ScopeKey == VariableScope.DeploymentJob.ToString() && v.ScopeID == job.DeploymentJobID))
                     .OrderByDescending(v => v.Scope)  // First enum value (Global) has lowest precedence.
                     .ToList();
             }
