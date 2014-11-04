@@ -87,5 +87,6 @@
     <None Include="Snapshots\DeploymentCockpit.Database_0.1.0.dacpac" />
     <None Include="Snapshots\DeploymentCockpit.Database_0.2.0.dacpac" />
     <None Include="Snapshots\DeploymentCockpit.Database_0.3.0.dacpac" />
+    <None Include="Snapshots\DeploymentCockpit.Database_0.6.0.dacpac" />
   </ItemGroup>
 </Project>
