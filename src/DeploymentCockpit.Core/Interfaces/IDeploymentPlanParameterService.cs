@@ -8,8 +8,8 @@ using DeploymentCockpit.Models;
 
 namespace DeploymentCockpit.Interfaces
 {
-    public interface IDeploymentJobParameterService : ICrudService<DeploymentJobParameter>
+    public interface IDeploymentPlanParameterService : ICrudService<DeploymentPlanParameter>
     {
-        IEnumerable<DeploymentJobParameterDto> GetAllForProject(short projectID);
+        IEnumerable<DeploymentPlanParameterDto> GetAllForPlan(short deploymentPlanID);
     }
 }

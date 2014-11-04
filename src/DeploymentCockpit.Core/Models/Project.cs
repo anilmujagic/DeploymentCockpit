@@ -21,7 +21,6 @@ namespace DeploymentCockpit.Models
             this.Environments = new HashSet<ProjectEnvironment>();
             this.DeploymentPlans = new HashSet<DeploymentPlan>();
             this.DeploymentJobs = new HashSet<DeploymentJob>();
-            this.DeploymentJobParameters = new HashSet<DeploymentJobParameter>();
         }
     
         public short ProjectID { get; set; }
@@ -33,6 +32,5 @@ namespace DeploymentCockpit.Models
         public virtual ICollection<ProjectEnvironment> Environments { get; set; }
         public virtual ICollection<DeploymentPlan> DeploymentPlans { get; set; }
         public virtual ICollection<DeploymentJob> DeploymentJobs { get; set; }
-        public virtual ICollection<DeploymentJobParameter> DeploymentJobParameters { get; set; }
     }
 }

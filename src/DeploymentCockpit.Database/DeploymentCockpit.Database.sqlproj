@@ -78,7 +78,7 @@
     <Build Include="Tables\DeploymentJobStep.sql" />
     <Build Include="Tables\DeploymentJobStepTarget.sql" />
     <Build Include="Tables\User.sql" />
-    <Build Include="Tables\DeploymentJobParameter.sql" />
+    <Build Include="Tables\DeploymentPlanParameter.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="DeploymentCockpit.Database.refactorlog" />

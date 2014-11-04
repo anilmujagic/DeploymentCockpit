@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace DeploymentCockpit.ApiDtos
 {
-    public class DeploymentJobParameterDto
+    public class DeploymentPlanParameterDto
     {
-        public int DeploymentJobParameterID { get; set; }
-        public short ProjectID { get; set; }
+        public int DeploymentPlanParameterID { get; set; }
+        public short DeploymentPlanID { get; set; }
         public string Name { get; set; }
     }
 }

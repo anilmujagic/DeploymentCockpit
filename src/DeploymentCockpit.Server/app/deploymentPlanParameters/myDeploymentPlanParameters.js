@@ -1,14 +1,14 @@
 ﻿"use strict";
 
-app.directive("myDeploymentJobParameters", function () {
+app.directive("myDeploymentPlanParameters", function () {
     return {
-        templateUrl: "app/deploymentJobParameters/myDeploymentJobParameters.html",
+        templateUrl: "app/deploymentPlanParameters/myDeploymentPlanParameters.html",
         scope: {
-            projectID: "=projectId"
+            deploymentPlanID: "=planId"
         },
-        controller: function ($scope, $modal, deploymentJobParametersSvc, notificationSvc) {
+        controller: function ($scope, $modal, deploymentPlanParametersSvc, notificationSvc) {
             var reloadData = function () {
-                $scope.parameters = deploymentJobParametersSvc.getAll({ projectID: $scope.projectID });
+                $scope.parameters = deploymentPlanParametersSvc.getAll({ deploymentPlanID: $scope.deploymentPlanID });
             };
 
             reloadData();
@@ -18,14 +18,14 @@ app.directive("myDeploymentJobParameters", function () {
             };
 
             $scope.create = function () {
-                $scope.edit({ projectID: $scope.projectID });
+                $scope.edit({ deploymentPlanID: $scope.deploymentPlanID });
             };
 
             $scope.edit = function (parameter) {
                 $scope.parameter = parameter;
 
                 $scope.modalInstance = $modal.open({
-                    templateUrl: "app/deploymentJobParameters/deploymentJobParameterEdit.html",
+                    templateUrl: "app/deploymentPlanParameters/deploymentPlanParameterEdit.html",
                     scope: $scope
                 });
 
@@ -35,7 +35,7 @@ app.directive("myDeploymentJobParameters", function () {
             };
 
             $scope.save = function (parameter) {
-                deploymentJobParametersSvc.save(parameter, parameter.deploymentJobParameterID)
+                deploymentPlanParametersSvc.save(parameter, parameter.deploymentPlanParameterID)
                     .$promise.then(
                         function (response) {
                             notificationSvc.saved(parameter.name);
@@ -48,7 +48,7 @@ app.directive("myDeploymentJobParameters", function () {
                 if (!notificationSvc.confirmDelete(parameter.name)) {
                     return;
                 }
-                deploymentJobParametersSvc.delete(parameter.deploymentJobParameterID)
+                deploymentPlanParametersSvc.delete(parameter.deploymentPlanParameterID)
                     .$promise.then(
                         function () {
                             notificationSvc.deleted(parameter.name);

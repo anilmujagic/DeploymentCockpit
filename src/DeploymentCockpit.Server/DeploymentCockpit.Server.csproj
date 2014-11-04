@@ -117,10 +117,10 @@
     <Content Include="app\credentials\credentialEdit.html" />
     <Content Include="app\dashboard\dashboard.html" />
     <Content Include="app\dashboard\DashboardCtrl.js" />
-    <Content Include="app\deploymentJobParameters\deploymentJobParametersSvc.js" />
-    <Content Include="app\deploymentJobParameters\myDeploymentJobParameters.html" />
-    <Content Include="app\deploymentJobParameters\myDeploymentJobParameters.js" />
-    <Content Include="app\deploymentJobParameters\deploymentJobParameterEdit.html" />
+    <Content Include="app\deploymentPlanParameters\deploymentPlanParametersSvc.js" />
+    <Content Include="app\deploymentPlanParameters\myDeploymentPlanParameters.html" />
+    <Content Include="app\deploymentPlanParameters\myDeploymentPlanParameters.js" />
+    <Content Include="app\deploymentPlanParameters\deploymentPlanParameterEdit.html" />
     <Content Include="app\deploymentJobs\deploymentJobCreate.html" />
     <Content Include="app\deploymentJobs\DeploymentJobCreateCtrl.js" />
     <Content Include="app\deploymentJobs\deploymentJobDetails.html" />
@@ -231,7 +231,7 @@
       <Link>Properties\MasterAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\Api\DeploymentJobParametersController.cs" />
+    <Compile Include="Controllers\Api\DeploymentPlanParametersController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Filters\AuthorizedUsersFilter.cs" />
     <Compile Include="Controllers\Api\ApiControllerExtensions.cs" />

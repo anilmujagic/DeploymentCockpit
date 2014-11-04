@@ -36,8 +36,8 @@ namespace DeploymentCockpit.Common
             Mapper.CreateMap<DeploymentPlanStep, DeploymentPlanStepDto>();
             Mapper.CreateMap<DeploymentPlanStepDto, DeploymentPlanStep>();
 
-            Mapper.CreateMap<DeploymentJobParameter, DeploymentJobParameterDto>();
-            Mapper.CreateMap<DeploymentJobParameterDto, DeploymentJobParameter>();
+            Mapper.CreateMap<DeploymentPlanParameter, DeploymentPlanParameterDto>();
+            Mapper.CreateMap<DeploymentPlanParameterDto, DeploymentPlanParameter>();
 
             Mapper.CreateMap<Project, ProjectDto>();
             Mapper.CreateMap<ProjectDto, Project>();

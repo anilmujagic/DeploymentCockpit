@@ -18,6 +18,7 @@ namespace DeploymentCockpit.Models
         {
             this.Steps = new HashSet<DeploymentPlanStep>();
             this.DeploymentJobs = new HashSet<DeploymentJob>();
+            this.Parameters = new HashSet<DeploymentPlanParameter>();
         }
     
         public short DeploymentPlanID { get; set; }
@@ -28,5 +29,6 @@ namespace DeploymentCockpit.Models
         public virtual Project Project { get; set; }
         public virtual ICollection<DeploymentPlanStep> Steps { get; set; }
         public virtual ICollection<DeploymentJob> DeploymentJobs { get; set; }
+        public virtual ICollection<DeploymentPlanParameter> Parameters { get; set; }
     }
 }

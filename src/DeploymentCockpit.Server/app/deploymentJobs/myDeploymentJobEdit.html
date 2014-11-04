@@ -5,6 +5,7 @@
             <select ng-model="deploymentJob.deploymentPlanID"
                     ng-options="p.deploymentPlanID as p.name for p in deploymentPlans | orderBy:'name'"
                     class="form-control"
+                    ng-change="onPlanChange(deploymentJob.deploymentPlanID)"
                     ng-disabled="isExistingJob()"></select>
         </div>
         <div class="form-group">
@@ -33,7 +34,7 @@
     <div class="col-md-8">
         <div class="panel panel-info panel-borderless" ng-show="!deploymentJob.deploymentJobID && parameters.length">
             <div class="panel-heading">
-                Parameters
+                Plan Parameters
             </div>
             <div class="panel-body">
                 <div class="form-group" ng-repeat="parameter in parameters | orderBy:'name'">
