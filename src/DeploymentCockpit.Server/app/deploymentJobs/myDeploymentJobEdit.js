@@ -29,16 +29,16 @@ app.directive("myDeploymentJobEdit", function () {
             }
 
             $scope.save = function (deploymentJob, parameters) {
-                deploymentJob.variables = [];
+                deploymentJob.parameters = [];
                 if (parameters && parameters.length) {
-                    for (var i = 0; i < parameters.length; i++) {
-                        if (parameters[i].value) {
-                            deploymentJob.variables.push({
-                                name: parameters[i].name,
-                                value: parameters[i].value
+                    parameters.forEach(function (parameter) {
+                        if (parameter.value) {
+                            deploymentJob.parameters.push({
+                                name: parameter.name,
+                                value: parameter.value
                             });
                         }
-                    }
+                    });
                 }
 
                 deploymentJobsSvc.save(deploymentJob, deploymentJob.deploymentJobID)

@@ -64,5 +64,7 @@ namespace DeploymentCockpit.ApiDtos
 
         public string Notes { get; set; }
         public string Errors { get; set; }
+
+        public IEnumerable<NameValuePair> Parameters { get; set; }
     }
 }

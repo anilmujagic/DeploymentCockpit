@@ -35,19 +35,30 @@ namespace DeploymentCockpit.Server.Controllers.Api
             return this.EntityToDto(this.ModifyEntityForResponse(_service.GetByKey(id)));
         }
 
+        protected virtual void OnBeforeInsert(TDto dto, TEntity entity)
+        {
+        }
+
         public virtual HttpResponseMessage Post(TDto dto)
         {
             if (!ModelState.IsValid)
                 return Request.CreateResponse(HttpStatusCode.BadRequest, this.GetValidationErrorMessages());
 
             var entity = this.ModifyEntityForInsert(this.DtoToEntity(dto));
+            
+            this.OnBeforeInsert(dto, entity);
             _service.Insert(entity);
+            this.OnAfterInsert(dto, entity);
 
             var dtoToReturn = this.EntityToDto(this.ModifyEntityForResponse(entity));
             
             var response = Request.CreateResponse<TDto>(HttpStatusCode.Created, dtoToReturn);
             response.Headers.Location = new Uri(Request.RequestUri + "/" + this.GetID(entity).ToString());
             return response;
+        }
+
+        protected virtual void OnAfterInsert(TDto dto, TEntity entity)
+        {
         }
 
         public virtual HttpResponseMessage Put(TKey id, TDto dto)

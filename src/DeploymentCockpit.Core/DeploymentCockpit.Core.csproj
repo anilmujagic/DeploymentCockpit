@@ -68,6 +68,7 @@
     <Compile Include="ApiDtos\DeploymentJobDto.cs" />
     <Compile Include="ApiDtos\DeploymentPlanDto.cs" />
     <Compile Include="ApiDtos\DeploymentPlanStepDto.cs" />
+    <Compile Include="Common\NameValuePair.cs" />
     <Compile Include="ApiDtos\ProjectDto.cs" />
     <Compile Include="ApiDtos\ProjectEnvironmentDto.cs" />
     <Compile Include="ApiDtos\ProjectTargetDto.cs" />

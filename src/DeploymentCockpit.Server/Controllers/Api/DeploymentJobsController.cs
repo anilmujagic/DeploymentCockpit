@@ -7,15 +7,21 @@ using System.Web.Http;
 using DeploymentCockpit.ApiDtos;
 using DeploymentCockpit.Interfaces;
 using DeploymentCockpit.Models;
+using Insula.Common;
 
 namespace DeploymentCockpit.Server.Controllers.Api
 {
     public class DeploymentJobsController
         : CrudApiController<DeploymentJobDto, DeploymentJob, int, IDeploymentJobService>
     {
-        public DeploymentJobsController(IDeploymentJobService service)
+        private readonly IVariableService _variableService;
+
+        public DeploymentJobsController(IDeploymentJobService service, IVariableService variableService)
             : base(service)
         {
+            if (variableService == null)
+                throw new ArgumentNullException("variableService");
+            _variableService = variableService;
         }
 
         protected override int GetID(DeploymentJob entity)
@@ -26,6 +32,23 @@ namespace DeploymentCockpit.Server.Controllers.Api
         protected override void SetID(DeploymentJob entity, int id)
         {
             entity.DeploymentJobID = id;
+        }
+
+        protected override void OnAfterInsert(DeploymentJobDto dto, DeploymentJob entity)
+        {
+            if (!dto.Parameters.IsNullOrEmpty())
+            {
+                foreach (var p in dto.Parameters)
+                {
+                    _variableService.Insert(new Variable
+                        {
+                            Scope = VariableScope.DeploymentJob,
+                            ScopeID = entity.DeploymentJobID,
+                            Name = p.Name,
+                            Value = p.Value
+                        });
+                }
+            }
         }
 
         protected override DeploymentJob ModifyEntityForInsert(DeploymentJob entity)
