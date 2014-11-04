@@ -4,9 +4,10 @@ app.directive("myVariables", function () {
     return {
         templateUrl: "app/variables/myVariables.html",
         scope: {
-            scopeKey: "=scopeKey",
+            scopeKey: "=",
             scopeID: "=scopeId",
-            readOnly: "=readOnly"
+            readOnly: "=",
+            hideIfEmpty: "="
         },
         controller: function ($scope, $modal, variablesSvc, notificationSvc) {
             var reloadData = function () {
@@ -22,6 +23,10 @@ app.directive("myVariables", function () {
 
             $scope.isLoading = function () {
                 return !$scope.variables.$resolved;
+            };
+
+            $scope.shouldHide = function () {
+                return $scope.hideIfEmpty && (!$scope.variables || !$scope.variables.length)
             };
 
             $scope.create = function () {

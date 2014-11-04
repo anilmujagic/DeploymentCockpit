@@ -1,4 +1,4 @@
-﻿<div class="panel panel-info panel-borderless">
+﻿<div class="panel panel-info panel-borderless" ng-hide="shouldHide()">
     <div class="panel-heading">
         Variables
         <a href="" class="pull-right" title="Create new" ng-click="create()" ng-hide="readOnly">
@@ -9,7 +9,7 @@
         <table class="table table-condensed table-hover table-striped table-borderless">
             <tbody>
                 <tr ng-repeat="variable in variables | orderBy:'name'">
-                    <td>
+                    <td width="25%">
                         <a href="" ng-click="edit(variable)" ng-hide="readOnly">
                             {{variable.name}}
                         </a>
