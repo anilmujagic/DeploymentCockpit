@@ -28,11 +28,6 @@ namespace DeploymentCockpit.Server.Controllers.Api
             entity.DeploymentPlanStepID = id;
         }
 
-        protected override DeploymentPlanStep OnGetByKey(int id)
-        {
-            return _service.GetWithRelations(id);
-        }
-
         public IEnumerable<DeploymentPlanStepDto> GetAllForDeploymentPlan(short deploymentPlanID)
         {
             return _service.GetAllForDeploymentPlanAs<DeploymentPlanStepDto>(deploymentPlanID);

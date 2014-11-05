@@ -28,11 +28,6 @@ namespace DeploymentCockpit.Server.Controllers.Api
             entity.TargetID = id;
         }
 
-        protected override Target OnGetByKey(short id)
-        {
-            return _service.GetWithCredential(id);
-        }
-
         public IEnumerable<TargetDto> Get()
         {
             return _service.GetAllWithCredentialAs<TargetDto>();

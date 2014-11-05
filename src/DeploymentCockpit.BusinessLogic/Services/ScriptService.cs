@@ -15,16 +15,6 @@ namespace DeploymentCockpit.Services
         {
         }
 
-        public Script GetWithProject(short id)
-        {
-            using (var uow = _unitOfWorkFactory.Create())
-            {
-                return uow.Repository<Script>()
-                    .GetAll(s => s.ScriptID == id, s => s.Project)
-                    .SingleOrDefault();
-            }
-        }
-
         public Script GetWithParameters(short id)
         {
             using (var uow = _unitOfWorkFactory.Create())

@@ -15,19 +15,6 @@ namespace DeploymentCockpit.Services
         {
         }
 
-        public DeploymentPlanStep GetWithRelations(int id)
-        {
-            using (var uow = _unitOfWorkFactory.Create())
-            {
-                return uow.Repository<DeploymentPlanStep>()
-                    .GetAll(
-                        s => s.DeploymentPlanStepID == id,
-                        s => s.Script,
-                        s => s.TargetGroup)
-                    .SingleOrDefault();
-            }
-        }
-
         public IEnumerable<DeploymentPlanStep> GetEnabledForDeploymentPlan(short deploymentPlanID)
         {
             using (var uow = _unitOfWorkFactory.Create())
