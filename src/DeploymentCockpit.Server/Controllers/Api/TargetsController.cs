@@ -28,9 +28,9 @@ namespace DeploymentCockpit.Server.Controllers.Api
             entity.TargetID = id;
         }
 
-        public override TargetDto Get(short id)
+        protected override Target OnGetByKey(short id)
         {
-            return this.EntityToDto(this.ModifyEntityForResponse(_service.GetWithCredential(id)));
+            return _service.GetWithCredential(id);
         }
 
         public IEnumerable<TargetDto> Get()

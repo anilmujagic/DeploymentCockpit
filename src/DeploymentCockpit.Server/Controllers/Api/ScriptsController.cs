@@ -27,9 +27,9 @@ namespace DeploymentCockpit.Server.Controllers.Api
             entity.ScriptID = id;
         }
 
-        public override ScriptDto Get(short id)
+        protected override Script OnGetByKey(short id)
         {
-            return this.EntityToDto(this.ModifyEntityForResponse(_service.GetWithProject(id)));
+            return _service.GetWithProject(id);
         }
 
         public IEnumerable<ScriptDtoForList> Get(short? projectID = null)

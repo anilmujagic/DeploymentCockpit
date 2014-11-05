@@ -73,9 +73,9 @@ namespace DeploymentCockpit.Server.Controllers.Api
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        public virtual TDto Get(TKey id)
+        public TDto Get(TKey id)
         {
-            return this.EntityToDto(this.ModifyEntityForResponse(_service.GetByKey(id)));
+            return this.EntityToDto(this.ModifyEntityForResponse(this.OnGetByKey(id)));
         }
 
         protected virtual IEnumerable<TDto> GetAll()
@@ -107,6 +107,11 @@ namespace DeploymentCockpit.Server.Controllers.Api
         }
         protected virtual void OnAfterDelete(TKey id)
         {
+        }
+
+        protected virtual TEntity OnGetByKey(TKey id)
+        {
+            return _service.GetByKey(id);
         }
 
         protected virtual TEntity ModifyEntityForResponse(TEntity entity)

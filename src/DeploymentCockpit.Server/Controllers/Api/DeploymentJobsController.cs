@@ -77,9 +77,9 @@ namespace DeploymentCockpit.Server.Controllers.Api
             return Request.CreateResponse(HttpStatusCode.MethodNotAllowed);
         }
 
-        public override DeploymentJobDto Get(int id)
+        protected override DeploymentJob OnGetByKey(int id)
         {
-            return this.EntityToDto(this.ModifyEntityForResponse(_service.GetWithRelations(id)));
+            return _service.GetWithRelations(id);
         }
 
         public IEnumerable<DeploymentJobDto> GetAllForProject(short projectID)
