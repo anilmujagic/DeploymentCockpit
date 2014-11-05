@@ -34,7 +34,7 @@ namespace DeploymentCockpit.Server.Controllers.Api
             entity.DeploymentJobID = id;
         }
 
-        protected override void OnAfterInsert(DeploymentJobDto dto, DeploymentJob entity)
+        protected override void OnAfterInsert(DeploymentJob entity, DeploymentJobDto dto)
         {
             if (!dto.Parameters.IsNullOrEmpty())
             {
@@ -51,17 +51,15 @@ namespace DeploymentCockpit.Server.Controllers.Api
             }
         }
 
-        protected override DeploymentJob ModifyEntityForInsert(DeploymentJob entity)
+        protected override void OnBeforeInsert(DeploymentJob entity, DeploymentJobDto dto)
         {
             entity.Status = DeploymentStatus.Queued;
             entity.SubmissionTime = DateTime.UtcNow;
             entity.StartTime = null;
             entity.EndTime = null;
-
-            return entity;
         }
 
-        protected override DeploymentJob ModifyEntityForUpdate(DeploymentJob entity)
+        protected override void OnBeforeUpdate(DeploymentJob entity, DeploymentJobDto dto)
         {
             var existingEntity = _service.GetByKey(entity.DeploymentJobID);
             entity.ProjectID = existingEntity.ProjectID;
@@ -72,8 +70,6 @@ namespace DeploymentCockpit.Server.Controllers.Api
             entity.ProductVersion = existingEntity.ProductVersion;
             entity.ProjectEnvironmentID = existingEntity.ProjectEnvironmentID;
             entity.DeploymentPlanID = existingEntity.DeploymentPlanID;
-
-            return entity;
         }
 
         public override HttpResponseMessage Delete(int id)

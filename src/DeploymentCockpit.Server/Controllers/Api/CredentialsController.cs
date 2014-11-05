@@ -34,13 +34,12 @@ namespace DeploymentCockpit.Server.Controllers.Api
             return entity;
         }
 
-        protected override Credential ModifyEntityForInsert(Credential entity)
+        protected override void OnBeforeInsert(Credential entity, CredentialDto dto)
         {
             entity.Password = _service.EncryptPassword(entity.Password);
-            return entity;
         }
 
-        protected override Credential ModifyEntityForUpdate(Credential entity)
+        protected override void OnBeforeUpdate(Credential entity, CredentialDto dto)
         {
             if (entity.Password.IsNullOrWhiteSpace())
             {
@@ -51,7 +50,6 @@ namespace DeploymentCockpit.Server.Controllers.Api
             {
                 entity.Password = _service.EncryptPassword(entity.Password);
             }
-            return entity;
         }
 
         public IEnumerable<CredentialDto> Get()

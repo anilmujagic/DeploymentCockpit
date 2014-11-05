@@ -23,32 +23,16 @@ namespace DeploymentCockpit.Server.Controllers.Api
             _service = service;
         }
 
-        protected virtual IEnumerable<TDto> GetAll()
-        {
-            return _service.GetAll()
-                .Select(e => this.EntityToDto(this.ModifyEntityForResponse(e)))
-                .ToList();
-        }
-
-        public virtual TDto Get(TKey id)
-        {
-            return this.EntityToDto(this.ModifyEntityForResponse(_service.GetByKey(id)));
-        }
-
-        protected virtual void OnBeforeInsert(TDto dto, TEntity entity)
-        {
-        }
-
         public virtual HttpResponseMessage Post(TDto dto)
         {
             if (!ModelState.IsValid)
                 return Request.CreateResponse(HttpStatusCode.BadRequest, this.GetValidationErrorMessages());
 
-            var entity = this.ModifyEntityForInsert(this.DtoToEntity(dto));
-            
-            this.OnBeforeInsert(dto, entity);
+            var entity = this.DtoToEntity(dto);
+
+            this.OnBeforeInsert(entity, dto);
             _service.Insert(entity);
-            this.OnAfterInsert(dto, entity);
+            this.OnAfterInsert(entity, dto);
 
             var dtoToReturn = this.EntityToDto(this.ModifyEntityForResponse(entity));
             
@@ -57,22 +41,20 @@ namespace DeploymentCockpit.Server.Controllers.Api
             return response;
         }
 
-        protected virtual void OnAfterInsert(TDto dto, TEntity entity)
-        {
-        }
-
         public virtual HttpResponseMessage Put(TKey id, TDto dto)
         {
             if (!ModelState.IsValid)
                 return Request.CreateResponse(HttpStatusCode.BadRequest, this.GetValidationErrorMessages());
 
-            var entity = this.ModifyEntityForUpdate(this.DtoToEntity(dto));
+            var entity = this.DtoToEntity(dto);
 
             if (!this.GetID(entity).Equals(id))
                 return Request.CreateResponse((HttpStatusCode)422,  // 422: Unprocessable Entity
                     new[] { "ID property of submitted entity must match the ID parameter in URL." });
 
+            this.OnBeforeUpdate(entity, dto);
             _service.Update(entity);
+            this.OnAfterUpdate(entity, dto);
 
             var dtoToReturn = this.EntityToDto(this.ModifyEntityForResponse(entity));
 
@@ -83,22 +65,51 @@ namespace DeploymentCockpit.Server.Controllers.Api
         {
             var entity = new TEntity();
             this.SetID(entity, id);
+
+            this.OnBeforeDelete(id);
             _service.Delete(entity);
+            this.OnAfterDelete(id);
+
             return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        public virtual TDto Get(TKey id)
+        {
+            return this.EntityToDto(this.ModifyEntityForResponse(_service.GetByKey(id)));
+        }
+
+        protected virtual IEnumerable<TDto> GetAll()
+        {
+            return _service.GetAll()
+                .Select(e => this.EntityToDto(this.ModifyEntityForResponse(e)))
+                .ToList();
         }
 
         protected abstract TKey GetID(TEntity entity);
         protected abstract void SetID(TEntity entity, TKey id);
 
+        protected virtual void OnBeforeInsert(TEntity entity, TDto dto)
+        {
+        }
+        protected virtual void OnAfterInsert(TEntity entity, TDto dto)
+        {
+        }
+
+        protected virtual void OnBeforeUpdate(TEntity entity, TDto dto)
+        {
+        }
+        protected virtual void OnAfterUpdate(TEntity entity, TDto dto)
+        {
+        }
+
+        protected virtual void OnBeforeDelete(TKey id)
+        {
+        }
+        protected virtual void OnAfterDelete(TKey id)
+        {
+        }
+
         protected virtual TEntity ModifyEntityForResponse(TEntity entity)
-        {
-            return entity;
-        }
-        protected virtual TEntity ModifyEntityForInsert(TEntity entity)
-        {
-            return entity;
-        }
-        protected virtual TEntity ModifyEntityForUpdate(TEntity entity)
         {
             return entity;
         }
