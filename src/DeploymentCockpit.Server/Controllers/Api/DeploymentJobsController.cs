@@ -77,7 +77,7 @@ namespace DeploymentCockpit.Server.Controllers.Api
             return Request.CreateResponse(HttpStatusCode.MethodNotAllowed);
         }
 
-        protected override DeploymentJob OnGetByKey(int id)
+        protected override DeploymentJob GetByKey(int id)
         {
             return _service.GetWithRelations(id);
         }

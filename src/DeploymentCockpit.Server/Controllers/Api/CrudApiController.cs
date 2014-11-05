@@ -75,7 +75,7 @@ namespace DeploymentCockpit.Server.Controllers.Api
 
         public TDto Get(TKey id)
         {
-            return this.EntityToDto(this.ModifyEntityForResponse(this.OnGetByKey(id)));
+            return this.EntityToDto(this.ModifyEntityForResponse(this.GetByKey(id)));
         }
 
         protected IEnumerable<TDto> GetAll()
@@ -85,7 +85,7 @@ namespace DeploymentCockpit.Server.Controllers.Api
                 .ToList();
         }
 
-        protected virtual TEntity OnGetByKey(TKey id)
+        protected virtual TEntity GetByKey(TKey id)
         {
             return _service.GetByKey(id);
         }
