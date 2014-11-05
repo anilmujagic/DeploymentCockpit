@@ -30,7 +30,7 @@ namespace DeploymentCockpit.Server.Controllers.Api
 
         public IEnumerable<DeploymentPlanParameterDto> GetAllForPlan(short deploymentPlanID)
         {
-            return _service.GetAllForPlan(deploymentPlanID);
+            return _service.GetAllForPlanAs<DeploymentPlanParameterDto>(deploymentPlanID);
         }
     }
 }
