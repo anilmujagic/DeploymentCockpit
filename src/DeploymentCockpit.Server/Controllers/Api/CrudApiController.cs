@@ -78,15 +78,22 @@ namespace DeploymentCockpit.Server.Controllers.Api
             return this.EntityToDto(this.ModifyEntityForResponse(this.OnGetByKey(id)));
         }
 
-        protected virtual IEnumerable<TDto> GetAll()
+        protected IEnumerable<TDto> GetAll()
         {
             return _service.GetAll()
                 .Select(e => this.EntityToDto(this.ModifyEntityForResponse(e)))
                 .ToList();
         }
 
-        protected abstract TKey GetID(TEntity entity);
-        protected abstract void SetID(TEntity entity, TKey id);
+        protected virtual TEntity OnGetByKey(TKey id)
+        {
+            return _service.GetByKey(id);
+        }
+
+        protected virtual TEntity ModifyEntityForResponse(TEntity entity)
+        {
+            return entity;
+        }
 
         protected virtual void OnBeforeInsert(TEntity entity, TDto dto)
         {
@@ -109,21 +116,14 @@ namespace DeploymentCockpit.Server.Controllers.Api
         {
         }
 
-        protected virtual TEntity OnGetByKey(TKey id)
-        {
-            return _service.GetByKey(id);
-        }
+        protected abstract TKey GetID(TEntity entity);
+        protected abstract void SetID(TEntity entity, TKey id);
 
-        protected virtual TEntity ModifyEntityForResponse(TEntity entity)
-        {
-            return entity;
-        }
-
-        protected virtual TDto EntityToDto(TEntity entity)
+        private TDto EntityToDto(TEntity entity)
         {
             return Mapper.Map<TDto>(entity);
         }
-        protected virtual TEntity DtoToEntity(TDto dto)
+        private TEntity DtoToEntity(TDto dto)
         {
             return Mapper.Map<TEntity>(dto);
         }
