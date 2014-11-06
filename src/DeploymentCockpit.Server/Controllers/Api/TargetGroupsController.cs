@@ -18,16 +18,6 @@ namespace DeploymentCockpit.Server.Controllers.Api
         {
         }
 
-        protected override short GetID(TargetGroup entity)
-        {
-            return entity.TargetGroupID;
-        }
-
-        protected override void SetID(TargetGroup entity, short id)
-        {
-            entity.TargetGroupID = id;
-        }
-
         public IEnumerable<TargetGroupDto> GetAllForProject(short projectID)
         {
             return _service.GetAllForProjectAs<TargetGroupDto>(projectID);

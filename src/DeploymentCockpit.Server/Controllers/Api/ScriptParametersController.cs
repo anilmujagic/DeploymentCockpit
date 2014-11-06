@@ -18,16 +18,6 @@ namespace DeploymentCockpit.Server.Controllers.Api
         {
         }
 
-        protected override int GetID(ScriptParameter entity)
-        {
-            return entity.ScriptParameterID;
-        }
-
-        protected override void SetID(ScriptParameter entity, int id)
-        {
-            entity.ScriptParameterID = id;
-        }
-
         public IEnumerable<ScriptParameterDto> GetAllForScript(short scriptID)
         {
             return _service.GetAllForScriptAs<ScriptParameterDto>(scriptID);

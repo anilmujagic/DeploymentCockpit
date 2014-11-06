@@ -24,16 +24,6 @@ namespace DeploymentCockpit.Server.Controllers.Api
             _variableService = variableService;
         }
 
-        protected override int GetID(DeploymentJob entity)
-        {
-            return entity.DeploymentJobID;
-        }
-
-        protected override void SetID(DeploymentJob entity, int id)
-        {
-            entity.DeploymentJobID = id;
-        }
-
         protected override void OnAfterInsert(DeploymentJob entity, DeploymentJobDto dto)
         {
             if (!dto.Parameters.IsNullOrEmpty())

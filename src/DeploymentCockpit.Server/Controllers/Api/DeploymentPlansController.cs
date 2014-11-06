@@ -18,16 +18,6 @@ namespace DeploymentCockpit.Server.Controllers.Api
         {
         }
 
-        protected override short GetID(DeploymentPlan entity)
-        {
-            return entity.DeploymentPlanID;
-        }
-
-        protected override void SetID(DeploymentPlan entity, short id)
-        {
-            entity.DeploymentPlanID = id;
-        }
-
         public IEnumerable<DeploymentPlanDto> GetAllForProject(short projectID)
         {
             return _service.GetAllForProjectAs<DeploymentPlanDto>(projectID);

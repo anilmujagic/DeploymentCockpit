@@ -17,16 +17,6 @@ namespace DeploymentCockpit.Server.Controllers.Api
         {
         }
 
-        protected override short GetID(Project entity)
-        {
-            return entity.ProjectID;
-        }
-
-        protected override void SetID(Project entity, short id)
-        {
-            entity.ProjectID = id;
-        }
-
         public IEnumerable<ProjectDto> Get()
         {
             return this.GetAll();

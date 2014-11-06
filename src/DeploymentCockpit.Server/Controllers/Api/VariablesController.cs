@@ -18,16 +18,6 @@ namespace DeploymentCockpit.Server.Controllers.Api
         {
         }
 
-        protected override int GetID(Variable entity)
-        {
-            return entity.VariableID;
-        }
-
-        protected override void SetID(Variable entity, int id)
-        {
-            entity.VariableID = id;
-        }
-
         public IEnumerable<VariableDto> GetAllForScope(string scopeKey, int scopeID)
         {
             return _service.GetAllForScopeAs<VariableDto>(scopeKey, scopeID);

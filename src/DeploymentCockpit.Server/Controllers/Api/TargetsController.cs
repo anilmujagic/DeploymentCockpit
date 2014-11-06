@@ -18,16 +18,6 @@ namespace DeploymentCockpit.Server.Controllers.Api
         {
         }
 
-        protected override short GetID(Target entity)
-        {
-            return entity.TargetID;
-        }
-
-        protected override void SetID(Target entity, short id)
-        {
-            entity.TargetID = id;
-        }
-
         public IEnumerable<TargetDto> Get()
         {
             return _service.GetAllWithCredentialAs<TargetDto>();

@@ -19,16 +19,6 @@ namespace DeploymentCockpit.Server.Controllers.Api
         {
         }
 
-        protected override int GetID(ProjectTarget entity)
-        {
-            return entity.ProjectTargetID;
-        }
-
-        protected override void SetID(ProjectTarget entity, int id)
-        {
-            entity.ProjectTargetID = id;
-        }
-
         protected override void OnBeforeInsert(ProjectTarget entity, ProjectTargetDto dto)
         {
             var exists = _service.ProjectTargetExists(

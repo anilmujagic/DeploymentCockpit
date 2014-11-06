@@ -17,16 +17,6 @@ namespace DeploymentCockpit.Server.Controllers.Api
         {
         }
 
-        protected override short GetID(Script entity)
-        {
-            return entity.ScriptID;
-        }
-
-        protected override void SetID(Script entity, short id)
-        {
-            entity.ScriptID = id;
-        }
-
         public IEnumerable<ScriptDtoForList> Get(short? projectID = null)
         {
             if (projectID.HasValue)

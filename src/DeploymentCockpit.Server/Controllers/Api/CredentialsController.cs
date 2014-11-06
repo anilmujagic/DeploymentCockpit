@@ -18,22 +18,6 @@ namespace DeploymentCockpit.Server.Controllers.Api
         {
         }
 
-        protected override short GetID(Credential entity)
-        {
-            return entity.CredentialID;
-        }
-
-        protected override void SetID(Credential entity, short id)
-        {
-            entity.CredentialID = id;
-        }
-
-        protected override Credential ModifyEntityForResponse(Credential entity)
-        {
-            entity.Password = null;
-            return entity;
-        }
-
         protected override void OnBeforeInsert(Credential entity, CredentialDto dto)
         {
             entity.Password = _service.EncryptPassword(entity.Password);
@@ -50,6 +34,12 @@ namespace DeploymentCockpit.Server.Controllers.Api
             {
                 entity.Password = _service.EncryptPassword(entity.Password);
             }
+        }
+
+        protected override Credential ModifyEntityForResponse(Credential entity)
+        {
+            entity.Password = null;
+            return entity;
         }
 
         public IEnumerable<CredentialDto> Get()

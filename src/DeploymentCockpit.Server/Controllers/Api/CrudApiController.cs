@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using AutoMapper;
@@ -144,8 +145,23 @@ namespace DeploymentCockpit.Server.Controllers.Api
         protected virtual void OnBeforeDelete(TKey id) {}
         protected virtual void OnAfterDelete(TKey id) {}
 
-        protected abstract TKey GetID(TEntity entity);
-        protected abstract void SetID(TEntity entity, TKey id);
+        private TKey GetID(TEntity entity)
+        {
+            var idProperty = this.GetIDPropertyInfo();
+            return (TKey)idProperty.GetValue(entity);
+        }
+        private void SetID(TEntity entity, TKey id)
+        {
+            var idProperty = this.GetIDPropertyInfo();
+            idProperty.SetValue(entity, id);
+        }
+        private PropertyInfo GetIDPropertyInfo()
+        {
+            var entityType = typeof(TEntity);
+            var entityTypeName = entityType.Name;
+            var idPropertyName = entityTypeName + "ID";
+            return entityType.GetProperty(idPropertyName);
+        }
 
         private TDto EntityToDto(TEntity entity)
         {
