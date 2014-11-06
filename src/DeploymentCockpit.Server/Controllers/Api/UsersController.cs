@@ -7,6 +7,7 @@ using System.Web.Http;
 using DeploymentCockpit.ApiDtos;
 using DeploymentCockpit.Interfaces;
 using DeploymentCockpit.Models;
+using DeploymentCockpit.Server.Common;
 
 namespace DeploymentCockpit.Server.Controllers.Api
 {
@@ -32,12 +33,10 @@ namespace DeploymentCockpit.Server.Controllers.Api
             return this.GetAll();
         }
 
-        public override HttpResponseMessage Delete(short id)
+        protected override void OnBeforeDelete(short id)
         {
             if (_service.GetCount() == 1)
-                return Request.CreateResponse(HttpStatusCode.Conflict, new[] { "There must be at least one user." });
-
-            return base.Delete(id);
+                throw new ApiException(HttpStatusCode.Conflict, "There must be at least one user.");
         }
     }
 }

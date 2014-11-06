@@ -7,6 +7,7 @@ using System.Web.Http;
 using DeploymentCockpit.ApiDtos;
 using DeploymentCockpit.Interfaces;
 using DeploymentCockpit.Models;
+using DeploymentCockpit.Server.Common;
 
 namespace DeploymentCockpit.Server.Controllers.Api
 {
@@ -14,7 +15,7 @@ namespace DeploymentCockpit.Server.Controllers.Api
         : CrudApiController<ProjectTargetDto, ProjectTarget, int, IProjectTargetService>
     {
         public ProjectTargetsController(IProjectTargetService service)
-            : base(service)
+            : base(service, isPutEnabled: false)
         {
         }
 
@@ -28,24 +29,14 @@ namespace DeploymentCockpit.Server.Controllers.Api
             entity.ProjectTargetID = id;
         }
 
-        public override HttpResponseMessage Put(int id, ProjectTargetDto dto)
+        protected override void OnBeforeInsert(ProjectTarget entity, ProjectTargetDto dto)
         {
-            return Request.CreateResponse(HttpStatusCode.MethodNotAllowed);
-        }
-
-        public override HttpResponseMessage Post(ProjectTargetDto dto)
-        {
-            if (!ModelState.IsValid)
-                return Request.CreateResponse(HttpStatusCode.BadRequest, this.GetValidationErrorMessages());
-
             var exists = _service.ProjectTargetExists(
                 dto.TargetGroupID.Value,
                 dto.ProjectEnvironmentID.Value,
                 dto.TargetID.Value);
             if (exists)
-                return Request.CreateResponse(HttpStatusCode.Conflict, new[] { "Target is already added." });
-
-            return base.Post(dto);
+                throw new ApiException(HttpStatusCode.Conflict, "Target is already added.");
         }
 
         public IEnumerable<object> GetAllForProject(short projectID)

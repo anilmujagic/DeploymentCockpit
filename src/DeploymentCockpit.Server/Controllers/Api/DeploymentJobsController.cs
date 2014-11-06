@@ -17,7 +17,7 @@ namespace DeploymentCockpit.Server.Controllers.Api
         private readonly IVariableService _variableService;
 
         public DeploymentJobsController(IDeploymentJobService service, IVariableService variableService)
-            : base(service)
+            : base(service, isDeleteEnabled: false)
         {
             if (variableService == null)
                 throw new ArgumentNullException("variableService");
@@ -70,11 +70,6 @@ namespace DeploymentCockpit.Server.Controllers.Api
             entity.ProductVersion = existingEntity.ProductVersion;
             entity.ProjectEnvironmentID = existingEntity.ProjectEnvironmentID;
             entity.DeploymentPlanID = existingEntity.DeploymentPlanID;
-        }
-
-        public override HttpResponseMessage Delete(int id)
-        {
-            return Request.CreateResponse(HttpStatusCode.MethodNotAllowed);
         }
 
         protected override DeploymentJob GetByKey(int id)
