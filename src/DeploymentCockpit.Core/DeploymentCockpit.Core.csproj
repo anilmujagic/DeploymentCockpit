@@ -171,6 +171,9 @@
     <Compile Include="Models\TargetGroup.cs">
       <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TargetGroupEnvironment.cs">
+      <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>DeploymentCockpitModel.tt</DependentUpon>
     </Compile>

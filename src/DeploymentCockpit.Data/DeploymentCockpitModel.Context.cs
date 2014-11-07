@@ -42,5 +42,6 @@ namespace DeploymentCockpit.Data
         public virtual DbSet<DeploymentJobStepTarget> DeploymentJobStepTargets { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<DeploymentPlanParameter> DeploymentPlanParameters { get; set; }
+        public virtual DbSet<TargetGroupEnvironment> TargetGroupEnvironments { get; set; }
     }
 }

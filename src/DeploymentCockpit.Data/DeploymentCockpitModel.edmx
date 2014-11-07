@@ -159,6 +159,14 @@
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="TargetGroupEnvironment">
+          <Key>
+            <PropertyRef Name="TargetGroupEnvironmentID" />
+          </Key>
+          <Property Name="TargetGroupEnvironmentID" Type="int" Nullable="false" />
+          <Property Name="TargetGroupID" Type="smallint" Nullable="false" />
+          <Property Name="ProjectEnvironmentID" Type="smallint" Nullable="false" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserID" />
@@ -437,6 +445,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TargetGroupEnvironment_ProjectEnvironment">
+          <End Role="ProjectEnvironment" Type="Self.ProjectEnvironment" Multiplicity="1" />
+          <End Role="TargetGroupEnvironment" Type="Self.TargetGroupEnvironment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectEnvironment">
+              <PropertyRef Name="ProjectEnvironmentID" />
+            </Principal>
+            <Dependent Role="TargetGroupEnvironment">
+              <PropertyRef Name="ProjectEnvironmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TargetGroupEnvironment_TargetGroup">
+          <End Role="TargetGroup" Type="Self.TargetGroup" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TargetGroupEnvironment" Type="Self.TargetGroupEnvironment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TargetGroup">
+              <PropertyRef Name="TargetGroupID" />
+            </Principal>
+            <Dependent Role="TargetGroupEnvironment">
+              <PropertyRef Name="TargetGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DeploymentCockpitModelStoreContainer">
           <EntitySet Name="Credential" EntityType="Self.Credential" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeploymentJob" EntityType="Self.DeploymentJob" Schema="dbo" store:Type="Tables" />
@@ -452,6 +486,7 @@
           <EntitySet Name="ScriptParameter" EntityType="Self.ScriptParameter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Target" EntityType="Self.Target" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TargetGroup" EntityType="Self.TargetGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TargetGroupEnvironment" EntityType="Self.TargetGroupEnvironment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Variable" EntityType="Self.Variable" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_DeploymentJob_DeploymentPlan" Association="Self.FK_DeploymentJob_DeploymentPlan">
@@ -533,6 +568,14 @@
           <AssociationSet Name="FK_TargetGroup_Project" Association="Self.FK_TargetGroup_Project">
             <End Role="Project" EntitySet="Project" />
             <End Role="TargetGroup" EntitySet="TargetGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TargetGroupEnvironment_ProjectEnvironment" Association="Self.FK_TargetGroupEnvironment_ProjectEnvironment">
+            <End Role="ProjectEnvironment" EntitySet="ProjectEnvironment" />
+            <End Role="TargetGroupEnvironment" EntitySet="TargetGroupEnvironment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TargetGroupEnvironment_TargetGroup" Association="Self.FK_TargetGroupEnvironment_TargetGroup">
+            <End Role="TargetGroup" EntitySet="TargetGroup" />
+            <End Role="TargetGroupEnvironment" EntitySet="TargetGroupEnvironment" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -649,6 +692,15 @@
             <End Role="DeploymentPlan" EntitySet="DeploymentPlans" />
             <End Role="DeploymentPlanParameter" EntitySet="DeploymentPlanParameters" />
           </AssociationSet>
+          <EntitySet Name="TargetGroupEnvironments" EntityType="DeploymentCockpitModel.TargetGroupEnvironment" />
+          <AssociationSet Name="FK_TargetGroupEnvironment_ProjectEnvironment" Association="DeploymentCockpitModel.FK_TargetGroupEnvironment_ProjectEnvironment">
+            <End Role="ProjectEnvironment" EntitySet="ProjectEnvironments" />
+            <End Role="TargetGroupEnvironment" EntitySet="TargetGroupEnvironments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TargetGroupEnvironment_TargetGroup" Association="DeploymentCockpitModel.FK_TargetGroupEnvironment_TargetGroup">
+            <End Role="TargetGroup" EntitySet="TargetGroups" />
+            <End Role="TargetGroupEnvironment" EntitySet="TargetGroupEnvironments" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Credential">
           <Key>
@@ -725,6 +777,7 @@
           <NavigationProperty Name="Project" Relationship="DeploymentCockpitModel.FK_TargetGroup_Project" FromRole="TargetGroup" ToRole="Project" />
           <NavigationProperty Name="ProjectTargets" Relationship="DeploymentCockpitModel.FK_ProjectTarget_TargetGroup" FromRole="TargetGroup" ToRole="ProjectTarget" />
           <NavigationProperty Name="DeploymentPlanSteps" Relationship="DeploymentCockpitModel.FK_DeploymentPlanStep_TargetGroup" FromRole="TargetGroup" ToRole="DeploymentPlanStep" />
+          <NavigationProperty Name="TargetGroupEnvironments" Relationship="DeploymentCockpitModel.FK_TargetGroupEnvironment_TargetGroup" FromRole="TargetGroup" ToRole="TargetGroupEnvironment" />
         </EntityType>
         <Association Name="FK_TargetGroup_Project">
           <End Type="DeploymentCockpitModel.Project" Role="Project" Multiplicity="1" />
@@ -749,6 +802,7 @@
           <NavigationProperty Name="Project" Relationship="DeploymentCockpitModel.FK_ProjectEnvironment_Project" FromRole="ProjectEnvironment" ToRole="Project" />
           <NavigationProperty Name="ProjectTargets" Relationship="DeploymentCockpitModel.FK_ProjectTarget_ProjectEnvironment" FromRole="ProjectEnvironment" ToRole="ProjectTarget" />
           <NavigationProperty Name="DeploymentJobs" Relationship="DeploymentCockpitModel.FK_DeploymentJob_ProjectEnvironment" FromRole="ProjectEnvironment" ToRole="DeploymentJob" />
+          <NavigationProperty Name="TargetGroupEnvironments" Relationship="DeploymentCockpitModel.FK_TargetGroupEnvironment_ProjectEnvironment" FromRole="ProjectEnvironment" ToRole="TargetGroupEnvironment" />
         </EntityType>
         <Association Name="FK_ProjectEnvironment_Project">
           <End Type="DeploymentCockpitModel.Project" Role="Project" Multiplicity="1" />
@@ -1099,6 +1153,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TargetGroupEnvironment">
+          <Key>
+            <PropertyRef Name="TargetGroupEnvironmentID" />
+          </Key>
+          <Property Name="TargetGroupEnvironmentID" Type="Int32" Nullable="false" />
+          <Property Name="TargetGroupID" Type="Int16" Nullable="false" />
+          <Property Name="ProjectEnvironmentID" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="ProjectEnvironment" Relationship="DeploymentCockpitModel.FK_TargetGroupEnvironment_ProjectEnvironment" FromRole="TargetGroupEnvironment" ToRole="ProjectEnvironment" />
+          <NavigationProperty Name="TargetGroup" Relationship="DeploymentCockpitModel.FK_TargetGroupEnvironment_TargetGroup" FromRole="TargetGroupEnvironment" ToRole="TargetGroup" />
+        </EntityType>
+        <Association Name="FK_TargetGroupEnvironment_ProjectEnvironment">
+          <End Type="DeploymentCockpitModel.ProjectEnvironment" Role="ProjectEnvironment" Multiplicity="1" />
+          <End Type="DeploymentCockpitModel.TargetGroupEnvironment" Role="TargetGroupEnvironment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectEnvironment">
+              <PropertyRef Name="ProjectEnvironmentID" />
+            </Principal>
+            <Dependent Role="TargetGroupEnvironment">
+              <PropertyRef Name="ProjectEnvironmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TargetGroupEnvironment_TargetGroup">
+          <End Type="DeploymentCockpitModel.TargetGroup" Role="TargetGroup" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DeploymentCockpitModel.TargetGroupEnvironment" Role="TargetGroupEnvironment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TargetGroup">
+              <PropertyRef Name="TargetGroupID" />
+            </Principal>
+            <Dependent Role="TargetGroupEnvironment">
+              <PropertyRef Name="TargetGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1290,6 +1380,15 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="DeploymentPlanID" ColumnName="DeploymentPlanID" />
                 <ScalarProperty Name="DeploymentPlanParameterID" ColumnName="DeploymentPlanParameterID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TargetGroupEnvironments">
+            <EntityTypeMapping TypeName="DeploymentCockpitModel.TargetGroupEnvironment">
+              <MappingFragment StoreEntitySet="TargetGroupEnvironment">
+                <ScalarProperty Name="ProjectEnvironmentID" ColumnName="ProjectEnvironmentID" />
+                <ScalarProperty Name="TargetGroupID" ColumnName="TargetGroupID" />
+                <ScalarProperty Name="TargetGroupEnvironmentID" ColumnName="TargetGroupEnvironmentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
