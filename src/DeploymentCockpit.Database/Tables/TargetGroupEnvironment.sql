@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[TargetGroupEnvironment]
 (
-    [TargetGroupEnvironmentID] INT NOT NULL, 
+    [TargetGroupEnvironmentID] INT NOT NULL IDENTITY, 
     [TargetGroupID] SMALLINT NOT NULL, 
     [ProjectEnvironmentID] SMALLINT NOT NULL, 
     CONSTRAINT [PK_TargetGroupEnvironment] PRIMARY KEY ([TargetGroupEnvironmentID]), 

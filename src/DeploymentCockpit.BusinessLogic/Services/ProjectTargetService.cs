@@ -11,9 +11,15 @@ namespace DeploymentCockpit.Services
 {
     public class ProjectTargetService : CrudService<ProjectTarget>, IProjectTargetService
     {
-        public ProjectTargetService(IUnitOfWorkFactory unitOfWorkFactory)
+        private readonly ITargetGroupEnvironmentService _targetGroupEnvironmentService;
+
+        public ProjectTargetService(IUnitOfWorkFactory unitOfWorkFactory,
+            ITargetGroupEnvironmentService targetGroupEnvironmentService)
             : base(unitOfWorkFactory)
         {
+            if (targetGroupEnvironmentService == null)
+                throw new ArgumentNullException("targetGroupEnvironmentService");
+            _targetGroupEnvironmentService = targetGroupEnvironmentService;
         }
 
         public IEnumerable<ProjectTarget> GetAllForTargetGroupAndEnvironment(short targetGroupID, short environmentID)
@@ -51,6 +57,34 @@ namespace DeploymentCockpit.Services
                         && t.TargetID == targetID);
 
                 return !projectTargets.IsNullOrEmpty();
+            }
+        }
+
+        public override void Insert(ProjectTarget entity)
+        {
+            base.Insert(entity);
+            _targetGroupEnvironmentService.CreateCombination(entity.TargetGroupID, entity.ProjectEnvironmentID);
+        }
+
+        public override void Update(ProjectTarget entity)
+        {
+            throw new InvalidOperationException("Don't update project target. Remove it and add a new one instead.");
+        }
+
+        public override void Delete(ProjectTarget entity)
+        {
+            var dbEntity = this.GetByKey(entity.ProjectTargetID);
+
+            base.Delete(entity);
+            
+            using (var uow = _unitOfWorkFactory.Create())
+            {
+                var projectTargets = uow.Repository<ProjectTarget>().GetAll(t =>
+                    t.TargetGroupID == dbEntity.TargetGroupID
+                    && t.ProjectEnvironmentID == dbEntity.ProjectEnvironmentID);
+                if (projectTargets.IsNullOrEmpty())
+                    _targetGroupEnvironmentService.DeleteCombination(
+                        dbEntity.TargetGroupID, dbEntity.ProjectEnvironmentID);
             }
         }
     }

@@ -15,7 +15,7 @@ namespace DeploymentCockpit.Services
         {
         }
 
-        public void Insert(T entity)
+        public virtual void Insert(T entity)
         {
             using (var uow = _unitOfWorkFactory.Create())
             {
@@ -24,7 +24,7 @@ namespace DeploymentCockpit.Services
             }
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             using (var uow = _unitOfWorkFactory.Create())
             {
@@ -33,7 +33,7 @@ namespace DeploymentCockpit.Services
             }
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             using (var uow = _unitOfWorkFactory.Create())
             {
@@ -42,7 +42,7 @@ namespace DeploymentCockpit.Services
             }
         }
 
-        public T GetByKey(params object[] keyValues)
+        public virtual T GetByKey(params object[] keyValues)
         {
             using (var uow = _unitOfWorkFactory.Create())
             {
@@ -50,7 +50,7 @@ namespace DeploymentCockpit.Services
             }
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             using (var uow = _unitOfWorkFactory.Create())
             {
@@ -58,7 +58,7 @@ namespace DeploymentCockpit.Services
             }
         }
 
-        public IEnumerable<TDto> GetAllAs<TDto>()
+        public virtual IEnumerable<TDto> GetAllAs<TDto>()
         {
             using (var uow = _unitOfWorkFactory.Create())
             {

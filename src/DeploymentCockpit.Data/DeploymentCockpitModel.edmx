@@ -163,7 +163,7 @@
           <Key>
             <PropertyRef Name="TargetGroupEnvironmentID" />
           </Key>
-          <Property Name="TargetGroupEnvironmentID" Type="int" Nullable="false" />
+          <Property Name="TargetGroupEnvironmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TargetGroupID" Type="smallint" Nullable="false" />
           <Property Name="ProjectEnvironmentID" Type="smallint" Nullable="false" />
         </EntityType>
@@ -1157,7 +1157,7 @@
           <Key>
             <PropertyRef Name="TargetGroupEnvironmentID" />
           </Key>
-          <Property Name="TargetGroupEnvironmentID" Type="Int32" Nullable="false" />
+          <Property Name="TargetGroupEnvironmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TargetGroupID" Type="Int16" Nullable="false" />
           <Property Name="ProjectEnvironmentID" Type="Int16" Nullable="false" />
           <NavigationProperty Name="ProjectEnvironment" Relationship="DeploymentCockpitModel.FK_TargetGroupEnvironment_ProjectEnvironment" FromRole="TargetGroupEnvironment" ToRole="ProjectEnvironment" />

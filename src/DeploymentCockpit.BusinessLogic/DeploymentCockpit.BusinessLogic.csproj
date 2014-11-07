@@ -70,6 +70,7 @@
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\ProjectTargetService.cs" />
     <Compile Include="Services\ScriptParameterService.cs" />
+    <Compile Include="Services\TargetGroupEnvironmentService.cs" />
     <Compile Include="Services\TargetGroupService.cs" />
     <Compile Include="Services\ScriptExecutionService.cs" />
     <Compile Include="Services\ScriptService.cs" />

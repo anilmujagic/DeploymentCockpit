@@ -103,6 +103,7 @@
     <Compile Include="Interfaces\IProjectService.cs" />
     <Compile Include="Interfaces\IProjectTargetService.cs" />
     <Compile Include="Interfaces\IScriptParameterService.cs" />
+    <Compile Include="Interfaces\ITargetGroupEnvironmentService.cs" />
     <Compile Include="Interfaces\ITargetGroupService.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IScriptExecutionService.cs" />
