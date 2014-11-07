@@ -47,7 +47,7 @@ ren .\BuildOutput\JobRunner\AppSettings.config AppSettings.config.sample
 ren .\BuildOutput\JobRunner\ConnectionStrings.config ConnectionStrings.config.sample
 ren .\BuildOutput\Target\AppSettings.config AppSettings.config.sample
 
-.\tools\7z.exe a .\BuildOutput\DeploymentCockpit.zip .\BuildOutput\*
+.\tools\7za.exe a .\BuildOutput\DeploymentCockpit.zip .\BuildOutput\*
 rd .\BuildOutput\Database /S /Q
 rd .\BuildOutput\Server /S /Q
 rd .\BuildOutput\JobRunner /S /Q
