@@ -18,3 +18,12 @@
 )
 
 GO
+
+CREATE INDEX [IX_ProjectTarget_TargetGroupID] ON [dbo].[ProjectTarget] ([TargetGroupID])
+GO
+
+CREATE INDEX [IX_ProjectTarget_ProjectEnvironmentID] ON [dbo].[ProjectTarget] ([ProjectEnvironmentID])
+GO
+
+CREATE INDEX [IX_ProjectTarget_TargetID] ON [dbo].[ProjectTarget] ([TargetID])
+GO
