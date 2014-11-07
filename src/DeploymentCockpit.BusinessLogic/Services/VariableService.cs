@@ -68,7 +68,7 @@ namespace DeploymentCockpit.Services
             while (true)
             {
                 var processedBody = this.ReplacePlaceholders(originalBody, script.Name, parameters, variables,
-                    job, targetGroupID, targetComputerName, credentialUsername, credentialPassword);
+                    job, targetComputerName, credentialUsername, credentialPassword);
 
                 if (processedBody == originalBody)  // Nothing left to replace
                     return processedBody;
@@ -82,8 +82,7 @@ namespace DeploymentCockpit.Services
 
         private string ReplacePlaceholders(string scriptBody, string scriptName,
             IEnumerable<ScriptParameter> parameters, IEnumerable<Variable> variables, DeploymentJob job,
-            short? targetGroupID = null, string targetComputerName = null,
-            string credentialUsername = null, string credentialPassword = null)
+            string targetComputerName = null, string credentialUsername = null, string credentialPassword = null)
         {
             foreach (var parameter in parameters)
             {
