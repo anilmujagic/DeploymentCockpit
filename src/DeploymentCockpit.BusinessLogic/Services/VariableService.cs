@@ -102,21 +102,16 @@ namespace DeploymentCockpit.Services
                 if (value.IsNullOrWhiteSpace())
                     value = parameter.DefaultValue;
 
-                if (value.IsNullOrWhiteSpace())
+                if (value.IsNullOrWhiteSpace() && parameter.IsMandatory)
                 {
-                    if (parameter.IsMandatory)
-                        throw new Exception(
-                            "Variables did not provide value for mandatory parameter [{0}] in script [{1}]."
-                                .FormatString(parameter.Name, scriptName));
+                    throw new Exception(
+                        "Variables did not provide value for mandatory parameter [{0}] in script [{1}]."
+                            .FormatString(parameter.Name, scriptName));
+                }
 
-                    continue;
-                }
-                else
-                {
-                    var placeholder = VariableHelper.FormatPlaceholder(parameter.Name);
-                    if (scriptBody.Contains(placeholder))
-                        scriptBody = scriptBody.Replace(placeholder, value);
-                }
+                var placeholder = VariableHelper.FormatPlaceholder(parameter.Name);
+                if (scriptBody.Contains(placeholder))
+                    scriptBody = scriptBody.Replace(placeholder, value);
             }
 
             return scriptBody;
