@@ -33,8 +33,8 @@ namespace DeploymentCockpit.Services
         }
 
         public string ResolveVariables(Script script, DeploymentPlanStep planStep, DeploymentJob job,
-            short? targetGroupID = null, string targetComputerName = null,
-            string credentialUsername = null, string credentialPassword = null)
+            short? targetGroupID = null, int? targetGroupEnvironmentID = null,
+            string targetComputerName = null, string credentialUsername = null, string credentialPassword = null)
         {
             List<Variable> variables;
             using (var uow = _unitOfWorkFactory.Create())
@@ -45,6 +45,7 @@ namespace DeploymentCockpit.Services
                         || (v.ScopeKey == VariableScope.Project.ToString() && v.ScopeID == job.ProjectID)
                         || (v.ScopeKey == VariableScope.TargetGroup.ToString() && v.ScopeID == targetGroupID)
                         || (v.ScopeKey == VariableScope.Environment.ToString() && v.ScopeID == job.ProjectEnvironmentID)
+                        || (v.ScopeKey == VariableScope.TargetGroupEnvironment.ToString() && v.ScopeID == targetGroupEnvironmentID)
                         || (v.ScopeKey == VariableScope.DeploymentPlan.ToString() && v.ScopeID == planStep.DeploymentPlanID)
                         || (v.ScopeKey == VariableScope.DeploymentStep.ToString() && v.ScopeID == planStep.DeploymentPlanStepID)
                         || (v.ScopeKey == VariableScope.DeploymentJob.ToString() && v.ScopeID == job.DeploymentJobID))

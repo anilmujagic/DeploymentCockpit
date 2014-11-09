@@ -17,6 +17,7 @@ namespace DeploymentCockpit.Services
         private readonly IDeploymentJobStepTargetService _deploymentJobStepTargetService;
         private readonly IDeploymentPlanStepService _deploymentPlanStepService;
         private readonly ITargetGroupService _targetGroupService;
+        private readonly ITargetGroupEnvironmentService _targetGroupEnvironmentService;
         private readonly IProjectTargetService _projectTargetService;
         private readonly ITargetService _targetService;
         private readonly ICredentialService _credentialService;
@@ -30,6 +31,7 @@ namespace DeploymentCockpit.Services
             IDeploymentJobStepTargetService deploymentJobStepTargetService,
             IDeploymentPlanStepService deploymentPlanStepService,
             ITargetGroupService targetGroupService,
+            ITargetGroupEnvironmentService targetGroupEnvironmentService,
             IProjectTargetService projectTargetService,
             ITargetService targetService,
             ICredentialService credentialService,
@@ -56,6 +58,10 @@ namespace DeploymentCockpit.Services
             if (targetGroupService == null)
                 throw new ArgumentNullException("targetGroupService");
             _targetGroupService = targetGroupService;
+
+            if (targetGroupEnvironmentService == null)
+                throw new ArgumentNullException("targetGroupEnvironmentService");
+            _targetGroupEnvironmentService = targetGroupEnvironmentService;
 
             if (projectTargetService == null)
                 throw new ArgumentNullException("projectTargetService");
@@ -190,6 +196,9 @@ namespace DeploymentCockpit.Services
         {
             foreach (var targetGroupID in targetGroupIDs)
             {
+                var targetGroupEnvironmentID = _targetGroupEnvironmentService
+                    .GetCombinationID(targetGroupID, job.ProjectEnvironmentID);
+
                 var targetIDs = _projectTargetService
                     .GetAllForTargetGroupAndEnvironment(targetGroupID, job.ProjectEnvironmentID)
                     .Select(t => t.TargetID)
@@ -216,7 +225,7 @@ namespace DeploymentCockpit.Services
                         var tempPassword = Guid.NewGuid().ToString();
 
                         var scriptBody = _variableService.ResolveVariables(script, planStep, job,
-                            targetGroupID, target.ComputerName, username, tempPassword);
+                            targetGroupID, targetGroupEnvironmentID, target.ComputerName, username, tempPassword);
 
                         // Don't log real password.
                         jobStepTarget.ExecutedScript = scriptBody.Replace(tempPassword, "**********");
