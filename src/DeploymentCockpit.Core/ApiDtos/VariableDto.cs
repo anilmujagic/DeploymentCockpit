@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DeploymentCockpit.Common;
+using Insula.Common;
 
 namespace DeploymentCockpit.ApiDtos
 {
@@ -25,6 +26,12 @@ namespace DeploymentCockpit.ApiDtos
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
+            VariableScope variableScope;
+            if (!Enum.TryParse<VariableScope>(this.ScopeKey, out variableScope))
+            {
+                yield return new ValidationResult("Invalid variable scope key [{0}].".FormatString(this.ScopeKey));
+            }
+
             if (VariableHelper.AllPredefined.Contains(this.Name))
             {
                 yield return new ValidationResult(

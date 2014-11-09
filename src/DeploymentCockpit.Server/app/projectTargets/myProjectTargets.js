@@ -66,6 +66,20 @@ app.directive("myProjectTargets", function () {
                         }
                     );
             };
+
+            $scope.targetGroupEnvironmentDetails = function (targetGroupEnvironmentID) {
+                $scope.targetGroupEnvironmentID = targetGroupEnvironmentID;
+
+                $scope.modalInstance = $modal.open({
+                    templateUrl: "app/targetGroupEnvironments/targetGroupEnvironmentDetails.html",
+                    scope: $scope,
+                    size: 'lg'
+                });
+
+                $scope.modalInstance.result.finally(function () {
+                    reloadData();
+                });
+            };
         }
     };
 });

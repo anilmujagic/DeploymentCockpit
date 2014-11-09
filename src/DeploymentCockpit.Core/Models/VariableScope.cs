@@ -9,6 +9,7 @@ public enum VariableScope
     Project,
     TargetGroup,
     Environment,
+    TargetGroupEnvironment,
     DeploymentPlan,
     DeploymentStep,
     DeploymentJob

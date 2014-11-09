@@ -160,6 +160,7 @@
     <Content Include="app\projectEnvironments\myProjectEnvironments.html" />
     <Content Include="app\projectEnvironments\myProjectEnvironments.js" />
     <Content Include="app\projectEnvironments\projectEnvironmentsSvc.js" />
+    <Content Include="app\targetGroupEnvironments\targetGroupEnvironmentDetails.html" />
     <Content Include="app\variables\myVariablesHierarchyNode.html" />
     <Content Include="app\variables\myVariablesHierarchyNode.js" />
     <Content Include="app\projects\projectEdit.html" />

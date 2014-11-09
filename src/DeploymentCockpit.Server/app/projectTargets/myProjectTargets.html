@@ -19,7 +19,10 @@
                             <tbody>
                                 <tr ng-repeat="environment in targetGroup.environments | orderBy:'name'">
                                     <td width="25%">
-                                        {{environment.name}}
+                                        <a href=""
+                                           ng-click="targetGroupEnvironmentDetails(environment.targetGroupEnvironmentID)">
+                                            {{environment.name}}
+                                        </a>
                                     </td>
                                     <td>
                                         <!-- Targets -->

@@ -15,6 +15,17 @@ namespace DeploymentCockpit.Services
         {
         }
 
+        public IEnumerable<TargetGroupEnvironment> GetCombinationsForProject(short projectID)
+        {
+            using (var uow = _unitOfWorkFactory.Create())
+            {
+                return uow.Repository<TargetGroupEnvironment>()
+                    .GetAll(e =>
+                        e.TargetGroup.ProjectID == projectID
+                        && e.ProjectEnvironment.ProjectID == projectID);
+            }
+        }
+
         public int? GetCombinationID(short targetGroupID, short projectEnvironmentID)
         {
             using (var uow = _unitOfWorkFactory.Create())
