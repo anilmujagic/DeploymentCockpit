@@ -14,13 +14,18 @@ namespace DeploymentCockpit.Services
     {
         private readonly IVariableService _variableService;
         private readonly IDeploymentPlanStepService _deploymentPlanStepService;
+        private readonly ITargetGroupEnvironmentService _targetGroupEnvironmentService;
 
-        public ProjectService(
-            IUnitOfWorkFactory unitOfWorkFactory,
+        public ProjectService(IUnitOfWorkFactory unitOfWorkFactory,
+            ITargetGroupEnvironmentService targetGroupEnvironmentService,
             IVariableService variableService,
             IDeploymentPlanStepService deploymentPlanStepService)
             : base(unitOfWorkFactory)
         {
+            if (targetGroupEnvironmentService == null)
+                throw new ArgumentNullException("targetGroupEnvironmentService");
+            _targetGroupEnvironmentService = targetGroupEnvironmentService;
+
             if (variableService == null)
                 throw new ArgumentNullException("variableService");
             _variableService = variableService;
@@ -60,7 +65,8 @@ namespace DeploymentCockpit.Services
             {
                 var tgNode = new VariablesHierarchyInfoDto(VariableScope.TargetGroup, tg.TargetGroupID, tg.Name);
                 tgNode.Variables.AddRange(this.GetVariables(VariableScope.TargetGroup, tg.TargetGroupID));
-                projectNode.Children.Add(tgNode);
+                if (!tgNode.Variables.IsNullOrEmpty())
+                    projectNode.Children.Add(tgNode);
             }
 
             // Project Environments
@@ -68,7 +74,25 @@ namespace DeploymentCockpit.Services
             {
                 var peNode = new VariablesHierarchyInfoDto(VariableScope.Environment, pe.ProjectEnvironmentID, pe.Name);
                 peNode.Variables.AddRange(this.GetVariables(VariableScope.Environment, pe.ProjectEnvironmentID));
-                projectNode.Children.Add(peNode);
+                if (!peNode.Variables.IsNullOrEmpty())
+                    projectNode.Children.Add(peNode);
+            }
+
+            // Target Group Environments
+            foreach (var tg in project.TargetGroups.OrderBy(g => g.Name))
+            {
+                foreach (var pe in project.Environments.OrderBy(e => e.Name))
+                {
+                    var name = "{0} / {1}".FormatString(tg.Name, pe.Name);
+                    var tgeID = _targetGroupEnvironmentService.GetCombinationID(tg.TargetGroupID, pe.ProjectEnvironmentID);
+                    if (!tgeID.HasValue)
+                        continue;
+
+                    var tgeNode = new VariablesHierarchyInfoDto(VariableScope.TargetGroupEnvironment, tgeID.Value, name);
+                    tgeNode.Variables.AddRange(this.GetVariables(VariableScope.TargetGroupEnvironment, tgeID.Value));
+                    if (!tgeNode.Variables.IsNullOrEmpty())
+                        projectNode.Children.Add(tgeNode);
+                }
             }
 
             // Deployment Plans
@@ -87,7 +111,7 @@ namespace DeploymentCockpit.Services
                     dpNode.Children.Add(dsNode);
                 }
             }
-            
+
             return nodes;
         }
 
