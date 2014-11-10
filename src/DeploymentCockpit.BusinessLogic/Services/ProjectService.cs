@@ -100,7 +100,6 @@ namespace DeploymentCockpit.Services
             {
                 var dpNode = new VariablesHierarchyInfoDto(VariableScope.DeploymentPlan, dp.DeploymentPlanID, dp.Name);
                 dpNode.Variables.AddRange(this.GetVariables(VariableScope.DeploymentPlan, dp.DeploymentPlanID));
-                projectNode.Children.Add(dpNode);
 
                 // Deployment Plan Steps
                 var steps = _deploymentPlanStepService.GetAllForDeploymentPlan(dp.DeploymentPlanID);
@@ -108,8 +107,12 @@ namespace DeploymentCockpit.Services
                 {
                     var dsNode = new VariablesHierarchyInfoDto(VariableScope.DeploymentStep, ds.DeploymentPlanStepID, ds.Name);
                     dsNode.Variables.AddRange(this.GetVariables(VariableScope.DeploymentStep, ds.DeploymentPlanStepID));
-                    dpNode.Children.Add(dsNode);
+                    if (!dsNode.Variables.IsNullOrEmpty())
+                        dpNode.Children.Add(dsNode);
                 }
+
+                if (!dpNode.Variables.IsNullOrEmpty() || dpNode.Children.Any(c => !c.Variables.IsNullOrEmpty()))
+                    projectNode.Children.Add(dpNode);
             }
 
             return nodes;
@@ -119,10 +122,9 @@ namespace DeploymentCockpit.Services
         {
             var variables = _variableService.GetAllForScopeAs<VariableDto>(scope, scopeID);
 
-            if (variables.IsNullOrEmpty())
-                return Enumerable.Empty<VariableDto>();
-
-            return variables.OrderBy(v => v.Name);
+            return variables.IsNullOrEmpty()
+                ? Enumerable.Empty<VariableDto>()
+                : variables.OrderBy(v => v.Name);
         }
     }
 }
