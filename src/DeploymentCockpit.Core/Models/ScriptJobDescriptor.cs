@@ -17,5 +17,8 @@ namespace DeploymentCockpit.Models
         
         public short? TargetID { get; set; }
         public bool RemoteExecution { get; set; }
+
+        public string SuccessKeywords { get; set; }
+        public string FailureKeywords { get; set; }
     }
 }

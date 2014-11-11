@@ -167,9 +167,11 @@ namespace DeploymentCockpit.Services
                         var descriptor = new ScriptJobDescriptor
                             {
                                 ScriptType = script.ScriptType,
-                                ScriptBody = jobStep.ExecutedScript
+                                ScriptBody = jobStep.ExecutedScript,
+                                SuccessKeywords = script.SuccessKeywords,
+                                FailureKeywords = script.FailureKeywords
                             };
-                        var result = _scriptExecutionService.ExecuteScript(descriptor);
+                        var result = this.ExecuteScript(descriptor);
 
                         jobStep.ExecutionOutput = result.Output;
                         if (!result.IsSuccessful)
@@ -238,10 +240,12 @@ namespace DeploymentCockpit.Services
                         {
                             ScriptType = script.ScriptType,
                             ScriptBody = scriptBody,
+                            SuccessKeywords = script.SuccessKeywords,
+                            FailureKeywords = script.FailureKeywords,
                             RemoteExecution = planStep.RemoteExecution,
                             TargetID = target.TargetID
                         };
-                        var result = _scriptExecutionService.ExecuteScript(descriptor);
+                        var result = this.ExecuteScript(descriptor);
 
                         jobStepTarget.ExecutionOutput = result.Output;
                         if (!result.IsSuccessful)
@@ -263,6 +267,50 @@ namespace DeploymentCockpit.Services
                     }
                 }
             }
+        }
+
+        private ScriptExecutionResult ExecuteScript(ScriptJobDescriptor descriptor)
+        {
+            var result = _scriptExecutionService.ExecuteScript(descriptor);
+
+            if (!result.Output.IsNullOrWhiteSpace())
+            {
+                if (!descriptor.SuccessKeywords.IsNullOrWhiteSpace())
+                {
+                    var lines = descriptor.SuccessKeywords.Split(
+                        new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                    if (!lines.IsNullOrEmpty())
+                    {
+                        foreach (var line in lines)
+                        {
+                            if (result.Output.Contains(line))
+                            {
+                                result.IsSuccessful = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (!descriptor.FailureKeywords.IsNullOrWhiteSpace())
+                {
+                    var lines = descriptor.FailureKeywords.Split(
+                        new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                    if (!lines.IsNullOrEmpty())
+                    {
+                        foreach (var line in lines)
+                        {
+                            if (result.Output.Contains(line))
+                            {
+                                result.IsSuccessful = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }
