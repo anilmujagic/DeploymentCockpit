@@ -65,7 +65,7 @@ namespace DeploymentCockpit.Services
                     result.Output = this.ExecuteScriptLocally(scriptBody, scriptType);
                 }
 
-                result.IsSuccessful = true;
+                result.IsSuccessful = this.IsSuccessful(descriptor, result.Output);
             }
             catch (Exception ex)
             {
@@ -100,6 +100,48 @@ namespace DeploymentCockpit.Services
             var encriptionSalt = DomainContext.ServerKey;
 
             return _targetCommandSender.Send(computerName, portNumber, command, encriptionKey, encriptionSalt);
+        }
+
+        private bool IsSuccessful(ScriptJobDescriptor descriptor, string output)
+        {
+            var isSuccessful = true;
+
+            if (!output.IsNullOrWhiteSpace())
+            {
+                if (!descriptor.SuccessKeywords.IsNullOrWhiteSpace())
+                {
+                    var lines = descriptor.SuccessKeywords.Split('\n');
+                    if (!lines.IsNullOrEmpty())
+                    {
+                        foreach (var line in lines)
+                        {
+                            if (output.Contains(line))
+                            {
+                                isSuccessful = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (!descriptor.FailureKeywords.IsNullOrWhiteSpace())
+                {
+                    var lines = descriptor.FailureKeywords.Split('\n');
+                    if (!lines.IsNullOrEmpty())
+                    {
+                        foreach (var line in lines)
+                        {
+                            if (output.Contains(line))
+                            {
+                                isSuccessful = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return isSuccessful;
         }
     }
 }

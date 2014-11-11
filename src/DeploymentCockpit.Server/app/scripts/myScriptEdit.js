@@ -64,7 +64,9 @@ app.directive("myScriptEdit", function () {
 
                 var descriptor = {
                     scriptBody: script.body,
-                    scriptType: script.scriptType
+                    scriptType: script.scriptType,
+                    successKeywords: script.successKeywords,
+                    failureKeywords: script.failureKeywords
                 };
 
                 if ($scope.executionContext.targetID) {
