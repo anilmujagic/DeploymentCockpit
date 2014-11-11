@@ -8,6 +8,15 @@ app.directive("myScriptEdit", function () {
             script: "="
         },
         controller: function ($scope, $location, scriptsSvc, notificationSvc, projectsSvc, targetsSvc, scriptExecutionSvc) {
+            $scope.successKeywordsDescription =
+                "These entries are used to detect successfull execution of the script in deployment job step.\n" +
+                "Entries are evaluated line by line and if any entry is found in script execution output, " +
+                "execution is marked as successfull.";
+            $scope.failureKeywordsDescription =
+                "These entries are used to detect script execution failure in deployment job step.\n" +
+                "Entries are evaluated line by line and if any entry is found in script execution output, " +
+                "execution is marked as failed, even if there are any Success Keywords entries defined and found.";
+
             // Lookup lists
             $scope.projects = projectsSvc.getAll();
             $scope.scriptTypes = ["Batch", "PowerShell"];
