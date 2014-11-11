@@ -126,6 +126,8 @@
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="ScriptType" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Body" Type="nvarchar(max)" />
+          <Property Name="SuccessKeywords" Type="nvarchar(max)" />
+          <Property Name="FailureKeywords" Type="nvarchar(max)" />
           <Property Name="ProjectID" Type="smallint" />
         </EntityType>
         <EntityType Name="ScriptParameter">
@@ -722,10 +724,12 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ScriptType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ProjectID" Type="Int16" />
           <NavigationProperty Name="Project" Relationship="DeploymentCockpitModel.FK_Script_Project" FromRole="Script" ToRole="Project" />
           <NavigationProperty Name="DeploymentPlanSteps" Relationship="DeploymentCockpitModel.FK_DeploymentPlanStep_Script" FromRole="Script" ToRole="DeploymentPlanStep" />
           <NavigationProperty Name="Parameters" Relationship="DeploymentCockpitModel.FK_ScriptParameter_Script" FromRole="Script" ToRole="ScriptParameter" />
+          <Property Name="SuccessKeywords" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FailureKeywords" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectID" Type="Int16" />
         </EntityType>
         <Association Name="FK_Script_Project">
           <End Type="DeploymentCockpitModel.Project" Role="Project" Multiplicity="0..1" />
@@ -1218,6 +1222,8 @@
           <EntitySetMapping Name="Scripts">
             <EntityTypeMapping TypeName="DeploymentCockpitModel.Script">
               <MappingFragment StoreEntitySet="Script">
+                <ScalarProperty Name="FailureKeywords" ColumnName="FailureKeywords" />
+                <ScalarProperty Name="SuccessKeywords" ColumnName="SuccessKeywords" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
                 <ScalarProperty Name="Body" ColumnName="Body" />
                 <ScalarProperty Name="ScriptType" ColumnName="ScriptType" />

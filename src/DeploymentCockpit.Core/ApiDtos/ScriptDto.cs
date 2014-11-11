@@ -22,6 +22,8 @@ namespace DeploymentCockpit.ApiDtos
         public string ScriptType { get; set; }
 
         public string Body { get; set; }
+        public string SuccessKeywords { get; set; }
+        public string FailureKeywords { get; set; }
 
         public short? ProjectID { get; set; }
 

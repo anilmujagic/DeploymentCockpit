@@ -49,17 +49,8 @@
         <EntityTypeShape EntityType="DeploymentCockpitModel.User" Width="1.5" PointX="11.5" PointY="3.25" />
         <EntityTypeShape EntityType="DeploymentCockpitModel.DeploymentPlanParameter" Width="2.125" PointX="6.75" PointY="0.5" />
         <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentPlanParameter_DeploymentPlan" />
-        <EntityTypeShape EntityType="DeploymentCockpitModel.TargetGroupEnvironment" Width="1.75" PointX="0.5" PointY="7.375" />
-        <AssociationConnector Association="DeploymentCockpitModel.FK_TargetGroupEnvironment_ProjectEnvironment" ManuallyRouted="true" >
-          <ConnectorPoint PointX="4.75" PointY="5.338569708333333" />
-          <ConnectorPoint PointX="4.4375" PointY="5.338569708333333" />
-          <ConnectorPoint PointX="4.4375" PointY="5.8978351544474226" />
-          <ConnectorPoint PointX="2.2955426723275369" PointY="5.8978351544474226" />
-          <ConnectorPoint PointX="2.2955426723275369" PointY="6.8085572918609625" />
-          <ConnectorPoint PointX="2.2083333333333335" PointY="6.8085572918609616" />
-          <ConnectorPoint PointX="2.0416666666666665" PointY="6.8085572918609625" />
-          <ConnectorPoint PointX="1.57031265625" PointY="6.8085572918609625" />
-          <ConnectorPoint PointX="1.57031265625" PointY="7.375" />
+        <EntityTypeShape EntityType="DeploymentCockpitModel.TargetGroupEnvironment" Width="1.75" PointX="0.5" PointY="7" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_TargetGroupEnvironment_ProjectEnvironment" ManuallyRouted="false" >
         </AssociationConnector>
         <AssociationConnector Association="DeploymentCockpitModel.FK_TargetGroupEnvironment_TargetGroup" />
         </Diagram>

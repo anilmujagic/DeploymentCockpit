@@ -5,6 +5,8 @@
     [Description] NVARCHAR(MAX) NULL,
     [ScriptType] NVARCHAR(50) NOT NULL,
     [Body] NVARCHAR(MAX) NULL,
+    [SuccessKeywords] NVARCHAR(MAX) NULL,
+    [FailureKeywords] NVARCHAR(MAX) NULL,
     [ProjectID] SMALLINT NULL,
     CONSTRAINT [PK_Script] PRIMARY KEY ([ScriptID]),
     CONSTRAINT [UK_Script_Name] UNIQUE ([Name]),
