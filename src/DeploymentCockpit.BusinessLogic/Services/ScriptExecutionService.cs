@@ -104,10 +104,10 @@ namespace DeploymentCockpit.Services
 
         private bool IsSuccessful(ScriptJobDescriptor descriptor, string output)
         {
-            var isSuccessful = true;
-
             if (!output.IsNullOrWhiteSpace())
                 output = output.ToUpperInvariant();  // Prepare for case-insensitive comparison.
+
+            var isSuccessful = true;
 
             if (!descriptor.SuccessKeywords.IsNullOrWhiteSpace())
             {
@@ -116,37 +116,17 @@ namespace DeploymentCockpit.Services
                 if (!output.IsNullOrWhiteSpace())
                 {
                     var lines = this.PrepareLines(descriptor.SuccessKeywords);
-                    if (!lines.IsNullOrEmpty())
-                    {
-                        foreach (var line in lines)
-                        {
-                            if (output.Contains(line))
-                            {
-                                isSuccessful = true;
-                                break;
-                            }
-                        }
-                    }
+                    if (!lines.IsNullOrEmpty() && lines.Any(l => output.Contains(l)))
+                        isSuccessful = true;
                 }
             }
 
-            if (!descriptor.FailureKeywords.IsNullOrWhiteSpace())
+            if (!descriptor.FailureKeywords.IsNullOrWhiteSpace()
+                && !output.IsNullOrWhiteSpace())
             {
-                if (!output.IsNullOrWhiteSpace())
-                {
-                    var lines = this.PrepareLines(descriptor.FailureKeywords);
-                    if (!lines.IsNullOrEmpty())
-                    {
-                        foreach (var line in lines)
-                        {
-                            if (output.Contains(line))
-                            {
-                                isSuccessful = false;
-                                break;
-                            }
-                        }
-                    }
-                }
+                var lines = this.PrepareLines(descriptor.FailureKeywords);
+                if (!lines.IsNullOrEmpty() && lines.Any(l => output.Contains(l)))
+                    isSuccessful = false;
             }
 
             return isSuccessful;
