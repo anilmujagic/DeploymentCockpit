@@ -107,10 +107,15 @@ namespace DeploymentCockpit.Services
             var isSuccessful = true;
 
             if (!output.IsNullOrWhiteSpace())
+                output = output.ToUpperInvariant();  // Prepare for case-insensitive comparison.
+
+            if (!descriptor.SuccessKeywords.IsNullOrWhiteSpace())
             {
-                if (!descriptor.SuccessKeywords.IsNullOrWhiteSpace())
+                isSuccessful = false;  // We'll have to prove it's successful.
+
+                if (!output.IsNullOrWhiteSpace())
                 {
-                    var lines = descriptor.SuccessKeywords.Split('\n');
+                    var lines = this.PrepareLines(descriptor.SuccessKeywords);
                     if (!lines.IsNullOrEmpty())
                     {
                         foreach (var line in lines)
@@ -123,10 +128,13 @@ namespace DeploymentCockpit.Services
                         }
                     }
                 }
+            }
 
-                if (!descriptor.FailureKeywords.IsNullOrWhiteSpace())
+            if (!descriptor.FailureKeywords.IsNullOrWhiteSpace())
+            {
+                if (!output.IsNullOrWhiteSpace())
                 {
-                    var lines = descriptor.FailureKeywords.Split('\n');
+                    var lines = this.PrepareLines(descriptor.FailureKeywords);
                     if (!lines.IsNullOrEmpty())
                     {
                         foreach (var line in lines)
@@ -142,6 +150,14 @@ namespace DeploymentCockpit.Services
             }
 
             return isSuccessful;
+        }
+
+        private IEnumerable<string> PrepareLines(string keywords)
+        {
+            return keywords.Split('\n')
+                .Select(l => l.Trim().ToUpperInvariant())
+                .Where(l => !l.IsNullOrWhiteSpace())
+                .ToList();
         }
     }
 }
