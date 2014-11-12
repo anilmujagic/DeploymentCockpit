@@ -21,7 +21,7 @@
         <AssociationConnector Association="DeploymentCockpitModel.FK_ProjectTarget_TargetGroup" />
         <EntityTypeShape EntityType="DeploymentCockpitModel.DeploymentPlan" Width="1.625" PointX="7" PointY="2.625" />
         <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentPlan_Project" />
-        <EntityTypeShape EntityType="DeploymentCockpitModel.DeploymentPlanStep" Width="1.875" PointX="9.125" PointY="3.75" />
+        <EntityTypeShape EntityType="DeploymentCockpitModel.DeploymentPlanStep" Width="1.875" PointX="9.125" PointY="4.625" />
         <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentPlanStep_DeploymentPlan" />
         <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentPlanStep_Script" />
         <EntityTypeShape EntityType="DeploymentCockpitModel.DeploymentJob" Width="1.875" PointX="7" PointY="5.625" />
@@ -30,19 +30,12 @@
         <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentJob_ProjectEnvironment" />
         <EntityTypeShape EntityType="DeploymentCockpitModel.ScriptParameter" Width="1.625" PointX="11.5" PointY="0.5" />
         <AssociationConnector Association="DeploymentCockpitModel.FK_ScriptParameter_Script" />
-        <EntityTypeShape EntityType="DeploymentCockpitModel.Variable" Width="1.5" PointX="11" PointY="7.75" />
+        <EntityTypeShape EntityType="DeploymentCockpitModel.Variable" Width="1.5" PointX="11.125" PointY="7.75" />
         <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentPlanStep_TargetGroup" />
         <EntityTypeShape EntityType="DeploymentCockpitModel.DeploymentJobStep" Width="1.75" PointX="4.75" PointY="6.125" />
         <EntityTypeShape EntityType="DeploymentCockpitModel.DeploymentJobStepTarget" Width="1.875" PointX="2.5" PointY="6.125" />
         <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentJobStep_DeploymentJob" />
-        <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentJobStep_DeploymentPlanStep" ManuallyRouted="true" >
-          <ConnectorPoint PointX="10.0625" PointY="7.4609993489583317" />
-          <ConnectorPoint PointX="10.0625" PointY="9.77830078125" />
-          <ConnectorPoint PointX="6.875" PointY="9.77830078125" />
-          <ConnectorPoint PointX="6.875" PointY="6.8508256953124995" />
-          <ConnectorPoint PointX="6.833333333333333" PointY="6.8508256953124986" />
-          <ConnectorPoint PointX="6.666666666666667" PointY="6.8508256953124995" />
-          <ConnectorPoint PointX="6.5" PointY="6.8508256953124995" />
+        <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentJobStep_DeploymentPlanStep" ManuallyRouted="false" >
         </AssociationConnector>
         <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentJobStepTarget_DeploymentJobStep" />
         <AssociationConnector Association="DeploymentCockpitModel.FK_DeploymentJobStepTarget_Target" />

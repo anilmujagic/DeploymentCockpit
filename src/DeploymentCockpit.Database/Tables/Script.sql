@@ -7,6 +7,8 @@
     [Body] NVARCHAR(MAX) NULL,
     [SuccessKeywords] NVARCHAR(MAX) NULL,
     [FailureKeywords] NVARCHAR(MAX) NULL,
+    [SuccessKeywordsAllRequired] BIT NOT NULL,
+    [FailureKeywordsAllRequired] BIT NOT NULL,
     [ProjectID] SMALLINT NULL,
     CONSTRAINT [PK_Script] PRIMARY KEY ([ScriptID]),
     CONSTRAINT [UK_Script_Name] UNIQUE ([Name]),

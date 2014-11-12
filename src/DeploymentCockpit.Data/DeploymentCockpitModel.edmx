@@ -128,6 +128,8 @@
           <Property Name="Body" Type="nvarchar(max)" />
           <Property Name="SuccessKeywords" Type="nvarchar(max)" />
           <Property Name="FailureKeywords" Type="nvarchar(max)" />
+          <Property Name="SuccessKeywordsAllRequired" Type="bit" Nullable="false" />
+          <Property Name="FailureKeywordsAllRequired" Type="bit" Nullable="false" />
           <Property Name="ProjectID" Type="smallint" />
         </EntityType>
         <EntityType Name="ScriptParameter">
@@ -729,6 +731,8 @@
           <NavigationProperty Name="Parameters" Relationship="DeploymentCockpitModel.FK_ScriptParameter_Script" FromRole="Script" ToRole="ScriptParameter" />
           <Property Name="SuccessKeywords" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FailureKeywords" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SuccessKeywordsAllRequired" Type="Boolean" Nullable="false" />
+          <Property Name="FailureKeywordsAllRequired" Type="Boolean" Nullable="false" />
           <Property Name="ProjectID" Type="Int16" />
         </EntityType>
         <Association Name="FK_Script_Project">
@@ -1222,6 +1226,8 @@
           <EntitySetMapping Name="Scripts">
             <EntityTypeMapping TypeName="DeploymentCockpitModel.Script">
               <MappingFragment StoreEntitySet="Script">
+                <ScalarProperty Name="FailureKeywordsAllRequired" ColumnName="FailureKeywordsAllRequired" />
+                <ScalarProperty Name="SuccessKeywordsAllRequired" ColumnName="SuccessKeywordsAllRequired" />
                 <ScalarProperty Name="FailureKeywords" ColumnName="FailureKeywords" />
                 <ScalarProperty Name="SuccessKeywords" ColumnName="SuccessKeywords" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />

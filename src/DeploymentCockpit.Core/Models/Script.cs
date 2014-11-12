@@ -27,6 +27,8 @@ namespace DeploymentCockpit.Models
         public string Body { get; set; }
         public string SuccessKeywords { get; set; }
         public string FailureKeywords { get; set; }
+        public bool SuccessKeywordsAllRequired { get; set; }
+        public bool FailureKeywordsAllRequired { get; set; }
         public Nullable<short> ProjectID { get; set; }
     
         public virtual Project Project { get; set; }

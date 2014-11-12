@@ -20,5 +20,7 @@ namespace DeploymentCockpit.Models
 
         public string SuccessKeywords { get; set; }
         public string FailureKeywords { get; set; }
+        public bool SuccessKeywordsAllRequired { get; set; }
+        public bool FailureKeywordsAllRequired { get; set; }
     }
 }

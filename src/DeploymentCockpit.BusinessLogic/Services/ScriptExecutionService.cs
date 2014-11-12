@@ -116,8 +116,14 @@ namespace DeploymentCockpit.Services
                 if (!output.IsNullOrWhiteSpace())
                 {
                     var lines = this.PrepareLines(descriptor.SuccessKeywords);
-                    if (!lines.IsNullOrEmpty() && lines.Any(l => output.Contains(l)))
-                        isSuccessful = true;
+                    if (!lines.IsNullOrEmpty())
+                    {
+                        if ((descriptor.SuccessKeywordsAllRequired && lines.All(l => output.Contains(l)))
+                            || (!descriptor.SuccessKeywordsAllRequired && lines.Any(l => output.Contains(l))))
+                        {
+                            isSuccessful = true;
+                        }
+                    }
                 }
             }
 
@@ -125,8 +131,14 @@ namespace DeploymentCockpit.Services
                 && !output.IsNullOrWhiteSpace())
             {
                 var lines = this.PrepareLines(descriptor.FailureKeywords);
-                if (!lines.IsNullOrEmpty() && lines.Any(l => output.Contains(l)))
-                    isSuccessful = false;
+                if (!lines.IsNullOrEmpty())
+                {
+                    if ((descriptor.FailureKeywordsAllRequired && lines.All(l => output.Contains(l)))
+                        || (!descriptor.FailureKeywordsAllRequired && lines.Any(l => output.Contains(l))))
+                    {
+                        isSuccessful = false;
+                    }
+                }
             }
 
             return isSuccessful;

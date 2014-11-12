@@ -9,13 +9,14 @@ app.directive("myScriptEdit", function () {
         },
         controller: function ($scope, $location, scriptsSvc, notificationSvc, projectsSvc, targetsSvc, scriptExecutionSvc) {
             $scope.successKeywordsDescription =
-                "These entries are used to detect successfull execution of the script in deployment job step.\n" +
-                "Entries are evaluated line by line and if any entry is found in script execution output, " +
-                "execution is marked as successfull.";
+                "These entries are used to detect successfull execution of the script in deployment job step. " +
+                "Entries are evaluated line by line. If any/all (depending on 'All required' option) " +
+                "entries are found in script execution output, execution is marked as successfull.";
             $scope.failureKeywordsDescription =
-                "These entries are used to detect script execution failure in deployment job step.\n" +
-                "Entries are evaluated line by line and if any entry is found in script execution output, " +
-                "execution is marked as failed, even if there are any Success Keywords entries defined and found.";
+                "These entries are used to detect script execution failure in deployment job step. " +
+                "Entries are evaluated line by line. If any/all (depending on 'All required' option) " +
+                "entries are found in script execution output, execution is marked as failed, " +
+                "even if Success Keywords are defined and indicate success.";
 
             // Lookup lists
             $scope.projects = projectsSvc.getAll();
@@ -66,7 +67,9 @@ app.directive("myScriptEdit", function () {
                     scriptBody: script.body,
                     scriptType: script.scriptType,
                     successKeywords: script.successKeywords,
-                    failureKeywords: script.failureKeywords
+                    failureKeywords: script.failureKeywords,
+                    successKeywordsAllRequired: script.successKeywordsAllRequired,
+                    failureKeywordsAllRequired: script.failureKeywordsAllRequired
                 };
 
                 if ($scope.executionContext.targetID) {

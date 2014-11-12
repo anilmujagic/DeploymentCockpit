@@ -55,6 +55,9 @@
                   popover="{{successKeywordsDescription}}"
                   popover-placement="right"
                   popover-trigger="mouseenter"></span>
+            <label class="checkbox-inline pull-right">
+                <input type="checkbox" ng-model="script.successKeywordsAllRequired" /> All required
+            </label>
             <textarea ng-model="script.successKeywords" class="form-control" rows="5" />
         </div>
     </div>
@@ -66,6 +69,9 @@
                   popover="{{failureKeywordsDescription}}"
                   popover-placement="right"
                   popover-trigger="mouseenter"></span>
+            <label class ="checkbox-inline pull-right">
+                <input type="checkbox" ng-model="script.failureKeywordsAllRequired" /> All required
+            </label>
             <textarea ng-model="script.failureKeywords" class="form-control" rows="5" />
         </div>
     </div>
