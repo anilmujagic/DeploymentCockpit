@@ -36,6 +36,9 @@ namespace DeploymentCockpit.Services
             short? targetGroupID = null, int? targetGroupEnvironmentID = null,
             string targetComputerName = null, string credentialUsername = null, string credentialPassword = null)
         {
+            if (script.Body.IsNullOrWhiteSpace())
+                throw new ArgumentException("Script body is empty.");
+
             List<Variable> variables;
             using (var uow = _unitOfWorkFactory.Create())
             {

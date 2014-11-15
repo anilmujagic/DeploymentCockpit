@@ -15,6 +15,9 @@ namespace DeploymentCockpit.ScriptExecution
     {
         public string Run(string scriptBody, ScriptType scriptType)
         {
+            if (scriptBody.IsNullOrWhiteSpace())
+                throw new ArgumentException("Script body is empty.");
+
             var scriptPath = string.Empty;
 
             try
