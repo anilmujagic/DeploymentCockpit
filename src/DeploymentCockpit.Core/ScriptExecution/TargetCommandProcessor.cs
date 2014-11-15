@@ -42,15 +42,28 @@ namespace DeploymentCockpit.ScriptExecution
                     socket.Bind(endpoint);
                     var encryptedJson = socket.ReceiveString(Encoding.UTF8);
                     Log.Info("Command received");
-                    var json = EncryptionHelper.Decrypt(encryptedJson, encriptionKey, encriptionSalt);
 
-                    var command = JsonConvert.DeserializeObject<ScriptExecutionCommand>(json);
-                    // if (command.CommandTime.AddSeconds(60) < DateTime.UtcNow)
-                    //     throw new TimeoutException();  // To prevent re-execution of script by using sniffed packet.
+                    string output;
 
-                    Log.Info("Executing {0} script...", command.ScriptType);
-                    var output = _scriptRunner.Run(command.ScriptBody, command.ScriptType.ToEnum<ScriptType>());
-                    Log.Success("Script executed");
+                    try
+                    {
+                        Log.Info("Decrypting...");
+                        var json = EncryptionHelper.Decrypt(encryptedJson, encriptionKey, encriptionSalt);
+
+                        Log.Info("Deserializing...");
+                        var command = JsonConvert.DeserializeObject<ScriptExecutionCommand>(json);
+                        // if (command.CommandTime.AddSeconds(60) < DateTime.UtcNow)
+                        //     throw new TimeoutException();  // To prevent re-execution of script by using sniffed packet.
+
+                        Log.Info("Executing {0} script...", command.ScriptType);
+                        output = _scriptRunner.Run(command.ScriptBody, command.ScriptType.ToEnum<ScriptType>());
+                        Log.Success("Script executed");
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Exception(ex);
+                        output = ex.GetAllMessagesWithStackTraces();
+                    }
 
                     Log.Info("Sending results...");
                     var encryptedOutput = EncryptionHelper.Encrypt(output, encriptionKey, encriptionSalt);
