@@ -80,9 +80,16 @@ app.directive("myScriptEdit", function () {
                 scriptExecutionSvc.execute(descriptor).$promise.then(
                     function (response) {
                         $scope.output += response.output;
+                        if (response.isSuccessful) {
+                            notificationSvc.success("Script executed successfully.");
+                        } else {
+                            notificationSvc.error("Script executed with errors.");
+                        }
                     },
                     function (response) {
-                        $scope.output += "Script execution failed.\n" + JSON.stringify(response.data, null, "  ");
+                        var message = "Script execution failed.";
+                        $scope.output += message + "\n" + JSON.stringify(response.data, null, "  ");
+                        notificationSvc.error(message);
                     })
                     .finally(function () {
                         $scope.output += "\n\n";
