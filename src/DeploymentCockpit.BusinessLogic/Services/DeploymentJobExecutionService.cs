@@ -129,6 +129,7 @@ namespace DeploymentCockpit.Services
                 return;
 
             var targetGroupIDs = _targetGroupService.GetAllForProject(job.ProjectID)
+                .OrderBy(g => g.Name)
                 .Select(g => g.TargetGroupID)
                 .ToArray();
 
@@ -203,6 +204,7 @@ namespace DeploymentCockpit.Services
 
                 var targetIDs = _projectTargetService
                     .GetAllForTargetGroupAndEnvironment(targetGroupID, job.ProjectEnvironmentID)
+                    .OrderBy(t => t.Target.Name)
                     .Select(t => t.TargetID)
                     .ToList();
 
