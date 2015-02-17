@@ -12,6 +12,5 @@ namespace DeploymentCockpit.Interfaces
         void Delete(T entity);
         T GetByKey(params object[] keyValues);
         IEnumerable<T> GetAll();
-        IEnumerable<TDto> GetAllAs<TDto>();
     }
 }

@@ -57,13 +57,5 @@ namespace DeploymentCockpit.Services
                 return uow.Repository<T>().GetAll();
             }
         }
-
-        public virtual IEnumerable<TDto> GetAllAs<TDto>()
-        {
-            using (var uow = _unitOfWorkFactory.Create())
-            {
-                return uow.Repository<T>().GetAllAs<TDto>();
-            }
-        }
     }
 }
