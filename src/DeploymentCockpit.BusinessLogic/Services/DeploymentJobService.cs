@@ -20,7 +20,7 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 return uow.Repository<DeploymentJob>()
-                    .GetAll(
+                    .Get(
                         j => j.DeploymentJobID == id,
                         j => j.DeploymentPlan,
                         j => j.ProjectEnvironment)
@@ -64,7 +64,7 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 return uow.Repository<DeploymentJob>()
-                    .GetAll(j => j.StatusKey == DeploymentStatus.Queued.ToString())
+                    .Get(j => j.StatusKey == DeploymentStatus.Queued.ToString())
                     .OrderBy(j => j.SubmissionTime)
                     .FirstOrDefault();
             }

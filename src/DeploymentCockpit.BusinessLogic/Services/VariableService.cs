@@ -43,7 +43,7 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 variables = uow.Repository<Variable>()
-                    .GetAll(v =>
+                    .Get(v =>
                         v.ScopeKey == VariableScope.Global.ToString()
                         || (v.ScopeKey == VariableScope.Project.ToString() && v.ScopeID == job.ProjectID)
                         || (v.ScopeKey == VariableScope.TargetGroup.ToString() && v.ScopeID == targetGroupID)

@@ -21,7 +21,7 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 return uow.Repository<Target>()
-                    .GetAll(t => t.TargetID == id, t => t.Credential)
+                    .Get(t => t.TargetID == id, t => t.Credential)
                     .SingleOrDefault();
             }
         }

@@ -51,7 +51,7 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 var projectTargets = uow.Repository<ProjectTarget>()
-                    .GetAll(t =>
+                    .Get(t =>
                         t.TargetGroupID == targetGroupID
                         && t.ProjectEnvironmentID == projectEnvironmentID
                         && t.TargetID == targetID);
@@ -79,7 +79,7 @@ namespace DeploymentCockpit.Services
             
             using (var uow = _unitOfWorkFactory.Create())
             {
-                var projectTargets = uow.Repository<ProjectTarget>().GetAll(t =>
+                var projectTargets = uow.Repository<ProjectTarget>().Get(t =>
                     t.TargetGroupID == dbEntity.TargetGroupID
                     && t.ProjectEnvironmentID == dbEntity.ProjectEnvironmentID);
                 if (projectTargets.IsNullOrEmpty())

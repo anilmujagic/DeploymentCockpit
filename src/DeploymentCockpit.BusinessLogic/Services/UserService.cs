@@ -20,7 +20,7 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 return uow.Repository<User>()
-                    .GetAll(u => u.Username == username)
+                    .Get(u => u.Username == username)
                     .SingleOrDefault();
             }
         }

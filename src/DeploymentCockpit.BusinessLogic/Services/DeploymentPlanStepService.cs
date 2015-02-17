@@ -20,7 +20,7 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 return uow.Repository<DeploymentPlanStep>()
-                    .GetAll(s => s.DeploymentPlanID == deploymentPlanID && s.IsEnabled);
+                    .Get(s => s.DeploymentPlanID == deploymentPlanID && s.IsEnabled);
             }
         }
 
@@ -29,7 +29,7 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 return uow.Repository<DeploymentPlanStep>()
-                    .GetAll(s => s.DeploymentPlanID == deploymentPlanID);
+                    .Get(s => s.DeploymentPlanID == deploymentPlanID);
             }
         }
 
