@@ -9,7 +9,7 @@ namespace DeploymentCockpit.Services
 {
     public abstract class DataService
     {
-        public DataService(IUnitOfWorkFactory unitOfWorkFactory)
+        protected DataService(IUnitOfWorkFactory unitOfWorkFactory)
         {
             if (unitOfWorkFactory == null)
                 throw new ArgumentNullException("unitOfWorkFactory");

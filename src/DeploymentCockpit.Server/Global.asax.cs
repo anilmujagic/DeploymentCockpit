@@ -13,16 +13,13 @@ using DeploymentCockpit.Server.Filters;
 
 namespace DeploymentCockpit.Server
 {
-    public class WebApiApplication : System.Web.HttpApplication
+    public class WebApiApplication : HttpApplication
     {
         protected void Application_Start()
         {
             AutoMapperConfiguration.Configure();
             this.RegisterControllerFactory();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-#if DEBUG
-            GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
-#endif
         }
 
         private void RegisterControllerFactory()
