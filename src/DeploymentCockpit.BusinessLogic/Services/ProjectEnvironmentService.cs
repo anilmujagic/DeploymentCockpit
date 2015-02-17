@@ -20,7 +20,7 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 return uow.Repository<ProjectEnvironment>()
-                    .GetAllAs<TDto>(e => e.ProjectID == projectID);
+                    .GetAs<TDto>(e => e.ProjectID == projectID);
             }
         }
     }

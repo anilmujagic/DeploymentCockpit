@@ -28,7 +28,7 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 return uow.Repository<Variable>()
-                    .GetAllAs<TDto>(v => v.ScopeKey == scopeKey && v.ScopeID == scopeID);
+                    .GetAs<TDto>(v => v.ScopeKey == scopeKey && v.ScopeID == scopeID);
             }
         }
 

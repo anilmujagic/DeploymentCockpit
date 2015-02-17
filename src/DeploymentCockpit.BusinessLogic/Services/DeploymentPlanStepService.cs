@@ -38,7 +38,7 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 return uow.Repository<DeploymentPlanStep>()
-                    .GetAllAs<TDto, Script, TargetGroup>(
+                    .GetAs<TDto, Script, TargetGroup>(
                         s => s.DeploymentPlanID == deploymentPlanID,
                         s => s.Script,
                         s => s.TargetGroup);

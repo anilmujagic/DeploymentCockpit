@@ -33,7 +33,7 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 return uow.Repository<DeploymentJob>()
-                    .GetAllAs<TDto, DeploymentPlan, ProjectEnvironment>(
+                    .GetAs<TDto, DeploymentPlan, ProjectEnvironment>(
                         j => j.ProjectID == projectID,
                         j => j.DeploymentPlan,
                         j => j.ProjectEnvironment);
@@ -51,7 +51,7 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 return uow.Repository<DeploymentJob>()
-                    .GetAllAs<TDto, Project, DeploymentPlan, ProjectEnvironment>(
+                    .GetAs<TDto, Project, DeploymentPlan, ProjectEnvironment>(
                         j => activeStatusKeys.Contains(j.StatusKey),
                         j => j.Project,
                         j => j.DeploymentPlan,

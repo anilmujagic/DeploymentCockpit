@@ -14,6 +14,8 @@ namespace DeploymentCockpit.Data.Repositories
     public class Repository<T> : IRepository<T>
         where T : class
     {
+        protected readonly DeploymentCockpitEntities _db;
+
         public Repository(DeploymentCockpitEntities db)
         {
             if (db == null)
@@ -22,8 +24,6 @@ namespace DeploymentCockpit.Data.Repositories
             _db = db;
         }
 
-        protected readonly DeploymentCockpitEntities _db;
-
         public void Insert(T entity)
         {
             _db.Set<T>().Add(entity);
@@ -31,13 +31,13 @@ namespace DeploymentCockpit.Data.Repositories
 
         public void Update(T entity)
         {
-            _db.Entry<T>(entity).State = EntityState.Modified;
+            _db.Entry(entity).State = EntityState.Modified;
         }
 
         public void Delete(T entity)
         {
-            if (_db.Entry<T>(entity).State == EntityState.Detached)
-                _db.Entry<T>(entity).State = EntityState.Unchanged;
+            if (_db.Entry(entity).State == EntityState.Detached)
+                _db.Entry(entity).State = EntityState.Unchanged;
             _db.Set<T>().Remove(entity);
         }
 
@@ -45,6 +45,8 @@ namespace DeploymentCockpit.Data.Repositories
         {
             return _db.Set<T>().Find(keyValues);
         }
+
+        #region GetCount
 
         public int GetCount()
         {
@@ -56,26 +58,26 @@ namespace DeploymentCockpit.Data.Repositories
             return _db.Set<T>().Count(whereCondition);
         }
 
+        #endregion
+
+        #region GetAll
+
         public IEnumerable<T> GetAll()
         {
             return _db.Set<T>().ToList();
         }
 
-        #region GetAll overloads
-
-        // Include
-
         public IEnumerable<T> GetAll<TInclude1>(
             Expression<Func<T, TInclude1>> includeProperty1)
         {
-            return this.GetAll<TInclude1, object>(includeProperty1, null);
+            return this.Get(null, includeProperty1);
         }
 
         public IEnumerable<T> GetAll<TInclude1, TInclude2>(
             Expression<Func<T, TInclude1>> includeProperty1,
             Expression<Func<T, TInclude2>> includeProperty2)
         {
-            return this.GetAll<TInclude1, TInclude2, object>(includeProperty1, includeProperty2, null);
+            return this.Get(null, includeProperty1, includeProperty2);
         }
 
         public IEnumerable<T> GetAll<TInclude1, TInclude2, TInclude3>(
@@ -83,65 +85,29 @@ namespace DeploymentCockpit.Data.Repositories
             Expression<Func<T, TInclude2>> includeProperty2,
             Expression<Func<T, TInclude3>> includeProperty3)
         {
-            return this.GetAll(null, includeProperty1, includeProperty2, includeProperty3);
-        }
-
-        // Where, Include
-
-        public IEnumerable<T> GetAll(
-            Expression<Func<T, bool>> whereCondition)
-        {
-            return this.GetAll<object>(whereCondition, null);
-        }
-
-        public IEnumerable<T> GetAll<TInclude1>(
-            Expression<Func<T, bool>> whereCondition,
-            Expression<Func<T, TInclude1>> includeProperty1)
-        {
-            return this.GetAll<TInclude1, object>(whereCondition, includeProperty1, null);
-        }
-
-        public IEnumerable<T> GetAll<TInclude1, TInclude2>(
-            Expression<Func<T, bool>> whereCondition,
-            Expression<Func<T, TInclude1>> includeProperty1,
-            Expression<Func<T, TInclude2>> includeProperty2)
-        {
-            return this.GetAll<TInclude1, TInclude2, object>(whereCondition, includeProperty1, includeProperty2, null);
-        }
-
-        public IEnumerable<T> GetAll<TInclude1, TInclude2, TInclude3>(
-            Expression<Func<T, bool>> whereCondition,
-            Expression<Func<T, TInclude1>> includeProperty1,
-            Expression<Func<T, TInclude2>> includeProperty2,
-            Expression<Func<T, TInclude3>> includeProperty3)
-        {
-            return this.GetQuery<TInclude1, TInclude2, TInclude3>(
-                    whereCondition, includeProperty1, includeProperty2, includeProperty3)
-                .ToList();
+            return this.Get(null, includeProperty1, includeProperty2, includeProperty3);
         }
 
         #endregion
+
+        #region GetAllAs
 
         public IEnumerable<TDto> GetAllAs<TDto>()
         {
             return _db.Set<T>().Project().To<TDto>().ToList();
         }
 
-        #region GetAllAs overloads
-
-        // Include
-
         public IEnumerable<TDto> GetAllAs<TDto, TInclude1>(
             Expression<Func<T, TInclude1>> includeProperty1)
         {
-            return this.GetAllAs<TDto, TInclude1, object>(includeProperty1, null);
+            return this.GetAs<TDto, TInclude1>(null, includeProperty1);
         }
 
         public IEnumerable<TDto> GetAllAs<TDto, TInclude1, TInclude2>(
             Expression<Func<T, TInclude1>> includeProperty1,
             Expression<Func<T, TInclude2>> includeProperty2)
         {
-            return this.GetAllAs<TDto, TInclude1, TInclude2, object>(includeProperty1, includeProperty2, null);
+            return this.GetAs<TDto, TInclude1, TInclude2>(null, includeProperty1, includeProperty2);
         }
 
         public IEnumerable<TDto> GetAllAs<TDto, TInclude1, TInclude2, TInclude3>(
@@ -149,42 +115,78 @@ namespace DeploymentCockpit.Data.Repositories
             Expression<Func<T, TInclude2>> includeProperty2,
             Expression<Func<T, TInclude3>> includeProperty3)
         {
-            return this.GetAllAs<TDto, TInclude1, TInclude2, TInclude3>(
+            return this.GetAs<TDto, TInclude1, TInclude2, TInclude3>(
                 null, includeProperty1, includeProperty2, includeProperty3);
         }
 
-        // Where, Include
+        #endregion
 
-        public IEnumerable<TDto> GetAllAs<TDto>(
+        #region Get
+
+        public IEnumerable<T> Get(
             Expression<Func<T, bool>> whereCondition)
         {
-            return this.GetAllAs<TDto, object>(whereCondition, null);
+            return this.Get<object>(whereCondition, null);
         }
 
-        public IEnumerable<TDto> GetAllAs<TDto, TInclude1>(
+        public IEnumerable<T> Get<TInclude1>(
             Expression<Func<T, bool>> whereCondition,
             Expression<Func<T, TInclude1>> includeProperty1)
         {
-            return this.GetAllAs<TDto, TInclude1, object>(whereCondition, includeProperty1, null);
+            return this.Get<TInclude1, object>(whereCondition, includeProperty1, null);
         }
 
-        public IEnumerable<TDto> GetAllAs<TDto, TInclude1, TInclude2>(
+        public IEnumerable<T> Get<TInclude1, TInclude2>(
             Expression<Func<T, bool>> whereCondition,
             Expression<Func<T, TInclude1>> includeProperty1,
             Expression<Func<T, TInclude2>> includeProperty2)
         {
-            return this.GetAllAs<TDto, TInclude1, TInclude2, object>(
-                whereCondition, includeProperty1, includeProperty2, null);
+            return this.Get<TInclude1, TInclude2, object>(whereCondition, includeProperty1, includeProperty2, null);
         }
 
-        public IEnumerable<TDto> GetAllAs<TDto, TInclude1, TInclude2, TInclude3>(
+        public IEnumerable<T> Get<TInclude1, TInclude2, TInclude3>(
             Expression<Func<T, bool>> whereCondition,
             Expression<Func<T, TInclude1>> includeProperty1,
             Expression<Func<T, TInclude2>> includeProperty2,
             Expression<Func<T, TInclude3>> includeProperty3)
         {
-            return this.GetQuery<TInclude1, TInclude2, TInclude3>(
-                    whereCondition, includeProperty1, includeProperty2, includeProperty3)
+            return this.GetQuery(whereCondition, includeProperty1, includeProperty2, includeProperty3)
+                .ToList();
+        }
+
+        #endregion
+
+        #region GetAs
+
+        public IEnumerable<TDto> GetAs<TDto>(
+            Expression<Func<T, bool>> whereCondition)
+        {
+            return this.GetAs<TDto, object>(whereCondition, null);
+        }
+
+        public IEnumerable<TDto> GetAs<TDto, TInclude1>(
+            Expression<Func<T, bool>> whereCondition,
+            Expression<Func<T, TInclude1>> includeProperty1)
+        {
+            return this.GetAs<TDto, TInclude1, object>(whereCondition, includeProperty1, null);
+        }
+
+        public IEnumerable<TDto> GetAs<TDto, TInclude1, TInclude2>(
+            Expression<Func<T, bool>> whereCondition,
+            Expression<Func<T, TInclude1>> includeProperty1,
+            Expression<Func<T, TInclude2>> includeProperty2)
+        {
+            return this.GetAs<TDto, TInclude1, TInclude2, object>(
+                whereCondition, includeProperty1, includeProperty2, null);
+        }
+
+        public IEnumerable<TDto> GetAs<TDto, TInclude1, TInclude2, TInclude3>(
+            Expression<Func<T, bool>> whereCondition,
+            Expression<Func<T, TInclude1>> includeProperty1,
+            Expression<Func<T, TInclude2>> includeProperty2,
+            Expression<Func<T, TInclude3>> includeProperty3)
+        {
+            return this.GetQuery(whereCondition, includeProperty1, includeProperty2, includeProperty3)
                 .Project().To<TDto>()
                 .ToList();
         }

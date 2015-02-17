@@ -23,14 +23,14 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 var steps = uow.Repository<DeploymentJobStep>()
-                    .GetAllAs<DeploymentJobStepDto, DeploymentPlanStep>(
+                    .GetAs<DeploymentJobStepDto, DeploymentPlanStep>(
                         s => s.DeploymentJobID == deploymentJobID,
                         s => s.DeploymentPlanStep);
 
                 foreach (var step in steps)
                 {
                     step.Targets = uow.Repository<DeploymentJobStepTarget>()
-                        .GetAllAs<DeploymentJobStepTargetDto, Target>(
+                        .GetAs<DeploymentJobStepTargetDto, Target>(
                             t => t.DeploymentJobStepID == step.DeploymentJobStepID,
                             t => t.Target);
                 }
@@ -68,12 +68,12 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 var executionDetails = uow.Repository<DeploymentJobStepTarget>()
-                    .GetAllAs<ExecutionDetails>(t => t.ExecutionReference == executionReference)
+                    .GetAs<ExecutionDetails>(t => t.ExecutionReference == executionReference)
                     .SingleOrDefault();
                 
                 return executionDetails ??
                     uow.Repository<DeploymentJobStep>()
-                    .GetAllAs<ExecutionDetails>(t => t.ExecutionReference == executionReference)
+                    .GetAs<ExecutionDetails>(t => t.ExecutionReference == executionReference)
                     .SingleOrDefault();
             }
         }

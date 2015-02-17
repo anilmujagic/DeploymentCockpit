@@ -49,7 +49,7 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 project = uow.Repository<Project>()
-                    .GetAll(
+                    .Get(
                         p => p.ProjectID == projectID,
                         p => p.TargetGroups,
                         p => p.Environments,

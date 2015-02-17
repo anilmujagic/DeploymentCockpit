@@ -21,7 +21,7 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 return uow.Repository<DeploymentPlanParameter>()
-                    .GetAllAs<TDto>(p => p.DeploymentPlanID == deploymentPlanID);
+                    .GetAs<TDto>(p => p.DeploymentPlanID == deploymentPlanID);
             }
         }
     }

@@ -20,7 +20,7 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 return uow.Repository<ScriptParameter>()
-                    .GetAllAs<TDto>(e => e.ScriptID == scriptID);
+                    .GetAs<TDto>(e => e.ScriptID == scriptID);
             }
         }
     }

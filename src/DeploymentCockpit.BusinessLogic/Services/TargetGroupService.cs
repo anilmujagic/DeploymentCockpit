@@ -20,7 +20,7 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 return uow.Repository<TargetGroup>()
-                    .GetAll(g => g.ProjectID == projectID);
+                    .Get(g => g.ProjectID == projectID);
             }
         }
 
@@ -29,7 +29,7 @@ namespace DeploymentCockpit.Services
             using (var uow = _unitOfWorkFactory.Create())
             {
                 return uow.Repository<TargetGroup>()
-                    .GetAllAs<TDto>(g => g.ProjectID == projectID);
+                    .GetAs<TDto>(g => g.ProjectID == projectID);
             }
         }
     }
