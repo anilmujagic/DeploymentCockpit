@@ -12,27 +12,35 @@
     </div>
 </div>
 <br />
-<div class="row">
-    <div class="col-md-3">
-        <div my-deployment-plans project-id="projectID"></div>
-    </div>
-    <div class="col-md-9">
-        <div my-variables scope-key="'Project'" scope-id="projectID"></div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-3">
-        <div my-target-groups project-id="projectID"></div>
-    </div>
-    <div class="col-md-3">
-        <div my-project-environments project-id="projectID"></div>
-    </div>
-    <div class="col-md-6">
-        <div my-project-targets project-id="projectID"></div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div my-deployment-jobs project-id="projectID"></div>
-    </div>
-</div>
+<tabset>
+    <tab heading="Configuration">
+        <br />
+        <div class="row">
+            <div class="col-md-3">
+                <div my-deployment-plans project-id="projectID"></div>
+            </div>
+            <div class="col-md-9">
+                <div my-variables scope-key="'Project'" scope-id="projectID"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div my-target-groups project-id="projectID"></div>
+            </div>
+            <div class="col-md-3">
+                <div my-project-environments project-id="projectID"></div>
+            </div>
+            <div class="col-md-6">
+                <div my-project-targets project-id="projectID"></div>
+            </div>
+        </div>
+    </tab>
+    <tab heading="Deployments">
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div my-deployment-jobs project-id="projectID"></div>
+            </div>
+        </div>
+    </tab>
+</tabset>
