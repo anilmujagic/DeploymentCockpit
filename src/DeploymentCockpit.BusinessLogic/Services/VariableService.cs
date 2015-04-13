@@ -33,7 +33,7 @@ namespace DeploymentCockpit.Services
         }
 
         public string ResolveVariables(Script script, DeploymentPlanStep planStep, DeploymentJob job,
-            short? targetGroupID = null, int? targetGroupEnvironmentID = null,
+            short? targetGroupID = null, int? targetGroupEnvironmentID = null, int? projectTargetID = null,
             string targetComputerName = null, string credentialUsername = null, string credentialPassword = null)
         {
             if (script.Body.IsNullOrWhiteSpace())
@@ -45,13 +45,22 @@ namespace DeploymentCockpit.Services
                 variables = uow.Repository<Variable>()
                     .Get(v =>
                         v.ScopeKey == VariableScope.Global.ToString()
-                        || (v.ScopeKey == VariableScope.Project.ToString() && v.ScopeID == job.ProjectID)
-                        || (v.ScopeKey == VariableScope.TargetGroup.ToString() && v.ScopeID == targetGroupID)
-                        || (v.ScopeKey == VariableScope.Environment.ToString() && v.ScopeID == job.ProjectEnvironmentID)
-                        || (v.ScopeKey == VariableScope.TargetGroupEnvironment.ToString() && v.ScopeID == targetGroupEnvironmentID)
-                        || (v.ScopeKey == VariableScope.DeploymentPlan.ToString() && v.ScopeID == planStep.DeploymentPlanID)
-                        || (v.ScopeKey == VariableScope.DeploymentStep.ToString() && v.ScopeID == planStep.DeploymentPlanStepID)
-                        || (v.ScopeKey == VariableScope.DeploymentJob.ToString() && v.ScopeID == job.DeploymentJobID))
+                        || (v.ScopeKey == VariableScope.Project.ToString()
+                            && v.ScopeID == job.ProjectID)
+                        || (v.ScopeKey == VariableScope.TargetGroup.ToString()
+                            && v.ScopeID == targetGroupID)
+                        || (v.ScopeKey == VariableScope.Environment.ToString()
+                            && v.ScopeID == job.ProjectEnvironmentID)
+                        || (v.ScopeKey == VariableScope.TargetGroupEnvironment.ToString()
+                            && v.ScopeID == targetGroupEnvironmentID)
+                        || (v.ScopeKey == VariableScope.ProjectTarget.ToString()
+                            && v.ScopeID == projectTargetID)
+                        || (v.ScopeKey == VariableScope.DeploymentPlan.ToString()
+                            && v.ScopeID == planStep.DeploymentPlanID)
+                        || (v.ScopeKey == VariableScope.DeploymentStep.ToString()
+                            && v.ScopeID == planStep.DeploymentPlanStepID)
+                        || (v.ScopeKey == VariableScope.DeploymentJob.ToString()
+                            && v.ScopeID == job.DeploymentJobID))
                     .OrderByDescending(v => v.Scope)  // First enum value (Global) has lowest precedence.
                     .ToList();
             }

@@ -27,7 +27,10 @@
                                     <td>
                                         <!-- Targets -->
                                         <span ng-repeat="projectTarget in environment.targets | orderBy:'name'">
-                                            {{projectTarget.name}}
+                                            <a href=""
+                                               ng-click="projectTargetDetails(projectTarget.projectTargetID)">
+                                                {{projectTarget.name}}
+                                            </a>
                                             <a href="" class="pull-right" title="Remove project target"
                                                ng-click="delete(projectTarget)">
                                                 <span class="glyphicon glyphicon-remove"></span>

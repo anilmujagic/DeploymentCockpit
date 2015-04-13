@@ -75,11 +75,17 @@ app.directive("myProjectTargets", function () {
                     scope: $scope,
                     size: 'lg'
                 });
-
-                $scope.modalInstance.result.finally(function () {
-                    reloadData();
-                });
             };
+
+            $scope.projectTargetDetails = function (projectTargetID) {
+                $scope.projectTargetID = projectTargetID;
+
+                $scope.modalInstance = $modal.open({
+                    templateUrl: "app/projectTargets/projectTargetDetails.html",
+                    scope: $scope,
+                    size: 'lg'
+                });
+            }
         }
     };
 });

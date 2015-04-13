@@ -202,14 +202,15 @@ namespace DeploymentCockpit.Services
                 var targetGroupEnvironmentID = _targetGroupEnvironmentService
                     .GetCombinationID(targetGroupID, job.ProjectEnvironmentID);
 
-                var targetIDs = _projectTargetService
+                var projectTargets = _projectTargetService
                     .GetAllForTargetGroupAndEnvironment(targetGroupID, job.ProjectEnvironmentID)
                     .OrderBy(t => t.Target.Name)
-                    .Select(t => t.TargetID)
                     .ToList();
 
-                foreach (var targetID in targetIDs)
+                foreach (var projectTarget in projectTargets)
                 {
+                    var targetID = projectTarget.TargetID;
+
                     var jobStepTarget = new DeploymentJobStepTarget
                     {
                         DeploymentJobStepID = deploymentJobStepID,
@@ -229,7 +230,8 @@ namespace DeploymentCockpit.Services
                         var tempPassword = Guid.NewGuid().ToString();
 
                         var scriptBody = _variableService.ResolveVariables(script, planStep, job,
-                            targetGroupID, targetGroupEnvironmentID, target.ComputerName, username, tempPassword);
+                            targetGroupID, targetGroupEnvironmentID, projectTarget.ProjectTargetID,
+                            target.ComputerName, username, tempPassword);
 
                         // Don't log real password.
                         jobStepTarget.ExecutedScript = scriptBody.Replace(tempPassword, "**********");

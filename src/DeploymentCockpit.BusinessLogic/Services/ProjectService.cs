@@ -15,11 +15,13 @@ namespace DeploymentCockpit.Services
         private readonly IVariableService _variableService;
         private readonly IDeploymentPlanStepService _deploymentPlanStepService;
         private readonly ITargetGroupEnvironmentService _targetGroupEnvironmentService;
+        private readonly IProjectTargetService _projectTargetService;
 
         public ProjectService(IUnitOfWorkFactory unitOfWorkFactory,
             ITargetGroupEnvironmentService targetGroupEnvironmentService,
             IVariableService variableService,
-            IDeploymentPlanStepService deploymentPlanStepService)
+            IDeploymentPlanStepService deploymentPlanStepService,
+            IProjectTargetService projectTargetService)
             : base(unitOfWorkFactory)
         {
             if (targetGroupEnvironmentService == null)
@@ -33,6 +35,10 @@ namespace DeploymentCockpit.Services
             if (deploymentPlanStepService == null)
                 throw new ArgumentNullException("deploymentPlanStepService");
             _deploymentPlanStepService = deploymentPlanStepService;
+
+            if (projectTargetService == null)
+                throw new ArgumentNullException("projectTargetService");
+            _projectTargetService = projectTargetService;
         }
 
         public IEnumerable<VariablesHierarchyInfoDto> GetVariablesHierarchy(short projectID)
@@ -79,6 +85,7 @@ namespace DeploymentCockpit.Services
             }
 
             // Target Group Environments
+            var projectTargets = _projectTargetService.GetAllForProjectAs<ProjectTargetDto>(projectID);
             foreach (var tg in project.TargetGroups.OrderBy(g => g.Name))
             {
                 foreach (var pe in project.Environments.OrderBy(e => e.Name))
@@ -90,7 +97,22 @@ namespace DeploymentCockpit.Services
 
                     var tgeNode = new VariablesHierarchyInfoDto(VariableScope.TargetGroupEnvironment, tgeID.Value, name);
                     tgeNode.Variables.AddRange(this.GetVariables(VariableScope.TargetGroupEnvironment, tgeID.Value));
-                    if (!tgeNode.Variables.IsNullOrEmpty())
+
+                    // Project Targets
+                    var projectTargetsForCombination = projectTargets.Where(t =>
+                        t.TargetGroupID == tg.TargetGroupID
+                        && t.ProjectEnvironmentID == pe.ProjectEnvironmentID)
+                        .ToList();
+                    foreach (var pt in projectTargetsForCombination)
+                    {
+                        var ptNode = new VariablesHierarchyInfoDto(
+                            VariableScope.ProjectTarget, pt.ProjectTargetID, pt.TargetName);
+                        ptNode.Variables.AddRange(this.GetVariables(VariableScope.ProjectTarget, pt.ProjectTargetID));
+                        if (!ptNode.Variables.IsNullOrEmpty())
+                            tgeNode.Children.Add(ptNode);
+                    }
+
+                    if (!tgeNode.Variables.IsNullOrEmpty() || tgeNode.Children.Any(c => !c.Variables.IsNullOrEmpty()))
                         projectNode.Children.Add(tgeNode);
                 }
             }
@@ -105,7 +127,8 @@ namespace DeploymentCockpit.Services
                 var steps = _deploymentPlanStepService.GetAllForDeploymentPlan(dp.DeploymentPlanID);
                 foreach (var ds in steps.OrderBy(s => s.ExecutionOrder))
                 {
-                    var dsNode = new VariablesHierarchyInfoDto(VariableScope.DeploymentStep, ds.DeploymentPlanStepID, ds.Name);
+                    var dsNode = new VariablesHierarchyInfoDto(
+                        VariableScope.DeploymentStep, ds.DeploymentPlanStepID, ds.Name);
                     dsNode.Variables.AddRange(this.GetVariables(VariableScope.DeploymentStep, ds.DeploymentPlanStepID));
                     if (!dsNode.Variables.IsNullOrEmpty())
                         dpNode.Children.Add(dsNode);
