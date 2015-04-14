@@ -9,5 +9,6 @@ namespace DeploymentCockpit.Interfaces
     {
         void Commit();
         IRepository<T> Repository<T>() where T : class;
+        IDashboardRepository DashboardRepository { get; }
     }
 }

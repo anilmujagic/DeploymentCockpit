@@ -1,0 +1,30 @@
+﻿<div class="panel panel-info panel-borderless">
+    <div class="panel-heading">
+        Project Version Overview
+        <a href="" class="pull-right" title="Refresh" ng-click="reloadData()">
+            <span class="glyphicon glyphicon-refresh"></span>
+        </a>
+    </div>
+    <div class="panel-body">
+        <table class="table table-condensed table-hover table-striped table-borderless">
+            <thead>
+                <tr>
+                    <th>Project</th>
+                    <th>Environment</th>
+                    <th>Version</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="versionInfo in data | orderBy:['projectName', 'projectEnvironmentName']">
+                <td>{{versionInfo.projectName}}</td>
+                <td>{{versionInfo.environmentName}}</td>
+                <td>{{versionInfo.productVersion}}</td>
+                <td>
+                    <a href="#/DeploymentJob/Details/{{versionInfo.deploymentJobID}}">
+                        {{versionInfo.deploymentJobTime}}
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

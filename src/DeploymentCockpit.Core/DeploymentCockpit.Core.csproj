@@ -68,6 +68,7 @@
     <Compile Include="ApiDtos\DeploymentJobDto.cs" />
     <Compile Include="ApiDtos\DeploymentPlanDto.cs" />
     <Compile Include="ApiDtos\DeploymentPlanStepDto.cs" />
+    <Compile Include="ApiDtos\ProjectVersionInfo.cs" />
     <Compile Include="Common\NameValuePair.cs" />
     <Compile Include="ApiDtos\ProjectDto.cs" />
     <Compile Include="ApiDtos\ProjectEnvironmentDto.cs" />
@@ -92,6 +93,8 @@
     <Compile Include="Interfaces\IConfigurationProvider.cs" />
     <Compile Include="Interfaces\ICredentialService.cs" />
     <Compile Include="Interfaces\ICrudService.cs" />
+    <Compile Include="Interfaces\IDashboardRepository.cs" />
+    <Compile Include="Interfaces\IDashboardService.cs" />
     <Compile Include="Interfaces\IDeploymentJobExecutionService.cs" />
     <Compile Include="Interfaces\IDeploymentPlanParameterService.cs" />
     <Compile Include="Interfaces\IDeploymentJobStepTargetService.cs" />

@@ -41,5 +41,16 @@ namespace DeploymentCockpit.Data
 
             return _repositories[key] as Repository<T>;
         }
+
+        private IDashboardRepository _dashboardRepository;
+        public IDashboardRepository DashboardRepository
+        {
+            get
+            {
+                if (_dashboardRepository == null)
+                    _dashboardRepository = new DashboardRepository(_db);
+                return _dashboardRepository;
+            }
+        }
     }
 }

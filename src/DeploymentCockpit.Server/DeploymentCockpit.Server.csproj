@@ -117,6 +117,9 @@
     <Content Include="app\credentials\credentialEdit.html" />
     <Content Include="app\dashboard\dashboard.html" />
     <Content Include="app\dashboard\DashboardCtrl.js" />
+    <Content Include="app\dashboard\dashboardDataSvc.js" />
+    <Content Include="app\dashboard\myProjectVersionInfo.html" />
+    <Content Include="app\dashboard\myProjectVersionInfo.js" />
     <Content Include="app\deploymentPlanParameters\deploymentPlanParametersSvc.js" />
     <Content Include="app\deploymentPlanParameters\myDeploymentPlanParameters.html" />
     <Content Include="app\deploymentPlanParameters\myDeploymentPlanParameters.js" />
@@ -234,6 +237,7 @@
     </Compile>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\ApiException.cs" />
+    <Compile Include="Controllers\Api\DashboardController.cs" />
     <Compile Include="Controllers\Api\DeploymentPlanParametersController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Filters\AuthorizedUsersFilter.cs" />

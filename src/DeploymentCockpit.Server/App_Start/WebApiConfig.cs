@@ -17,6 +17,12 @@ namespace DeploymentCockpit.Server
                 new { id = RouteParameter.Optional }
             );
 
+            config.Routes.MapHttpRoute(
+                "DashboardApi",
+                "api/Dashboard/{action}/{id}",
+                new { id = RouteParameter.Optional }
+            );
+
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver =
                 new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
 #if DEBUG
