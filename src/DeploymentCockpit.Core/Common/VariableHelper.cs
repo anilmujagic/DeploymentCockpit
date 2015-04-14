@@ -11,6 +11,7 @@ namespace DeploymentCockpit.Common
     {
         public const string DeploymentJobNumberVariable = "DeploymentJobNumber";
         public const string ProductVersionVariable = "ProductVersion";
+        public const string EnvironmentNameVariable = "EnvironmentName";
         public const string TargetComputerNameVariable = "TargetComputerName";
         public const string CredentialUsernameVariable = "CredentialUsername";
         public const string CredentialPasswordVariable = "CredentialPassword";
@@ -21,6 +22,7 @@ namespace DeploymentCockpit.Common
             {
                 yield return DeploymentJobNumberVariable;
                 yield return ProductVersionVariable;
+                yield return EnvironmentNameVariable;
                 yield return TargetComputerNameVariable;
                 yield return CredentialUsernameVariable;
                 yield return CredentialPasswordVariable;

@@ -32,7 +32,8 @@ namespace DeploymentCockpit.Services
             }
         }
 
-        public string ResolveVariables(Script script, DeploymentPlanStep planStep, DeploymentJob job,
+        public string ResolveVariables(
+            Script script, DeploymentPlanStep planStep, DeploymentJob job, string environmentName,
             short? targetGroupID = null, int? targetGroupEnvironmentID = null, int? projectTargetID = null,
             string targetComputerName = null, string credentialUsername = null, string credentialPassword = null)
         {
@@ -70,6 +71,7 @@ namespace DeploymentCockpit.Services
                 .ToList();
             parameters.Add(new ScriptParameter { Name = VariableHelper.DeploymentJobNumberVariable });
             parameters.Add(new ScriptParameter { Name = VariableHelper.ProductVersionVariable });
+            parameters.Add(new ScriptParameter { Name = VariableHelper.EnvironmentNameVariable });
             parameters.Add(new ScriptParameter { Name = VariableHelper.TargetComputerNameVariable });
             parameters.Add(new ScriptParameter { Name = VariableHelper.CredentialUsernameVariable });
             parameters.Add(new ScriptParameter { Name = VariableHelper.CredentialPasswordVariable });
@@ -81,7 +83,7 @@ namespace DeploymentCockpit.Services
             while (true)
             {
                 var processedBody = this.ReplacePlaceholders(originalBody, script.Name, parameters, variables,
-                    job, targetComputerName, credentialUsername, credentialPassword);
+                    job, environmentName, targetComputerName, credentialUsername, credentialPassword);
 
                 if (processedBody == originalBody)  // Nothing left to replace
                     return processedBody;
@@ -94,7 +96,8 @@ namespace DeploymentCockpit.Services
         }
 
         private string ReplacePlaceholders(string scriptBody, string scriptName,
-            IEnumerable<ScriptParameter> parameters, IEnumerable<Variable> variables, DeploymentJob job,
+            IEnumerable<ScriptParameter> parameters, IEnumerable<Variable> variables,
+            DeploymentJob job, string environmentName,
             string targetComputerName = null, string credentialUsername = null, string credentialPassword = null)
         {
             foreach (var parameter in parameters)
@@ -108,7 +111,8 @@ namespace DeploymentCockpit.Services
                     value = variable.Value;
 
                 if (value.IsNullOrWhiteSpace())
-                    value = this.GetValueFromPredefinedVariable(parameter.Name, job.DeploymentJobID, job.ProductVersion,
+                    value = this.GetValueFromPredefinedVariable(
+                        parameter.Name, job.DeploymentJobID, job.ProductVersion, environmentName,
                         targetComputerName, credentialUsername, credentialPassword);
 
                 if (value.IsNullOrWhiteSpace())
@@ -129,7 +133,8 @@ namespace DeploymentCockpit.Services
             return scriptBody;
         }
 
-        private string GetValueFromPredefinedVariable(string parameterName, int deploymentJobID, string productVersion,
+        private string GetValueFromPredefinedVariable(
+            string parameterName, int deploymentJobID, string productVersion, string environmentName,
             string targetComputerName = null, string credentialUsername = null, string credentialPassword = null)
         {
             if (parameterName == VariableHelper.DeploymentJobNumberVariable)
@@ -137,6 +142,9 @@ namespace DeploymentCockpit.Services
 
             if (parameterName == VariableHelper.ProductVersionVariable)
                 return productVersion;
+
+            if (parameterName == VariableHelper.EnvironmentNameVariable)
+                return environmentName;
 
             if (parameterName == VariableHelper.TargetComputerNameVariable)
                 return targetComputerName;

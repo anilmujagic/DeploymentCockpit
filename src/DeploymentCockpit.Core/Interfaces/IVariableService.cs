@@ -11,7 +11,8 @@ namespace DeploymentCockpit.Interfaces
     {
         IEnumerable<TDto> GetAllForScopeAs<TDto>(VariableScope scope, int scopeID);
         IEnumerable<TDto> GetAllForScopeAs<TDto>(string scopeKey, int scopeID);
-        string ResolveVariables(Script script, DeploymentPlanStep planStep, DeploymentJob job,
+        string ResolveVariables(
+            Script script, DeploymentPlanStep planStep, DeploymentJob job, string environmentName,
             short? targetGroupID = null, int? targetGroupEnvironmentID = null, int? projectTargetID = null,
             string targetComputerName = null, string credentialUsername = null, string credentialPassword = null);
     }

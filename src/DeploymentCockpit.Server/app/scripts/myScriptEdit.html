@@ -29,12 +29,13 @@
         </div>
     </div>
     <div class="col-md-8">
-        <div class="well well-sm" ng-show="isExistingScript()">
-            <small>
-                <strong>Predefined variables:</strong>
-                DeploymentJobNumber, ProductVersion, TargetComputerName, CredentialUsername, CredentialPassword
-            </small>
-        </div>
+        <label ng-show="isExistingScript()">Predefined Variables</label>
+        <span class="glyphicon glyphicon-question-sign"
+              ng-show="isExistingScript()"
+              popover-title="Predefined Variables"
+              popover="DeploymentJobNumber, ProductVersion, EnvironmentName, TargetComputerName, CredentialUsername, CredentialPassword"
+              popover-placement="right"
+              popover-trigger="mouseenter"></span>
         <div my-script-parameters script-id="scriptID" ng-show="isExistingScript()"></div>
     </div>
 </div>
@@ -69,7 +70,7 @@
                   popover="{{failureKeywordsDescription}}"
                   popover-placement="right"
                   popover-trigger="mouseenter"></span>
-            <label class ="checkbox-inline pull-right">
+            <label class="checkbox-inline pull-right">
                 <input type="checkbox" ng-model="script.failureKeywordsAllRequired" /> All required
             </label>
             <textarea ng-model="script.failureKeywords" class="form-control" rows="5" />

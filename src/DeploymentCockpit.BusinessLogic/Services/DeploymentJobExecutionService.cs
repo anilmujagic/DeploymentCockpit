@@ -24,6 +24,7 @@ namespace DeploymentCockpit.Services
         private readonly IScriptService _scriptService;
         private readonly IScriptExecutionService _scriptExecutionService;
         private readonly IVariableService _variableService;
+        private readonly IProjectEnvironmentService _projectEnvironmentService;
 
         public DeploymentJobExecutionService(
             IDeploymentJobService deploymentJobService,
@@ -37,6 +38,7 @@ namespace DeploymentCockpit.Services
             ICredentialService credentialService,
             IScriptService scriptService,
             IScriptExecutionService scriptExecutionService,
+            IProjectEnvironmentService projectEnvironmentService,
             IVariableService variableService)
         {
             if (deploymentJobService == null)
@@ -82,6 +84,10 @@ namespace DeploymentCockpit.Services
             if (scriptExecutionService == null)
                 throw new ArgumentNullException("scriptExecutionService");
             _scriptExecutionService = scriptExecutionService;
+
+            if (projectEnvironmentService == null)
+                throw new ArgumentNullException("projectEnvironmentService");
+            _projectEnvironmentService = projectEnvironmentService;
 
             if (variableService == null)
                 throw new ArgumentNullException("variableService");
@@ -133,6 +139,9 @@ namespace DeploymentCockpit.Services
                 .Select(g => g.TargetGroupID)
                 .ToArray();
 
+            var environmentName = _projectEnvironmentService.GetByKey(job.ProjectEnvironmentID)
+                .Name;
+
             foreach (var planStep in planSteps)
             {
                 var jobStep = new DeploymentJobStep
@@ -151,17 +160,18 @@ namespace DeploymentCockpit.Services
 
                     if (planStep.AllTargetGroups)
                     {
-                        this.ExecuteDeploymentStepOnTargets(script, planStep, job, jobStep.DeploymentJobStepID,
-                            targetGroupIDs);
+                        this.ExecuteDeploymentStepOnTargets(script, planStep, job, environmentName,
+                            jobStep.DeploymentJobStepID, targetGroupIDs);
                     }
                     else if (planStep.TargetGroupID.HasValue)
                     {
-                        this.ExecuteDeploymentStepOnTargets(script, planStep, job, jobStep.DeploymentJobStepID,
-                            planStep.TargetGroupID.Value);
+                        this.ExecuteDeploymentStepOnTargets(script, planStep, job, environmentName,
+                            jobStep.DeploymentJobStepID, planStep.TargetGroupID.Value);
                     }
                     else  // Execute on deployment server
                     {
-                        jobStep.ExecutedScript = _variableService.ResolveVariables(script, planStep, job);
+                        jobStep.ExecutedScript = _variableService.ResolveVariables(
+                            script, planStep, job, environmentName);
                         jobStep.ExecutionOutput = "Waiting for output...";
                         _deploymentJobStepService.Update(jobStep);
 
@@ -194,7 +204,8 @@ namespace DeploymentCockpit.Services
             }
         }
 
-        private void ExecuteDeploymentStepOnTargets(Script script, DeploymentPlanStep planStep, DeploymentJob job,
+        private void ExecuteDeploymentStepOnTargets(
+            Script script, DeploymentPlanStep planStep, DeploymentJob job, string environmentName,
             int deploymentJobStepID, params short[] targetGroupIDs)
         {
             foreach (var targetGroupID in targetGroupIDs)
@@ -229,7 +240,7 @@ namespace DeploymentCockpit.Services
                         var password = _credentialService.DecryptPassword(target.Credential.Password);
                         var tempPassword = Guid.NewGuid().ToString();
 
-                        var scriptBody = _variableService.ResolveVariables(script, planStep, job,
+                        var scriptBody = _variableService.ResolveVariables(script, planStep, job, environmentName,
                             targetGroupID, targetGroupEnvironmentID, projectTarget.ProjectTargetID,
                             target.ComputerName, username, tempPassword);
 
