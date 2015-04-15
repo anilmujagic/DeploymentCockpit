@@ -19,7 +19,7 @@
                     <th>Status</th>
                 </tr>
             </thead>
-            <tr ng-repeat="deploymentJob in deploymentJobs | orderBy:'-submissionTime'">
+            <tr ng-repeat="deploymentJob in deploymentJobs | orderBy:'submissionTime'">
                 <td>{{deploymentJob.projectName}}</td>
                 <td>{{deploymentJob.deploymentPlanName}}</td>
                 <td>{{deploymentJob.productVersion}}</td>
