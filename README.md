@@ -38,11 +38,12 @@ There are following entities that can be defined in Deployment Cockpit:
 
 **Scripts** are small, focused scripts intended to be reusable across the projects, but can also be project-specific. They can be written in Batch or PowerShell and can have multiple parameters defined. Values for defined script parameters are supplied by variables during deployment job execution.
 
-**Variables** are used to provide values for script parameters during deployment execution. Variables can be defined on seven levels:
+**Variables** are used to provide values for script parameters during deployment execution. Variables can be defined on eight levels:
 - global
 - project
 - target group
 - environment
 - target group / environment combination
+- project target (one of the machines belonging to target group / environment combination)
 - deployment plan
 - deployment plan step
