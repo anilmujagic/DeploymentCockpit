@@ -22,7 +22,7 @@ namespace DeploymentCockpit.Server.Controllers.Api
         protected readonly bool _isPutEnabled;
         protected readonly bool _isDeleteEnabled;
 
-        public CrudApiController(TCrudService service,
+        protected CrudApiController(TCrudService service,
             bool isPostEnabled = true, bool isPutEnabled = true, bool isDeleteEnabled = true)
         {
             if (service == null)
@@ -121,7 +121,12 @@ namespace DeploymentCockpit.Server.Controllers.Api
 
         protected IEnumerable<TDto> GetAll()
         {
-            return _service.GetAll()
+            return this.GetDtos(_service.GetAll());
+        }
+
+        protected IEnumerable<TDto> GetDtos(IEnumerable<TEntity> entities)
+        {
+            return entities
                 .Select(e => this.EntityToDto(this.ModifyEntityForResponse(e)))
                 .ToList();
         }

@@ -9,6 +9,8 @@ namespace DeploymentCockpit.Services
 {
     public abstract class DataService
     {
+        protected readonly IUnitOfWorkFactory _unitOfWorkFactory;
+
         protected DataService(IUnitOfWorkFactory unitOfWorkFactory)
         {
             if (unitOfWorkFactory == null)
@@ -16,7 +18,5 @@ namespace DeploymentCockpit.Services
 
             _unitOfWorkFactory = unitOfWorkFactory;
         }
-
-        protected readonly IUnitOfWorkFactory _unitOfWorkFactory;
     }
 }
