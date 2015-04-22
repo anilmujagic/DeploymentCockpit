@@ -15,6 +15,8 @@ namespace DeploymentCockpit.Interfaces
 
         T GetByKey(params object[] keyValues);
 
+        bool Exists(Expression<Func<T, bool>> whereCondition);
+
         #region GetCount
 
         int GetCount();

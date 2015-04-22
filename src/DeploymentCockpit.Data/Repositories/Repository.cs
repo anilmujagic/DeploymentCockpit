@@ -20,7 +20,6 @@ namespace DeploymentCockpit.Data.Repositories
         {
             if (db == null)
                 throw new ArgumentNullException("db");
-
             _db = db;
         }
 
@@ -44,6 +43,11 @@ namespace DeploymentCockpit.Data.Repositories
         public T GetByKey(params object[] keyValues)
         {
             return _db.Set<T>().Find(keyValues);
+        }
+
+        public bool Exists(Expression<Func<T, bool>> whereCondition)
+        {
+            return _db.Set<T>().Any(whereCondition);
         }
 
         #region GetCount
