@@ -8,7 +8,7 @@
                 ng-options="g.targetGroupID as g.name for g in targetGroups | orderBy:'name'"
                 class="form-control"
                 required>
-            <option value="" disabled></option>
+            <option value=""></option>
         </select>
     </div>
     <div class="form-group">
@@ -17,7 +17,7 @@
                 ng-options="e.projectEnvironmentID as e.name for e in projectEnvironments | orderBy:'name'"
                 class="form-control"
                 required>
-            <option value="" disabled></option>
+            <option value=""></option>
         </select>
     </div>
     <div class="form-group">
@@ -26,7 +26,7 @@
                 ng-options="e.targetID as e.name for e in targets | orderBy:'name'"
                 class="form-control"
                 required>
-            <option value="" disabled></option>
+            <option value=""></option>
         </select>
     </div>
 </div>
