@@ -2,8 +2,8 @@ cd ..\src
 
 ..\build\tools\nuget.exe restore DeploymentCockpit.sln
 
-set msBuildDir=%WINDIR%\Microsoft.NET\Framework\v4.0.30319
-call %msBuildDir%\msbuild.exe DeploymentCockpit.sln /p:Configuration=Release /t:Clean,Build /l:FileLogger,Microsoft.Build.Engine;logfile=..\build\build.log /p:VisualStudioVersion=12.0
+set msBuildDir="%ProgramFiles(x86)%\MSBuild\14.0\Bin"
+call %msBuildDir%\msbuild.exe DeploymentCockpit.sln /p:Configuration=Release /t:Clean,Build /l:FileLogger,Microsoft.Build.Engine;logfile=..\build\build.log /p:VisualStudioVersion=14.0
 set msBuildDir=
 
 cd ..\build
