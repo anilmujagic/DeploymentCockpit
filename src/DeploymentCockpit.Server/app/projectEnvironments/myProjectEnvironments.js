@@ -26,7 +26,8 @@ app.directive("myProjectEnvironments", function () {
 
                 $scope.modalInstance = $modal.open({
                     templateUrl: "app/projectEnvironments/projectEnvironmentEdit.html",
-                    scope: $scope
+                    scope: $scope,
+                    size: 'lg'
                 });
 
                 $scope.modalInstance.result.finally(function () {

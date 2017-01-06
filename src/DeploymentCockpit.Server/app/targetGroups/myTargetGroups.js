@@ -26,7 +26,8 @@ app.directive("myTargetGroups", function () {
 
                 $scope.modalInstance = $modal.open({
                     templateUrl: "app/targetGroups/targetGroupEdit.html",
-                    scope: $scope
+                    scope: $scope,
+                    size: 'lg'
                 });
 
                 $scope.modalInstance.result.finally(function () {
