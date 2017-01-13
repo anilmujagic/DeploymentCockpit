@@ -18,6 +18,9 @@ namespace DeploymentCockpit.ApiDtos
         [MaxLength(100, ErrorMessage = "Name cannot be longer than 100 characters.")]
         public string Name { get; set; }
 
+        [MaxLength(100, ErrorMessage = "API Code cannot be longer than 100 characters.")]
+        public string ApiCode { get; set; }
+
         public string Description { get; set; }
     }
 }

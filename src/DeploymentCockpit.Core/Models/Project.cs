@@ -26,6 +26,7 @@ namespace DeploymentCockpit.Models
         public short ProjectID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string ApiCode { get; set; }
     
         public virtual ICollection<Script> Scripts { get; set; }
         public virtual ICollection<TargetGroup> TargetGroups { get; set; }

@@ -4,8 +4,11 @@
     [ProjectID] SMALLINT NOT NULL,
     [Name] NVARCHAR(100) NOT NULL, 
     [Description] NVARCHAR(MAX) NULL, 
+    [ApiCode] NVARCHAR(100) NULL, 
+
     CONSTRAINT [PK_ProjectEnvironment] PRIMARY KEY ([ProjectEnvironmentID]),
     CONSTRAINT [UK_ProjectEnvironment_ProjectID_Name] UNIQUE ([ProjectID], [Name]),
+    CONSTRAINT [UK_ProjectEnvironment_ProjectID_ApiCode] UNIQUE ([ProjectID], [ApiCode]),
     CONSTRAINT [FK_ProjectEnvironment_Project] FOREIGN KEY ([ProjectID])
         REFERENCES [Project]([ProjectID]) ON DELETE CASCADE
 )

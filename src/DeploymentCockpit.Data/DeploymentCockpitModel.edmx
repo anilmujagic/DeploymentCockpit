@@ -67,6 +67,7 @@
           <Property Name="ProjectID" Type="smallint" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ApiCode" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="DeploymentPlanParameter">
           <Key>
@@ -98,6 +99,7 @@
           <Property Name="ProjectID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ApiCode" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="ProjectEnvironment">
           <Key>
@@ -107,6 +109,7 @@
           <Property Name="ProjectID" Type="smallint" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ApiCode" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="ProjectTarget">
           <Key>
@@ -598,6 +601,7 @@
           <NavigationProperty Name="Environments" Relationship="DeploymentCockpitModel.FK_ProjectEnvironment_Project" FromRole="Project" ToRole="ProjectEnvironment" />
           <NavigationProperty Name="DeploymentPlans" Relationship="DeploymentCockpitModel.FK_DeploymentPlan_Project" FromRole="Project" ToRole="DeploymentPlan" />
           <NavigationProperty Name="DeploymentJobs" Relationship="DeploymentCockpitModel.FK_DeploymentJob_Project" FromRole="Project" ToRole="DeploymentJob" />
+          <Property Name="ApiCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           </EntityType>
         <EntityContainer Name="DeploymentCockpitEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Projects" EntityType="Self.Project" />
@@ -811,6 +815,7 @@
           <NavigationProperty Name="ProjectTargets" Relationship="DeploymentCockpitModel.FK_ProjectTarget_ProjectEnvironment" FromRole="ProjectEnvironment" ToRole="ProjectTarget" />
           <NavigationProperty Name="DeploymentJobs" Relationship="DeploymentCockpitModel.FK_DeploymentJob_ProjectEnvironment" FromRole="ProjectEnvironment" ToRole="DeploymentJob" />
           <NavigationProperty Name="TargetGroupEnvironments" Relationship="DeploymentCockpitModel.FK_TargetGroupEnvironment_ProjectEnvironment" FromRole="ProjectEnvironment" ToRole="TargetGroupEnvironment" />
+          <Property Name="ApiCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_ProjectEnvironment_Project">
           <End Type="DeploymentCockpitModel.Project" Role="Project" Multiplicity="1" />
@@ -884,6 +889,7 @@
           <NavigationProperty Name="Steps" Relationship="DeploymentCockpitModel.FK_DeploymentPlanStep_DeploymentPlan" FromRole="DeploymentPlan" ToRole="DeploymentPlanStep" />
           <NavigationProperty Name="DeploymentJobs" Relationship="DeploymentCockpitModel.FK_DeploymentJob_DeploymentPlan" FromRole="DeploymentPlan" ToRole="DeploymentJob" />
           <NavigationProperty Name="Parameters" Relationship="DeploymentCockpitModel.FK_DeploymentPlanParameter_DeploymentPlan" FromRole="DeploymentPlan" ToRole="DeploymentPlanParameter" />
+          <Property Name="ApiCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_DeploymentPlan_Project">
           <End Type="DeploymentCockpitModel.Project" Role="Project" Multiplicity="1" />
@@ -1206,6 +1212,7 @@
           <EntitySetMapping Name="Projects">
             <EntityTypeMapping TypeName="DeploymentCockpitModel.Project">
               <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="ApiCode" ColumnName="ApiCode" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -1265,6 +1272,7 @@
           <EntitySetMapping Name="ProjectEnvironments">
             <EntityTypeMapping TypeName="DeploymentCockpitModel.ProjectEnvironment">
               <MappingFragment StoreEntitySet="ProjectEnvironment">
+                <ScalarProperty Name="ApiCode" ColumnName="ApiCode" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
@@ -1285,6 +1293,7 @@
           <EntitySetMapping Name="DeploymentPlans">
             <EntityTypeMapping TypeName="DeploymentCockpitModel.DeploymentPlan">
               <MappingFragment StoreEntitySet="DeploymentPlan">
+                <ScalarProperty Name="ApiCode" ColumnName="ApiCode" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
