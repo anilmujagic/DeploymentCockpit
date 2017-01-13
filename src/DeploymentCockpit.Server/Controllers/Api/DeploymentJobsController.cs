@@ -80,5 +80,19 @@ namespace DeploymentCockpit.Server.Controllers.Api
 
             return Request.CreateResponse(HttpStatusCode.OK, _service.GetAllActiveAs<DeploymentJobDto>());
         }
+
+        public HttpResponseMessage Post(string project, string version, string environment)
+        {
+            // TODO!!!
+
+            var dto = new DeploymentJobDto();
+            //{
+            //    ProjectID = ,
+            //    ProductVersion = ,
+            //    ProjectEnvironmentID = 
+            //};
+
+            return Post(dto);
+        }
     }
 }
