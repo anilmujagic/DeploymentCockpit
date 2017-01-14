@@ -61,13 +61,13 @@
                         <td>
                             <a href="" ng-click="showExecutionDetails(deploymentJobStep.executionReference)">
                                 <img src="assets/img/deployment-running.gif"
-                                     ng-show="deploymentJobStep.statusKey === 'Running'"
+                                     ng-if="deploymentJobStep.statusKey === 'Running'"
                                      title="{{deploymentJobStep.statusKey}}" alt="{{deploymentJobStep.statusKey}}" />
                                 <span class="glyphicon glyphicon-ok deployment-status-finished"
-                                      ng-show="deploymentJobStep.statusKey === 'Finished'"
+                                      ng-if="deploymentJobStep.statusKey === 'Finished'"
                                       title="{{deploymentJobStep.statusKey}}" alt="{{deploymentJobStep.statusKey}}"></span>
                                 <span class="glyphicon glyphicon-remove deployment-status-failed"
-                                      ng-show="deploymentJobStep.statusKey === 'Failed'"
+                                      ng-if ="deploymentJobStep.statusKey === 'Failed'"
                                       title="{{deploymentJobStep.statusKey}}" alt="{{deploymentJobStep.statusKey}}"></span>
                             </a>
                         </td>
@@ -83,3 +83,5 @@
         <pre>{{deploymentJob.errors}}</pre>
     </div>
 </div>
+
+<div id="page-bottom"></div>

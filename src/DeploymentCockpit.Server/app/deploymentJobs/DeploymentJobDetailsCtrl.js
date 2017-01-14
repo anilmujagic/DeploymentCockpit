@@ -1,13 +1,18 @@
 ﻿"use strict";
 
-app.controller("DeploymentJobDetailsCtrl", function ($scope, $routeParams, $modal,
-    $interval, deploymentJobsSvc, deploymentJobStepsSvc) {
+app.controller("DeploymentJobDetailsCtrl", function ($scope, $routeParams, $modal, $interval, $timeout,
+    $anchorScroll, $location, deploymentJobsSvc, deploymentJobStepsSvc) {
 
     $scope.deploymentJobID = $routeParams.deploymentJobID;  // To be available for nested directives even before main object is loaded.
 
     $scope.reloadData = function () {
         $scope.deploymentJob = deploymentJobsSvc.get($scope.deploymentJobID);
-        $scope.deploymentJobSteps = deploymentJobStepsSvc.getAll({ deploymentJobID: $scope.deploymentJobID });
+        deploymentJobStepsSvc.getAll({ deploymentJobID: $scope.deploymentJobID }).$promise.then(function (data) {
+            $scope.deploymentJobSteps = data;
+            $timeout(function () {
+                scrollToBottom();
+            });
+        });
     };
     $scope.reloadData();
 
@@ -40,4 +45,11 @@ app.controller("DeploymentJobDetailsCtrl", function ($scope, $routeParams, $moda
             size: 'lg'
         });
     };
+
+    function scrollToBottom() {
+        if ($scope.deploymentJob.statusKey === "Running") {
+            $location.hash("page-bottom");
+            $anchorScroll();
+        }
+    }
 });
