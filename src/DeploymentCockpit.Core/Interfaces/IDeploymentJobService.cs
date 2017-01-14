@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using DeploymentCockpit.ApiDtos;
+using DeploymentCockpit.Common;
 using DeploymentCockpit.Models;
 
 namespace DeploymentCockpit.Interfaces
@@ -13,5 +11,7 @@ namespace DeploymentCockpit.Interfaces
         IEnumerable<TDto> GetAllForProjectAs<TDto>(short projectID);
         IEnumerable<TDto> GetAllActiveAs<TDto>();
         DeploymentJob GetNextJobInTheQueue();
+        DeploymentJobDto ResolveDeploymentJobDto(string project, string plan, string version, string environment,
+            IEnumerable<NameValuePair> parameters = null);
     }
 }

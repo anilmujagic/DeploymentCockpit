@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DeploymentCockpit.ApiDtos;
+using DeploymentCockpit.Common;
 using DeploymentCockpit.Interfaces;
 using DeploymentCockpit.Models;
 
@@ -67,6 +66,34 @@ namespace DeploymentCockpit.Services
                     .Get(j => j.StatusKey == DeploymentStatus.Queued.ToString())
                     .OrderBy(j => j.SubmissionTime)
                     .FirstOrDefault();
+            }
+        }
+
+        public DeploymentJobDto ResolveDeploymentJobDto(string project, string plan, string version, string environment,
+            IEnumerable<NameValuePair> parameters = null)
+        {
+            using (var uow = _unitOfWorkFactory.Create())
+            {
+                var projectID = uow.Repository<Project>()
+                    .Get(p => p.ApiCode == project || p.Name == project)?
+                    .FirstOrDefault()?.ProjectID;
+
+                var planID = uow.Repository<DeploymentPlan>()
+                    .Get(p => p.ApiCode == plan || p.Name == plan)?
+                    .FirstOrDefault()?.DeploymentPlanID;
+
+                var environmentID = uow.Repository<ProjectEnvironment>()
+                    .Get(e => e.ApiCode == environment || e.Name == environment)?
+                    .FirstOrDefault()?.ProjectEnvironmentID;
+
+                return new DeploymentJobDto
+                {
+                    ProjectID = projectID,
+                    DeploymentPlanID = planID,
+                    ProductVersion = version,
+                    ProjectEnvironmentID = environmentID,
+                    Parameters = parameters
+                };
             }
         }
     }

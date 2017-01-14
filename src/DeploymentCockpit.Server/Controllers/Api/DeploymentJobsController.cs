@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using DeploymentCockpit.ApiDtos;
+using DeploymentCockpit.Common;
 using DeploymentCockpit.Interfaces;
 using DeploymentCockpit.Models;
 using Insula.Common;
@@ -81,16 +81,24 @@ namespace DeploymentCockpit.Server.Controllers.Api
             return Request.CreateResponse(HttpStatusCode.OK, _service.GetAllActiveAs<DeploymentJobDto>());
         }
 
-        public HttpResponseMessage Post(string project, string version, string environment)
+        [Route("Deploy/{project}/{plan}/{version}/{environment}")]
+        public HttpResponseMessage Post(string project, string plan, string version, string environment,
+            IEnumerable<NameValuePair> parameters)
         {
-            // TODO!!!
+            var dto = _service.ResolveDeploymentJobDto(project, plan, version, environment, parameters);
 
-            var dto = new DeploymentJobDto();
-            //{
-            //    ProjectID = ,
-            //    ProductVersion = ,
-            //    ProjectEnvironmentID = 
-            //};
+            if (!dto.ProjectID.HasValue)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+                    "Unknown project [{0}].".FormatString(project));
+            if (!dto.DeploymentPlanID.HasValue)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+                    "Unknown deployment plan [{0}].".FormatString(plan));
+            if (dto.ProductVersion.IsNullOrWhiteSpace())
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+                    "Version not specified [{0}].".FormatString(version));
+            if (!dto.ProjectEnvironmentID.HasValue)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+                    "Unknown project environment [{0}].".FormatString(environment));
 
             return Post(dto);
         }
