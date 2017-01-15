@@ -22,6 +22,7 @@ namespace DeploymentCockpit.Models
         public int DeploymentJobID { get; set; }
         public short ProjectID { get; set; }
         public System.DateTime SubmissionTime { get; set; }
+        public string SubmittedBy { get; set; }
         public Nullable<System.DateTime> StartTime { get; set; }
         public Nullable<System.DateTime> EndTime { get; set; }
         public string StatusKey { get; set; }

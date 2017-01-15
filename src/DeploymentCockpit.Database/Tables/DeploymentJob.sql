@@ -3,6 +3,7 @@
     [DeploymentJobID] INT NOT NULL IDENTITY, 
     [ProjectID] SMALLINT NOT NULL, 
     [SubmissionTime] DATETIME2 NOT NULL, 
+    [SubmittedBy] NVARCHAR(100) NULL, 
     [StartTime] DATETIME2 NULL, 
     [EndTime] DATETIME2 NULL, 
     [StatusKey] NVARCHAR(50) NOT NULL, 

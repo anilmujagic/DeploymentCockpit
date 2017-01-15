@@ -45,6 +45,7 @@ namespace DeploymentCockpit.Server.Controllers.Api
         {
             entity.Status = DeploymentStatus.Queued;
             entity.SubmissionTime = DateTime.UtcNow;
+            entity.SubmittedBy = ActionContext?.RequestContext?.Principal?.Identity?.Name;
             entity.StartTime = null;
             entity.EndTime = null;
         }
@@ -54,6 +55,7 @@ namespace DeploymentCockpit.Server.Controllers.Api
             var existingEntity = _service.GetByKey(entity.DeploymentJobID);
             entity.ProjectID = existingEntity.ProjectID;
             entity.SubmissionTime = existingEntity.SubmissionTime;
+            entity.SubmittedBy = existingEntity.SubmittedBy;
             entity.StartTime = existingEntity.StartTime;
             entity.EndTime = existingEntity.EndTime;
             entity.StatusKey = existingEntity.StatusKey;

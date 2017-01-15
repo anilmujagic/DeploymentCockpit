@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DeploymentCockpit.Common;
-using Insula.Common;
 
 namespace DeploymentCockpit.ApiDtos
 {
@@ -22,6 +18,8 @@ namespace DeploymentCockpit.ApiDtos
         {
             get { return this.SubmissionTime.GetDisplayValue(); }
         }
+
+        public string SubmittedBy { get; set; }
 
         public DateTime? StartTime { get; set; }
         public string StartTimeDisplay

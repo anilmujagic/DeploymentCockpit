@@ -22,6 +22,7 @@
           <Property Name="DeploymentJobID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProjectID" Type="smallint" Nullable="false" />
           <Property Name="SubmissionTime" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="SubmittedBy" Type="nvarchar" MaxLength="100" />
           <Property Name="StartTime" Type="datetime2" Precision="7" />
           <Property Name="EndTime" Type="datetime2" Precision="7" />
           <Property Name="StatusKey" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -953,6 +954,7 @@
           <Property Name="DeploymentJobID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProjectID" Type="Int16" Nullable="false" />
           <Property Name="SubmissionTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="SubmittedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="StartTime" Type="DateTime" Precision="7" />
           <Property Name="EndTime" Type="DateTime" Precision="7" />
           <Property Name="StatusKey" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1320,6 +1322,7 @@
           <EntitySetMapping Name="DeploymentJobs">
             <EntityTypeMapping TypeName="DeploymentCockpitModel.DeploymentJob">
               <MappingFragment StoreEntitySet="DeploymentJob">
+                <ScalarProperty Name="SubmittedBy" ColumnName="SubmittedBy" />
                 <ScalarProperty Name="Errors" ColumnName="Errors" />
                 <ScalarProperty Name="SubmissionTime" ColumnName="SubmissionTime" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
