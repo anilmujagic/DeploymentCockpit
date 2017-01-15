@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DeploymentCockpit.ApiDtos;
 using DeploymentCockpit.Common;
@@ -94,6 +95,45 @@ namespace DeploymentCockpit.Services
                     ProjectEnvironmentID = environmentID,
                     Parameters = parameters
                 };
+            }
+        }
+
+        // This method implies there is only one active JobRunner instance.
+        // In the case there are multiple, there has to be a property indicating which instance is executing the job.
+        public void CleanUpAbortedJobs()
+        {
+            using (var uow = _unitOfWorkFactory.Create())
+            {
+                var statusKey = DeploymentStatus.Running.ToString();
+
+                var jobRepo = uow.Repository<DeploymentJob>();
+                jobRepo.Get(j => j.StatusKey == statusKey)
+                    .Each(j =>
+                    {
+                        j.Status = DeploymentStatus.Failed;
+                        j.EndTime = DateTime.UtcNow;
+                        jobRepo.Update(j);
+                    });
+
+                var jobStepRepo = uow.Repository<DeploymentJobStep>();
+                jobStepRepo.Get(s => s.StatusKey == statusKey)
+                    .Each(s =>
+                    {
+                        s.Status = DeploymentStatus.Failed;
+                        s.EndTime = DateTime.UtcNow;
+                        jobStepRepo.Update(s);
+                    });
+
+                var jobStepTargetRepo = uow.Repository<DeploymentJobStepTarget>();
+                jobStepTargetRepo.Get(t => t.StatusKey == statusKey)
+                    .Each(t =>
+                    {
+                        t.Status = DeploymentStatus.Failed;
+                        t.EndTime = DateTime.UtcNow;
+                        jobStepTargetRepo.Update(t);
+                    });
+
+                uow.Commit();
             }
         }
     }

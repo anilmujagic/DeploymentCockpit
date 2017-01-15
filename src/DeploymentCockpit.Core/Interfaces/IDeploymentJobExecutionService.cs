@@ -8,6 +8,7 @@ namespace DeploymentCockpit.Interfaces
 {
     public interface IDeploymentJobExecutionService
     {
+        void CleanUpAbortedJobs();
         void ExecuteNextDeploymentJob();
     }
 }

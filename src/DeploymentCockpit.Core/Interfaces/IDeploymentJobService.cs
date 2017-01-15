@@ -13,5 +13,6 @@ namespace DeploymentCockpit.Interfaces
         DeploymentJob GetNextJobInTheQueue();
         DeploymentJobDto ResolveDeploymentJobDto(string project, string plan, string version, string environment,
             IEnumerable<NameValuePair> parameters = null);
+        void CleanUpAbortedJobs();
     }
 }

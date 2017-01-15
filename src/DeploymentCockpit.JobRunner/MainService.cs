@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Timers;
 using DeploymentCockpit.Common;
 using DeploymentCockpit.Interfaces;
-using Insula.Common;
 
 namespace DeploymentCockpit.JobRunner
 {
@@ -29,6 +25,7 @@ namespace DeploymentCockpit.JobRunner
         {
             try
             {
+                _deploymentJobExecutionService.CleanUpAbortedJobs();
                 _deploymentJobExecutionService.ExecuteNextDeploymentJob();
             }
             catch (Exception ex)

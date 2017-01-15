@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DeploymentCockpit.Common;
 using DeploymentCockpit.Interfaces;
 using DeploymentCockpit.Models;
@@ -92,6 +89,11 @@ namespace DeploymentCockpit.Services
             if (variableService == null)
                 throw new ArgumentNullException("variableService");
             _variableService = variableService;
+        }
+
+        public void CleanUpAbortedJobs()
+        {
+            _deploymentJobService.CleanUpAbortedJobs();
         }
 
         public void ExecuteNextDeploymentJob()
