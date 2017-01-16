@@ -85,7 +85,7 @@ namespace DeploymentCockpit.Server.Controllers.Api
 
         [Route("Deploy/{project}/{plan}/{version}/{environment}")]
         public HttpResponseMessage Post(string project, string plan, string version, string environment,
-            IEnumerable<NameValuePair> parameters)
+            [FromBody] IEnumerable<NameValuePair> parameters)
         {
             var dto = _service.ResolveDeploymentJobDto(project, plan, version, environment, parameters);
 
