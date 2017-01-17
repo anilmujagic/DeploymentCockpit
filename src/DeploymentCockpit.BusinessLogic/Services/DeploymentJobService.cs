@@ -80,11 +80,13 @@ namespace DeploymentCockpit.Services
                     .FirstOrDefault()?.ProjectID;
 
                 var planID = uow.Repository<DeploymentPlan>()
-                    .Get(p => p.ApiCode == plan || p.Name == plan)?
+                    .Get(p => p.ProjectID == projectID
+                        && (p.ApiCode == plan || p.Name == plan))?
                     .FirstOrDefault()?.DeploymentPlanID;
 
                 var environmentID = uow.Repository<ProjectEnvironment>()
-                    .Get(e => e.ApiCode == environment || e.Name == environment)?
+                    .Get(e => e.ProjectID == projectID
+                        && (e.ApiCode == environment || e.Name == environment))?
                     .FirstOrDefault()?.ProjectEnvironmentID;
 
                 return new DeploymentJobDto
