@@ -2,53 +2,107 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
 using DeploymentCockpit.Common;
 using DeploymentCockpit.Interfaces;
 using Insula.Common;
+using Timer = System.Timers.Timer;
 
 namespace DeploymentCockpit.Target
 {
     class MainService
     {
         private readonly ITargetCommandProcessor _commandProcessor;
-        private readonly Timer _timer;
+        private CancellationTokenSource _cancellationTokenSource;
+        private Task _commandProcessorWorkerTask;
+        private Timer _timer;
 
         public MainService(ITargetCommandProcessor commandProcessor)
         {
-            if (commandProcessor == null)
-                throw new ArgumentNullException("commandProcessor");
-            _commandProcessor = commandProcessor;
-
-            _timer = new Timer(500);
-            _timer.AutoReset = false;
-            _timer.Elapsed += _timer_Elapsed;
+            _commandProcessor = commandProcessor ?? throw new ArgumentNullException(nameof(commandProcessor));
         }
 
-        void _timer_Elapsed(object sender, ElapsedEventArgs e)
+        /// <summary>
+        /// Start service - background listener/processor of inbound commands and watcher timer
+        /// </summary>
+        public void Start()
         {
             try
             {
-                _commandProcessor.ProcessCommand();
+                Log.Info("Starting MainService commands processing loop...");
+
+                _startCommandProcessingWorker();
+
+                Log.Info("Command processing started, configuring watcher timer...");
+
+                _timer = new Timer(5000);
+                _timer.AutoReset = false;
+                _timer.Elapsed += _watchTimerIsElapsed;
+                _timer.Start();
+
             }
             catch (Exception ex)
             {
+                Log.Error("MainService commands processing loop startin failed");
+                Log.Exception(ex);
+            }
+
+        }
+
+        /// <summary>
+        /// Stop service - safely stopping unternal watcher timer and cancelling bacground
+        /// commands listerning for and processing task
+        /// </summary>
+        public void Stop()
+        {
+            Log.Info("Received Stop service signal, stopping service");
+            _timer.Stop();
+            _cancellationTokenSource.Cancel();
+        }
+
+        /// <summary>
+        /// Timer elapsed event - check background task status and restart in case of fails
+        /// </summary>
+        /// <param name="sender">Timer fired the event</param>
+        /// <param name="args">Event parameters</param>
+        private void _watchTimerIsElapsed(object sender, ElapsedEventArgs args)
+        {
+            try
+            {
+                var task = _commandProcessorWorkerTask;
+                if ((task.IsFaulted || task.Exception != null) && !task.IsCanceled)
+                {
+                    Log.Error("Command processing worker is fault, see details below");
+                    Log.Exception(task.Exception);
+
+                    Log.Info("Attempt to restart the task");
+                    _startCommandProcessingWorker();
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error during checking command processow worker status or worker restarting is occured, see details below");
                 Log.Exception(ex);
             }
             finally
             {
-                (sender as Timer).Start();  //Start new iteration
+                (sender as Timer).Start(); // Start new iteration
             }
         }
 
-        public void Start()
+        /// <summary>
+        /// Start backgroud task for listening for and  processing inbound commands
+        /// </summary>
+        private void _startCommandProcessingWorker()
         {
-            _timer.Start();
-        }
+            _cancellationTokenSource = new CancellationTokenSource();
 
-        public void Stop()
-        {
-            _timer.Stop();
+            _commandProcessorWorkerTask = Task.Run(() =>
+            {
+                _commandProcessor.ProcessCommand(_cancellationTokenSource.Token);
+            }, _cancellationTokenSource.Token);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using DeploymentCockpit.Common;
 using DeploymentCockpit.Interfaces;
@@ -23,8 +24,14 @@ namespace DeploymentCockpit.ScriptExecution
             _scriptRunner = scriptRunner;
         }
 
-        public void ProcessCommand()
+        public void ProcessCommand(CancellationToken cancellationToken)
         {
+            if (cancellationToken.IsCancellationRequested)
+            {
+                Log.Info("Commands processing cancellation is requested");
+                return;
+            }
+
             var ipAddress = DomainContext.IPAddress;
             if (ipAddress.IsNullOrWhiteSpace())
                 ipAddress = "*";  // Bind to all interfaces
@@ -34,41 +41,51 @@ namespace DeploymentCockpit.ScriptExecution
             var encriptionKey = DomainContext.TargetKey;
             var encriptionSalt = DomainContext.ServerKey;
 
+            if (cancellationToken.IsCancellationRequested)
+            {
+                Log.Info("Commands processing cancellation is requested");
+                return;
+            }
+
             using (var context = NetMQContext.Create())
             {
                 using (var socket = context.CreateResponseSocket())
                 {
                     Log.Info("{0}Listening...", Environment.NewLine);
                     socket.Bind(endpoint);
-                    var encryptedJson = socket.ReceiveString(Encoding.UTF8);
-                    Log.Info("Command received");
 
-                    string output;
-
-                    try
+                    while (!cancellationToken.IsCancellationRequested)
                     {
-                        Log.Info("Decrypting...");
-                        var json = EncryptionHelper.Decrypt(encryptedJson, encriptionKey, encriptionSalt);
+                        var encryptedJson = socket.ReceiveString(Encoding.UTF8);
+                        Log.Info("Command received");
 
-                        Log.Info("Deserializing...");
-                        var command = JsonConvert.DeserializeObject<ScriptExecutionCommand>(json);
-                        // if (command.CommandTime.AddSeconds(60) < DateTime.UtcNow)
-                        //     throw new TimeoutException();  // To prevent re-execution of script by using sniffed packet.
+                        string output;
 
-                        Log.Info("Executing {0} script...", command.ScriptType);
-                        output = _scriptRunner.Run(command.ScriptBody, command.ScriptType.ToEnum<ScriptType>());
-                        Log.Success("Script executed");
+                        try
+                        {
+                            Log.Info("Decrypting...");
+                            var json = EncryptionHelper.Decrypt(encryptedJson, encriptionKey, encriptionSalt);
+
+                            Log.Info("Deserializing...");
+                            var command = JsonConvert.DeserializeObject<ScriptExecutionCommand>(json);
+                            // if (command.CommandTime.AddSeconds(60) < DateTime.UtcNow)
+                            //     throw new TimeoutException();  // To prevent re-execution of script by using sniffed packet.
+
+                            Log.Info("Executing {0} script...", command.ScriptType);
+                            output = _scriptRunner.Run(command.ScriptBody, command.ScriptType.ToEnum<ScriptType>());
+                            Log.Success("Script executed");
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Exception(ex);
+                            output = ex.GetAllMessagesWithStackTraces();
+                        }
+
+                        Log.Info("Sending results...");
+                        var encryptedOutput = EncryptionHelper.Encrypt(output, encriptionKey, encriptionSalt);
+                        socket.Send(encryptedOutput, Encoding.UTF8);
+                        Log.Success("Results sent");
                     }
-                    catch (Exception ex)
-                    {
-                        Log.Exception(ex);
-                        output = ex.GetAllMessagesWithStackTraces();
-                    }
-
-                    Log.Info("Sending results...");
-                    var encryptedOutput = EncryptionHelper.Encrypt(output, encriptionKey, encriptionSalt);
-                    socket.Send(encryptedOutput, Encoding.UTF8);
-                    Log.Success("Results sent");
                 }
             }
         }
