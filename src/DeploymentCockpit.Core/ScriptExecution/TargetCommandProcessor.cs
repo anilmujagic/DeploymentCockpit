@@ -41,12 +41,6 @@ namespace DeploymentCockpit.ScriptExecution
             var encryptionKey = DomainContext.TargetKey;
             var encryptionSalt = DomainContext.ServerKey;
 
-            if (cancellationToken.IsCancellationRequested)
-            {
-                Log.Info("Commands processing cancellation is requested");
-                return;
-            }
-
             using (var context = NetMQContext.Create())
             {
                 using (var socket = context.CreateResponseSocket())
