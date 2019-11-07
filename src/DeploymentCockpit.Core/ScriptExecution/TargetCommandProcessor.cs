@@ -38,8 +38,8 @@ namespace DeploymentCockpit.ScriptExecution
             var portNumber = DomainContext.PortNumber;
             var endpoint = "tcp://{0}:{1}".FormatString(ipAddress, portNumber);
 
-            var encriptionKey = DomainContext.TargetKey;
-            var encriptionSalt = DomainContext.ServerKey;
+            var encryptionKey = DomainContext.TargetKey;
+            var encryptionSalt = DomainContext.ServerKey;
 
             if (cancellationToken.IsCancellationRequested)
             {
@@ -64,7 +64,7 @@ namespace DeploymentCockpit.ScriptExecution
                         try
                         {
                             Log.Info("Decrypting...");
-                            var json = EncryptionHelper.Decrypt(encryptedJson, encriptionKey, encriptionSalt);
+                            var json = EncryptionHelper.Decrypt(encryptedJson, encryptionKey, encryptionSalt);
 
                             Log.Info("Deserializing...");
                             var command = JsonConvert.DeserializeObject<ScriptExecutionCommand>(json);
@@ -82,7 +82,7 @@ namespace DeploymentCockpit.ScriptExecution
                         }
 
                         Log.Info("Sending results...");
-                        var encryptedOutput = EncryptionHelper.Encrypt(output, encriptionKey, encriptionSalt);
+                        var encryptedOutput = EncryptionHelper.Encrypt(output, encryptionKey, encryptionSalt);
                         socket.Send(encryptedOutput, Encoding.UTF8);
                         Log.Success("Results sent");
                     }
