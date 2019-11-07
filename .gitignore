@@ -140,6 +140,7 @@ AppPackages/
 
 # Others
 .vs/
+.idea/
 sql/
 *.Cache
 ClientBin/
