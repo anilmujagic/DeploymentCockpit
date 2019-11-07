@@ -45,15 +45,15 @@ namespace DeploymentCockpit.Target
             }
             catch (Exception ex)
             {
-                Log.Error("MainService commands processing loop startin failed");
+                Log.Error("MainService commands processing loop starting failed");
                 Log.Exception(ex);
             }
 
         }
 
         /// <summary>
-        /// Stop service - safely stopping unternal watcher timer and cancelling bacground
-        /// commands listerning for and processing task
+        /// Stop service - safely stopping internal watcher timer and cancelling background
+        /// commands listening for and processing task
         /// </summary>
         public void Stop()
         {
@@ -74,7 +74,7 @@ namespace DeploymentCockpit.Target
                 var task = _commandProcessorWorkerTask;
                 if ((task.IsFaulted || task.Exception != null) && !task.IsCanceled)
                 {
-                    Log.Error("Command processing worker is fault, see details below");
+                    Log.Error("Command processing worker is fault:");
                     Log.Exception(task.Exception);
 
                     Log.Info("Attempt to restart the task");
@@ -83,7 +83,7 @@ namespace DeploymentCockpit.Target
             }
             catch (Exception ex)
             {
-                Log.Error("Error during checking command processow worker status or worker restarting is occured, see details below");
+                Log.Error("Error during checking command processor worker status, or worker restarting, is occured:");
                 Log.Exception(ex);
             }
             finally
@@ -93,16 +93,15 @@ namespace DeploymentCockpit.Target
         }
 
         /// <summary>
-        /// Start backgroud task for listening for and  processing inbound commands
+        /// Start background task for listening for and processing of inbound commands.
         /// </summary>
         private void _startCommandProcessingWorker()
         {
             _cancellationTokenSource = new CancellationTokenSource();
 
-            _commandProcessorWorkerTask = Task.Run(() =>
-            {
-                _commandProcessor.ProcessCommand(_cancellationTokenSource.Token);
-            }, _cancellationTokenSource.Token);
+            _commandProcessorWorkerTask = Task.Run(
+                () => { _commandProcessor.ProcessCommand(_cancellationTokenSource.Token); },
+                _cancellationTokenSource.Token);
         }
     }
 }
